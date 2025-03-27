@@ -9,7 +9,7 @@ import { useTypewriter } from '@/hooks/animations/use-typewriter'
 export function HeroSection() {
   const texts = [
     'Full Stack Developer',
-    'Stronger in Frontend',
+    'Stronger in Front End',
     'UI/UX Enthusiast',
   ]
 
