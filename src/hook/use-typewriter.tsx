@@ -1,97 +1,48 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+'use client'
 
-interface UseTypeWriterProps {
-  words: string[]
-  isLoopingWords?: boolean
-  typeSpeed?: number
-  deleteSpeed?: number
-  delaySpeed?: number
+import gsap from 'gsap'
+import TextPlugin from 'gsap/TextPlugin'
+import { useEffect, useRef } from 'react'
+
+gsap.registerPlugin(TextPlugin)
+
+interface UseTypewriterProps {
+  texts: string[]
 }
 
-export function useTypeWriter({
-  words = [''],
-  isLoopingWords = false,
-  typeSpeed = 80,
-  deleteSpeed = 50,
-  delaySpeed = 1500,
-}: UseTypeWriterProps) {
-  const [text, setText] = useState('')
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [wordIndex, setWordIndex] = useState(0)
-  const [isWaiting, setIsWaiting] = useState(false)
-  const isCompleteMounted = useRef(true)
+export const useTypewriter = ({ texts }: UseTypewriterProps) => {
+  const textRef = useRef<HTMLDivElement>(null)
+  const cursorRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    isCompleteMounted.current = true
-    return () => {
-      isCompleteMounted.current = false
-    }
-  }, [])
+    if (!textRef.current) return
 
-  const getNextWordIndex = useCallback((): number => {
-    const isLastWord = wordIndex === words.length - 1
-    if (isLastWord) {
-      return isLoopingWords ? 0 : wordIndex
-    }
-    return wordIndex + 1
-  }, [wordIndex, words.length, isLoopingWords])
+    gsap.to(cursorRef.current, {
+      opacity: 0,
+      repeat: -1,
+      yoyo: true,
+      duration: 0.5,
+      ease: 'power2.inOut',
+    })
 
-  const handleTyping = useCallback(() => {
-    if (!isCompleteMounted.current) return
+    const tlMaster = gsap.timeline({ repeat: -1, repeatDelay: 1 })
 
-    const currentWord = words[wordIndex]
-    const isWordComplete = text === currentWord
+    texts.forEach((text) => {
+      const duration = text.length / 10
+      const tlText = gsap.timeline({
+        repeat: 1,
+        yoyo: true,
+        repeatDelay: 1,
+      })
 
-    if (isWordComplete) {
-      setIsWaiting(true)
-      return
-    }
-    setText(currentWord.substring(0, text.length + 1))
-  }, [text, words, wordIndex])
+      tlText.to(textRef.current, {
+        duration,
+        text,
+      })
 
-  const handleDeleting = useCallback(() => {
-    if (!isCompleteMounted.current) return
+      tlMaster.add(tlText)
+    })
+  }, [texts])
 
-    const currentWord = words[wordIndex]
-
-    if (text === '') {
-      setIsDeleting(false)
-      setWordIndex(getNextWordIndex())
-      return
-    }
-    setText(currentWord.substring(0, text.length - 1))
-  }, [text, words, wordIndex, getNextWordIndex])
-
-  // Main effect to control the typewriter timing.
-  useEffect(() => {
-    let timer: number
-
-    if (isWaiting) {
-      timer = window.setTimeout(() => {
-        if (isCompleteMounted.current) {
-          setIsWaiting(false)
-          setIsDeleting(true)
-        }
-      }, delaySpeed)
-    }
-
-    if (!isWaiting && isDeleting) {
-      timer = window.setTimeout(handleDeleting, deleteSpeed)
-    }
-
-    if (!isWaiting && !isDeleting) {
-      timer = window.setTimeout(handleTyping, typeSpeed)
-    }
-
-    return () => window.clearTimeout(timer)
-  }, [
-    text,
-    isDeleting,
-    isWaiting,
-    typeSpeed,
-    deleteSpeed,
-    delaySpeed,
-    handleTyping,
-    handleDeleting,
-  ])
+  return { textRef, cursorRef }
 }
