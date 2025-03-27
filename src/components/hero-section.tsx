@@ -1,48 +1,53 @@
 'use client'
-import { gsap } from 'gsap'
-import { TextPlugin } from 'gsap/TextPlugin'
-import { useEffect, useRef } from 'react'
 
-gsap.registerPlugin(TextPlugin)
+import { ArrowDown } from 'lucide-react'
+
+import { useFadeIn } from '@/hooks/animations/use-fade-in'
+import { useFadeSlideY } from '@/hooks/animations/use-fade-slide-y'
+import { useTypewriter } from '@/hooks/animations/use-typewriter'
 
 export function HeroSection() {
   const texts = [
-    'Desenvolvedor Full Stack',
-    'Especialista em React',
-    'Entusiasta UX/UI',
+    'Full Stack Developer',
+    'Stronger in Frontend',
+    'UI/UX Enthusiast',
   ]
-  const textRef = useRef(null)
-  const cursorRef = useRef(null)
 
-  useEffect(() => {
-    const tlMaster = gsap.timeline({ repeat: -1 })
+  const { textRef, cursorRef } = useTypewriter({
+    texts,
+  })
 
-    texts.forEach((text) => {
-      const tlText = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 1 })
-      tlText.to(textRef.current, {
-        duration: text.length * 0.1,
-        text,
-        ease: 'none',
-      })
-      tlMaster.add(tlText)
-    })
-
-    gsap.to(cursorRef.current, {
-      opacity: 0,
-      ease: 'power2.inOut',
-      repeat: -1,
-      yoyo: true,
-      duration: 0.5,
-    })
-  }, [])
+  const titleRef = useFadeSlideY()
+  const subtitleRef = useFadeIn()
+  const scrollRef = useFadeIn({ delay: 2 })
 
   return (
-    <section className="flex h-screen w-full flex-col items-center justify-center">
-      <div className="mb-4">
+    <section className="flex h-screen w-full flex-col items-center justify-center overflow-hidden">
+      <div ref={titleRef} className="mb-4">
         <h1 className="text-6xl font-bold uppercase sm:text-7xl md:text-8xl">
+          Dev Lucas Lima
+        </h1>
+      </div>
+
+      <div className="h-16">
+        <h2
+          ref={subtitleRef}
+          className="text-2xl font-light sm:text-3xl md:text-4xl"
+        >
+          <span>&lt;</span>
           <span ref={textRef}></span>
           <span ref={cursorRef}>|</span>
-        </h1>
+          <span>/&gt;</span>
+        </h2>
+      </div>
+
+      <div ref={scrollRef} className="mt-12">
+        <a
+          href="#about"
+          className="group text-muted-foreground flex flex-col items-center transition-colors duration-300"
+        >
+          <ArrowDown className="animate-bounce" size={24} />
+        </a>
       </div>
     </section>
   )

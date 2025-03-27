@@ -33,6 +33,7 @@ export const useTypewriter = ({ texts }: UseTypewriterProps) => {
         repeat: 1,
         yoyo: true,
         repeatDelay: 1,
+        delay: 1,
       })
 
       tlText.to(textRef.current, {
