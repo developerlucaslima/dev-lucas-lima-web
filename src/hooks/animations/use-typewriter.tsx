@@ -4,7 +4,9 @@ import gsap from 'gsap'
 import TextPlugin from 'gsap/TextPlugin'
 import { useEffect, useRef } from 'react'
 
-gsap.registerPlugin(TextPlugin)
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(TextPlugin)
+}
 
 interface UseTypewriterProps {
   texts: string[]

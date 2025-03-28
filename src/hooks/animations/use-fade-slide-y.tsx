@@ -11,7 +11,7 @@ interface UseFadeSlideYProps {
 }
 
 export const useFadeSlideY = ({
-  duration = 2,
+  duration = 1.5,
   delay = 0.5,
   fromY = 30,
   toY = 0,

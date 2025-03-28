@@ -9,7 +9,7 @@ interface UseFadeInProps {
 }
 
 export const useFadeIn = ({
-  duration = 2,
+  duration = 1.5,
   delay = 0.5,
 }: UseFadeInProps = {}) => {
   const ref = useRef(null)
