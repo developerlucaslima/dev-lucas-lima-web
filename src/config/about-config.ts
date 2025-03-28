@@ -2,6 +2,8 @@ import { Brain, Code2, Github, Linkedin, User } from 'lucide-react'
 
 import { calculateDurationFrom } from '@/utils/calculate-duration'
 
+import { heroConfig } from './hero-config'
+
 export const aboutConfig = {
   sectionTitle: 'About',
   firstParagraph: `My journey as a developer began about ${calculateDurationFrom({ startDate: new Date(2022, 6, 1) })} years ago; since then, I have worked with various technologies and frameworks, specializing in frontend with JavaScript, TypeScript, React, Next, and Vue. Leveraging my design skills, I create intuitive, functional, and visually appealing interfaces.`,
@@ -43,11 +45,7 @@ export const aboutConfig = {
   rightCard: {
     icon: Code2,
     title: 'Dev Lucas Lima',
-    details: [
-      '- Frontend Developer',
-      '- Backend & Full Stack',
-      // additional details if needed
-    ],
+    details: heroConfig.subtitles.map((subtitle) => `- ${subtitle}`),
   },
   image: {
     src: '/dev-lucas-lima.jpg',
