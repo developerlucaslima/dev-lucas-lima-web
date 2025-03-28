@@ -1,31 +1,22 @@
 'use client'
 
-import { ArrowDown } from 'lucide-react'
-
+import { heroConfig } from '@/config/hero-config'
 import { useFadeIn } from '@/hooks/animations/use-fade-in'
 import { useFadeSlideY } from '@/hooks/animations/use-fade-slide-y'
 import { useTypewriter } from '@/hooks/animations/use-typewriter'
 
 export function HeroSection() {
-  const texts = [
-    'Full Stack Developer',
-    'Stronger in Front End',
-    'UI/UX Enthusiast',
-  ]
+  const { textRef, cursorRef } = useTypewriter({ texts: heroConfig.subtitles })
 
-  const { textRef, cursorRef } = useTypewriter({
-    texts,
-  })
-
-  const titleRef = useFadeSlideY()
+  const titleRef = useFadeSlideY({ delay: 0 })
   const subtitleRef = useFadeIn()
   const scrollRef = useFadeIn({ delay: 2 })
 
   return (
     <section className="flex h-screen w-full flex-col items-center justify-center overflow-hidden">
       <div ref={titleRef} className="mb-4">
-        <h1 className="text-6xl font-bold uppercase sm:text-7xl md:text-8xl">
-          Dev Lucas Lima
+        <h1 className="text-center text-4xl font-bold uppercase sm:text-7xl md:text-8xl">
+          {heroConfig.title}
         </h1>
       </div>
 
@@ -44,9 +35,12 @@ export function HeroSection() {
       <div ref={scrollRef} className="mt-12">
         <a
           href="#about"
-          className="group text-muted-foreground flex flex-col items-center transition-colors duration-300"
+          className="text-muted-foreground hover:text-foreground flex flex-col items-center transition-colors duration-300"
         >
-          <ArrowDown className="animate-bounce" size={24} />
+          <span className="mb-2 text-sm uppercase">
+            {heroConfig.scrollDown.text}
+          </span>
+          <heroConfig.scrollDown.icon className="animate-bounce" size={24} />
         </a>
       </div>
     </section>
