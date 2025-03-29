@@ -9,14 +9,12 @@ interface UseOrganizeBubblesProps {
   bubbles: BubbleProps[]
   bubblesSectionRef: React.RefObject<HTMLDivElement | null>
   bubblesSectionBottomRef: React.RefObject<HTMLDivElement | null>
-  isOrganized: boolean
 }
 
 export function useOrganizeBubbles({
   bubbles,
   bubblesSectionRef,
   bubblesSectionBottomRef,
-  isOrganized,
 }: UseOrganizeBubblesProps) {
   const animationsRef = useRef<Record<string, gsap.core.Tween>>({})
 
@@ -27,16 +25,11 @@ export function useOrganizeBubbles({
 
   const organizeBubbles = (duration = 1) => {
     const containerWidth = bubblesSectionRef.current?.clientWidth || 0
-    const bubbleSize = 120
-    const bubblesPerRow = Math.max(1, Math.floor(containerWidth / bubbleSize))
+    const cellSize = 120 // each bubble cell's width/height
+    const bubblesPerRow = Math.max(1, Math.floor(containerWidth / cellSize))
     const bottomAreaTop = bubblesSectionBottomRef.current?.offsetTop || 0
 
     killAnimations()
-
-    // Scroll into view if organized
-    if (isOrganized && bubblesSectionRef.current) {
-      bubblesSectionRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
 
     bubbles.forEach((bubble, id) => {
       const row = Math.floor(id / bubblesPerRow)
@@ -48,25 +41,32 @@ export function useOrganizeBubbles({
           : bubblesPerRow
 
       // Calculate startX for the current row
-      const rowStartX = (containerWidth - rowBubbleCount * bubbleSize) / 2
+      const rowStartX = (containerWidth - rowBubbleCount * cellSize) / 2
       const col = id % bubblesPerRow
-      const yPosition = bottomAreaTop + row * bubbleSize + 40
+      const baseY = bottomAreaTop + row * cellSize + 40
 
-      animationsRef.current[`bubble-${bubble.id}`] = gsap.to(
-        `#bubble-${bubble.id}`,
-        {
-          x: rowStartX + col * bubbleSize,
-          y: yPosition,
+      // Get the bubble element and its dimensions
+      const bubbleEl = document.getElementById(`bubble-${bubble.id}`)
+      if (bubbleEl) {
+        const { width: bubbleWidth, height: bubbleHeight } =
+          bubbleEl.getBoundingClientRect()
+        // Calculate offsets to center the bubble within its cell
+        const xOffset = (cellSize - bubbleWidth) / 2
+        const yOffset = (cellSize - bubbleHeight) / 2
+
+        animationsRef.current[`bubble-${bubble.id}`] = gsap.to(bubbleEl, {
+          x: rowStartX + col * cellSize + xOffset,
+          y: baseY + yOffset,
           duration,
           ease: 'power2.out',
           overwrite: true,
-        },
-      )
+        })
+      }
     })
 
     // Adjust the bottom area height
     const rows = Math.ceil(bubbles.length / bubblesPerRow)
-    const requiredHeight = rows * bubbleSize
+    const requiredHeight = rows * cellSize
     if (bubblesSectionBottomRef.current) {
       bubblesSectionBottomRef.current.style.minHeight = `${requiredHeight}px`
     }
