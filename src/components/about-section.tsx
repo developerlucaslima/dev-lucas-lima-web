@@ -70,7 +70,7 @@ export function AboutSection() {
       ))}
 
       {/* Content Area */}
-      <div className="mx-auto px-8 py-16">
+      <div className="mx-auto px-8 py-8">
         <AboutInfo />
       </div>
 
