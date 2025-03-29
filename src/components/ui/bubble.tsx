@@ -1,4 +1,4 @@
-import type { LucideIcon } from 'lucide-react'
+import type { IconType } from 'react-icons'
 
 import {
   Tooltip,
@@ -12,7 +12,7 @@ export interface BubbleProps {
   initialX: number
   initialY: number
   name: string
-  icon: LucideIcon
+  icon: IconType
   onClick: () => void
   isOrganized: boolean
 }
@@ -32,14 +32,9 @@ export function Bubble({
         <TooltipTrigger asChild>
           <div
             id={`bubble-${id}`}
-            className="absolute cursor-pointer"
+            className="W-[120px] absolute top-0 left-0 z-10 flex h-[120px] cursor-pointer items-center justify-center"
             style={{
-              left: 0,
-              top: 0,
               transform: `translate(${initialX}px, ${initialY}px)`,
-              width: '80px',
-              height: '80px',
-              zIndex: 10,
             }}
             onClick={(e) => {
               e.stopPropagation()
@@ -48,9 +43,9 @@ export function Bubble({
           >
             <div
               data-is-organized={isOrganized}
-              className="group border-ring/30 text-foreground flex h-20 w-20 max-w-sm items-center justify-center rounded-full border-1 bg-black/10 backdrop-blur-lg hover:animate-bounce hover:opacity-100 data-[is-organized=false]:opacity-30 data-[is-organized=true]:opacity-100"
+              className="group border-ring/30 text-foreground flex h-20 w-20 max-w-sm items-center justify-center rounded-full border-1 bg-black/10 backdrop-blur-lg hover:opacity-100 data-[is-organized=false]:opacity-30 data-[is-organized=true]:opacity-100"
             >
-              <Icon className="group-hover:hidden" size={20} />
+              <Icon className="group-hover:hidden" size={25} />
               <p className="hidden text-xs group-hover:block">{name}</p>
             </div>
           </div>
