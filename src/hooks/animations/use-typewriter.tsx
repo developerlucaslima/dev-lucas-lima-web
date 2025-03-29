@@ -14,18 +14,9 @@ interface UseTypewriterProps {
 
 export const useTypewriter = ({ texts }: UseTypewriterProps) => {
   const textRef = useRef<HTMLDivElement>(null)
-  const cursorRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (!textRef.current) return
-
-    gsap.to(cursorRef.current, {
-      opacity: 0,
-      repeat: -1,
-      yoyo: true,
-      duration: 0.5,
-      ease: 'power2.inOut',
-    })
 
     const tlMaster = gsap.timeline({ repeat: -1, repeatDelay: 1 })
 
@@ -47,5 +38,5 @@ export const useTypewriter = ({ texts }: UseTypewriterProps) => {
     })
   }, [texts])
 
-  return { textRef, cursorRef }
+  return { textRef }
 }
