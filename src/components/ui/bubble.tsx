@@ -48,9 +48,9 @@ export function Bubble({
           >
             <div
               data-is-organized={isOrganized}
-              className="group border-ring/30 text-foreground flex h-20 w-20 max-w-sm items-center justify-center rounded-full border-1 bg-black/10 p-8 backdrop-blur-lg hover:animate-bounce hover:opacity-100 data-[is-organized=false]:opacity-30 data-[is-organized=true]:opacity-100"
+              className="group border-ring/30 text-foreground flex h-20 w-20 max-w-sm items-center justify-center rounded-full border-1 bg-black/10 backdrop-blur-lg hover:animate-bounce hover:opacity-100 data-[is-organized=false]:opacity-30 data-[is-organized=true]:opacity-100"
             >
-              <Icon className="group-hover:hidden" size={30} />
+              <Icon className="group-hover:hidden" size={20} />
               <p className="hidden text-xs group-hover:block">{name}</p>
             </div>
           </div>
