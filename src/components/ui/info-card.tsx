@@ -13,7 +13,7 @@ interface InfoCardProps {
 
 export function InfoCard({ Icon, title, details, footer }: InfoCardProps) {
   return (
-    <Card className="border-ring/30 bg-black/10 p-8 backdrop-blur-lg">
+    <Card className="border-ring/30 max-w-sm bg-black/10 p-8 backdrop-blur-lg">
       <CardTitle className="m-0 flex items-center p-0">
         <Icon className="text-foreground mr-2" size={20} />
         <h3 className="text-lg font-semibold uppercase">{title}</h3>
