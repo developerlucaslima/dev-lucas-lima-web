@@ -4,7 +4,7 @@ interface CalculateDurationFrom {
 
 export function calculateDurationFrom({
   startDate = new Date(2022, 6, 1),
-}: CalculateDurationFrom): string {
+}: CalculateDurationFrom) {
   const now = new Date()
 
   let years = now.getFullYear() - startDate.getFullYear()
@@ -16,5 +16,5 @@ export function calculateDurationFrom({
   }
 
   const duration = `${years}.${months}`
-  return duration
+  return { duration, years }
 }
