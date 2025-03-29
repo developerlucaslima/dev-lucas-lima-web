@@ -1,88 +1,81 @@
 'use client'
 
-import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
-import { aboutConfig } from '@/config/about-config'
-import { useScrollFadeIn } from '@/hooks/animations/use-scroll-fade-in'
-import { useScrollFadeSlideX } from '@/hooks/animations/use-scroll-fade-slide-x'
+import { bubblesConfig } from '@/config/bubbles-config'
+import { useFloatBubbles } from '@/hooks/animations/use-float-bubbles'
+import { useOrganizeBubbles } from '@/hooks/animations/use-organize-bubbles'
+import { useWindowResize } from '@/hooks/use-window-resize'
 
-import { InfoCard } from './ui/info-card'
+import { AboutInfo } from './about-info'
+import { Bubble } from './ui/bubble'
 
 export function AboutSection() {
-  const titleRef = useScrollFadeIn()
-  const textRef = useScrollFadeSlideX({ fromX: -50 })
-  const imageRef = useScrollFadeSlideX({ fromX: 50 })
+  const bubblesSectionRef = useRef<HTMLDivElement | null>(null)
+  const bubblesSectionBottomRef = useRef<HTMLDivElement | null>(null)
+
+  const bubbleLength = bubblesConfig.length
+
+  const [isOrganized, setIsOrganized] = useState(false)
+
+  // It attaches a resize event listener to the window
+  useWindowResize({
+    callback: isOrganized ? () => organizeBubbles() : () => floatBubbles(),
+  })
+
+  // Get animation functions from the separated hooks.
+  const { organizeBubbles } = useOrganizeBubbles({
+    bubbles: bubblesConfig,
+    bubblesSectionRef,
+    bubblesSectionBottomRef,
+    isOrganized,
+  })
+
+  const { floatBubbles } = useFloatBubbles({
+    bubbles: bubblesConfig,
+    bubblesSectionRef,
+  })
+
+  // Trigger animations when isOrganized state or bubble count changes.
+  useEffect(() => {
+    if (isOrganized) {
+      organizeBubbles(0)
+    } else {
+      floatBubbles()
+    }
+  }, [isOrganized, bubbleLength, organizeBubbles, floatBubbles])
+
+  const handleBubbleClick = () => {
+    setIsOrganized((prev) => !prev)
+  }
 
   return (
     <section
       id="about"
-      className="flex min-h-screen flex-col items-center justify-center"
+      ref={bubblesSectionRef}
+      className="relative flex min-h-screen flex-col items-center justify-center"
     >
-      <div className="container mx-auto max-w-5xl">
-        <div ref={titleRef} className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold uppercase md:text-5xl">
-            {aboutConfig.sectionTitle}
-          </h2>
-          <div className="bg-foreground mx-auto h-1 w-20" />
-        </div>
+      {/* Render each bubble */}
+      {bubblesConfig.map((bubble) => (
+        <Bubble
+          key={bubble.name}
+          id={bubble.id}
+          initialX={bubble.initialX}
+          initialY={bubble.initialY}
+          onClick={handleBubbleClick}
+          isOrganized={isOrganized}
+          name={bubble.name}
+          icon={bubble.icon}
+        />
+      ))}
 
-        <div className="grid gap-8 md:grid-cols-2">
-          {/* Left Column */}
-          <div ref={textRef} className="flex flex-col justify-center px-4">
-            <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
-              {aboutConfig.firstParagraph}
-            </p>
-            <p className="text-muted-foreground mb-6 text-lg leading-relaxed">
-              {aboutConfig.secondParagraph}
-            </p>
-            <div className="grid grid-cols-2 gap-4 overflow-auto">
-              {aboutConfig.leftCards.map((card) => (
-                <InfoCard
-                  key={card.title}
-                  Icon={card.icon}
-                  title={card.title}
-                  details={card.details}
-                  footer={card.footer?.map((footer) => (
-                    <a
-                      key={footer.href}
-                      href={footer.href}
-                      target={footer.target}
-                      rel={footer.rel}
-                      className="text-muted-foreground hover:text-foreground"
-                    >
-                      <footer.icon size={20} />
-                    </a>
-                  ))}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div
-            ref={imageRef}
-            className="flex h-full flex-1 items-center justify-center"
-          >
-            <div className="relative h-full">
-              <div className="border-ring/30 h-80 w-80 overflow-hidden rounded-full border-1">
-                <Image
-                  src={aboutConfig.image.src}
-                  alt={aboutConfig.image.alt}
-                  width={aboutConfig.image.width}
-                  height={aboutConfig.image.height}
-                />
-              </div>
-              <div className="absolute top-64 right-0">
-                <InfoCard
-                  Icon={aboutConfig.rightCard.icon}
-                  title={aboutConfig.rightCard.title}
-                  details={aboutConfig.rightCard.details}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Content Area */}
+      <div className="mx-auto px-8 py-16">
+        <AboutInfo />
       </div>
+
+      {/* Bottom Area for layout adjustments */}
+      <div ref={bubblesSectionBottomRef} className="min-h-[100px] w-full" />
     </section>
   )
 }
