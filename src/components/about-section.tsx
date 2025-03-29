@@ -28,7 +28,6 @@ export function AboutSection() {
     bubbles: bubblesConfig,
     bubblesSectionRef,
     bubblesSectionBottomRef,
-    isOrganized,
   })
 
   const { floatBubbles } = useFloatBubbles({
@@ -39,7 +38,7 @@ export function AboutSection() {
   // Trigger animations when isOrganized state or bubble count changes.
   useEffect(() => {
     if (isOrganized) {
-      organizeBubbles(0)
+      organizeBubbles()
     } else {
       floatBubbles()
     }
@@ -50,6 +49,7 @@ export function AboutSection() {
   }
 
   return (
+    // Content Area
     <section
       id="about"
       ref={bubblesSectionRef}
@@ -69,13 +69,12 @@ export function AboutSection() {
         />
       ))}
 
-      {/* Content Area */}
       <div className="mx-auto px-8 py-8">
         <AboutInfo />
       </div>
 
       {/* Bottom Area for layout adjustments */}
-      <div ref={bubblesSectionBottomRef} className="min-h-[100px] w-full" />
+      <div ref={bubblesSectionBottomRef} className="min-h-[120px] w-full" />
     </section>
   )
 }
