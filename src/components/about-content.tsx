@@ -6,7 +6,7 @@ import { aboutConfig } from '@/config/about-config'
 import { useScrollFadeIn } from '@/hooks/animations/use-scroll-fade-in'
 import { useScrollFadeSlideX } from '@/hooks/animations/use-scroll-fade-slide-x'
 
-import { Card, CardContent, CardFooter, CardTitle } from './ui/card'
+import { CardAnimated, CardContent, CardFooter, CardTitle } from './ui/card'
 
 export function AboutContent() {
   const titleRef = useScrollFadeIn()
@@ -53,7 +53,7 @@ export function AboutContent() {
                 />
               </div>
               <div className="absolute top-64 right-0">
-                <Card className="border-ring/30 max-w-sm bg-black/10 p-8 backdrop-blur-lg">
+                <CardAnimated className="border-ring/30 max-w-sm bg-black/10 p-8 backdrop-blur-lg">
                   <CardTitle>
                     <aboutConfig.rightCard.icon
                       className="text-foreground mr-2"
@@ -83,7 +83,7 @@ export function AboutContent() {
                       </a>
                     ))}
                   </CardFooter>
-                </Card>
+                </CardAnimated>
               </div>
             </div>
           </div>

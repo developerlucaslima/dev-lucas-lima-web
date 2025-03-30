@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import { aboutConfig } from '@/config/about-config'
 import { useStaggerFadeSlideY } from '@/hooks/animations/use-stagger-fade-slide-y'
 
-import { Card, CardContent, CardFooter, CardTitle } from '../ui/card'
+import { CardAnimated, CardContent, CardFooter, CardTitle } from '../ui/card'
 
 export function PhilosophySection() {
   const philosophyRef = useRef(null)
@@ -28,20 +28,19 @@ export function PhilosophySection() {
           <div className="bg-foreground mx-auto h-0.5 w-20" />
         </div>
       </div>
-      {/* Attach the hook's ref here */}
       <div
         ref={cardContainerRef}
         className="my-auto flex flex-wrap items-center justify-center gap-8"
       >
         {aboutConfig.leftCards.map((card) => (
-          <Card key={card.title} className="philosophy-card min-h-60">
+          <CardAnimated key={card.title} className="philosophy-card min-h-60">
             <CardTitle>
               <card.icon className="text-foreground mr-2" size={20} />
               <h3 className="text-lg font-semibold uppercase">{card.title}</h3>
             </CardTitle>
             <CardContent className="text-center">{card.details}</CardContent>
             <CardFooter>{card.footer}</CardFooter>
-          </Card>
+          </CardAnimated>
         ))}
       </div>
     </section>
