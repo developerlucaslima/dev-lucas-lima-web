@@ -3,6 +3,9 @@
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
 
+// TODO: improve clean code and performance
+
+// --- StarBackground Component (Background Stars) ---
 interface Star {
   x: number
   y: number
@@ -118,5 +121,112 @@ export function StarBackground() {
         />
       ))}
     </div>
+  )
+}
+
+// --- ShootingStars Component (Shooting Stars) ---
+interface ShootingStar {
+  id: number
+  startX: number
+  startY: number
+  endX: number
+  endY: number
+  duration: number
+  size: number
+  angle: number
+  distance: number
+}
+
+export function ShootingStars() {
+  const [shootingStars, setShootingStars] = useState<ShootingStar[]>([])
+  const shootingStarIdRef = useRef(0)
+
+  useEffect(() => {
+    const createShootingStar = () => {
+      if (Math.random() > 0.8) {
+        // 20% chance
+        const id = shootingStarIdRef.current++
+        const startX = Math.random() * 100
+        const startY = Math.random() * 40
+        const distance = 30 + Math.random() * 40
+        const angle = Math.PI / 4 + (Math.random() * Math.PI) / 2
+        const endX = startX + Math.cos(angle) * distance
+        const endY = startY + Math.sin(angle) * distance
+        const duration = 0.6 + Math.random() * 2
+        const size = 1.5 + Math.random() * 1.5
+        setShootingStars((prev) => [
+          ...prev,
+          { id, startX, startY, endX, endY, duration, size, angle, distance },
+        ])
+        setTimeout(
+          () => {
+            setShootingStars((prev) => prev.filter((star) => star.id !== id))
+          },
+          duration * 1000 + 100,
+        )
+      }
+      const nextDelay = 200 + Math.random() * 1000
+      setTimeout(createShootingStar, nextDelay)
+    }
+    const initialDelay = 1000 + Math.random() * 2000
+    const timerId = setTimeout(createShootingStar, initialDelay)
+    return () => clearTimeout(timerId)
+  }, [])
+
+  return (
+    <div className="pointer-events-none fixed inset-0 z-10">
+      {shootingStars.map((star) => (
+        <div
+          key={star.id}
+          className="absolute"
+          style={{
+            left: `${star.startX}%`,
+            top: `${star.startY}%`,
+            width: '1px',
+            height: '1px',
+          }}
+        >
+          <div
+            className="absolute"
+            style={{
+              width: `${star.size * 3}px`,
+              height: `${star.size}px`,
+              background:
+                'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
+              borderRadius: '50%',
+              transform: `rotate(${(star.angle * 180) / Math.PI}deg)`,
+              transformOrigin: 'left center',
+              animation: `shootingStar-${star.id} ${star.duration}s linear forwards`,
+            }}
+          />
+          <style jsx>{`
+            @keyframes shootingStar-${star.id} {
+              0% {
+                transform: rotate(${(star.angle * 180) / Math.PI}deg)
+                  translateX(0);
+                opacity: 0;
+              }
+              10% {
+                opacity: 1;
+              }
+              100% {
+                transform: rotate(${(star.angle * 180) / Math.PI}deg)
+                  translateX(${star.distance}vw);
+                opacity: 0;
+              }
+            }
+          `}</style>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export function Background() {
+  return (
+    <>
+      <StarBackground />
+      <ShootingStars />
+    </>
   )
 }
