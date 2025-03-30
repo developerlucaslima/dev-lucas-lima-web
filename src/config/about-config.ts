@@ -45,11 +45,11 @@ export const aboutConfig = {
     },
     {
       icon: HandHelping,
-      title: 'Wa',
+      title: 'Omoiyari',
       details: [
-        'Emphasizes harmony, balance, and the importance of peaceful relationships in both personal and social spheres.',
+        'Fosters genuine empathy and proactive care for others, easing their burdens and enriching your own life.',
       ],
-      footer: '和',
+      footer: '思いやり',
     },
     {
       icon: Clock,
