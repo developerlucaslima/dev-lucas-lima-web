@@ -16,7 +16,7 @@ export function AboutSection() {
 
   const bubbleLength = bubblesConfig.length
 
-  const [isOrganized, setIsOrganized] = useState(true)
+  const [isOrganized, setIsOrganized] = useState(false)
 
   // It attaches a resize event listener to the window
   useWindowResize({
@@ -53,7 +53,7 @@ export function AboutSection() {
     <section
       id="about"
       ref={bubblesSectionRef}
-      className="relative flex min-h-screen flex-col items-center justify-center"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
     >
       {/* Render each bubble */}
       {bubblesConfig.map((bubble) => (
