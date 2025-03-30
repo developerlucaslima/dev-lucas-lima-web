@@ -1,13 +1,17 @@
-import { AboutSection } from '@/components/about-section'
-import { HeroSection } from '@/components/hero-section'
-import { StarBackground } from '@/components/ui/stars-background'
+import { AboutSection } from '@/components/sections/about-section'
+import { HeroSection } from '@/components/sections/hero-section'
+import { TimelineJourney } from '@/components/sections/journey-timeline-section'
+import { PhilosophySection } from '@/components/sections/philosophy-section'
+import { Background } from '@/components/ui/stars-background'
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <StarBackground />
+      <Background />
       <HeroSection />
       <AboutSection />
+      <PhilosophySection />
+      <TimelineJourney />
     </main>
   )
 }
