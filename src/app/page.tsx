@@ -1,6 +1,7 @@
 import { AboutSection } from '@/components/sections/about-section'
+import { ContactSection } from '@/components/sections/contact-section'
 import { HeroSection } from '@/components/sections/hero-section'
-import { TimelineJourney } from '@/components/sections/journey-timeline-section'
+import { JourneySection } from '@/components/sections/journey-section'
 import { PhilosophySection } from '@/components/sections/philosophy-section'
 import { Background } from '@/components/ui/stars-background'
 
@@ -11,7 +12,8 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <PhilosophySection />
-      <TimelineJourney />
+      <JourneySection />
+      <ContactSection />
     </main>
   )
 }
