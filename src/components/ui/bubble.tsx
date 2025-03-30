@@ -51,7 +51,9 @@ export function Bubble({
           </div>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Click to {isOrganized ? 'float' : 'organize'} bubbles</p>
+          <p className="uppercase">
+            click to {isOrganized ? 'release' : 'click  '}
+          </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
