@@ -1,5 +1,4 @@
-import { Palette } from 'lucide-react'
-import { FaCss3, FaDocker, FaGithub, FaNodeJs, FaReact } from 'react-icons/fa'
+import { FaCss3, FaGithub, FaNodeJs, FaReact } from 'react-icons/fa'
 import { RiNextjsFill, RiTailwindCssFill } from 'react-icons/ri'
 import {
   SiGraphql,
@@ -10,6 +9,7 @@ import {
 
 import type { BubbleProps } from '@/components/ui/bubble'
 
+// TODO: correct functions implementation
 export const bubblesConfig: BubbleProps[] = [
   {
     id: 2,
@@ -67,17 +67,17 @@ export const bubblesConfig: BubbleProps[] = [
     },
     isOrganized: false,
   },
-  {
-    id: 4,
-    initialX: 0,
-    initialY: 0,
-    name: 'UI/UX',
-    icon: Palette,
-    onClick: function (): void {
-      throw new Error('Function not implemented.')
-    },
-    isOrganized: false,
-  },
+  // {
+  //   id: 4,
+  //   initialX: 0,
+  //   initialY: 0,
+  //   name: 'UI/UX',
+  //   icon: Palette,
+  //   onClick: function (): void {
+  //     throw new Error('Function not implemented.')
+  //   },
+  //   isOrganized: false,
+  // },
   {
     id: 5,
     initialX: 0,
@@ -144,15 +144,15 @@ export const bubblesConfig: BubbleProps[] = [
     },
     isOrganized: false,
   },
-  {
-    id: 10,
-    initialX: 0,
-    initialY: 0,
-    name: 'DOCKER',
-    icon: FaDocker,
-    onClick: function (): void {
-      throw new Error('Function not implemented.')
-    },
-    isOrganized: false,
-  },
+  // {
+  //   id: 10,
+  //   initialX: 0,
+  //   initialY: 0,
+  //   name: 'DOCKER',
+  //   icon: FaDocker,
+  //   onClick: function (): void {
+  //     throw new Error('Function not implemented.')
+  //   },
+  //   isOrganized: false,
+  // },
 ]
