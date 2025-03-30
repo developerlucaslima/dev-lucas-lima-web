@@ -5,6 +5,8 @@ import { useEffect, useRef } from 'react'
 
 import type { BubbleProps } from '@/components/ui/bubble'
 
+// TODO: max width 1024px
+
 interface UseOrganizeBubblesProps {
   bubbles: BubbleProps[]
   bubblesSectionRef: React.RefObject<HTMLDivElement | null>

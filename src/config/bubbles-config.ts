@@ -1,7 +1,5 @@
 import { Palette } from 'lucide-react'
-import { DiDocker, DiGithub } from 'react-icons/di'
-import { FaCss3, FaNodeJs, FaReact } from 'react-icons/fa'
-import { MdHttp } from 'react-icons/md'
+import { FaCss3, FaDocker, FaGithub, FaNodeJs, FaReact } from 'react-icons/fa'
 import { RiNextjsFill, RiTailwindCssFill } from 'react-icons/ri'
 import {
   SiGraphql,
@@ -50,7 +48,7 @@ export const bubblesConfig: BubbleProps[] = [
     id: 1,
     initialX: 0,
     initialY: 0,
-    name: 'NEXT.JS',
+    name: 'NEXT',
     icon: RiNextjsFill,
     onClick: function (): void {
       throw new Error('Function not implemented.')
@@ -62,7 +60,7 @@ export const bubblesConfig: BubbleProps[] = [
     id: 3,
     initialX: 0,
     initialY: 0,
-    name: 'NODE.JS',
+    name: 'NODE',
     icon: FaNodeJs,
     onClick: function (): void {
       throw new Error('Function not implemented.')
@@ -113,22 +111,22 @@ export const bubblesConfig: BubbleProps[] = [
     },
     isOrganized: false,
   },
-  {
-    id: 7,
-    initialX: 0,
-    initialY: 0,
-    name: 'REST',
-    icon: MdHttp,
-    onClick: function (): void {
-      throw new Error('Function not implemented.')
-    },
-    isOrganized: false,
-  },
+  // {
+  //   id: 7,
+  //   initialX: 0,
+  //   initialY: 0,
+  //   name: 'REST',
+  //   icon: MdHttp,
+  //   onClick: function (): void {
+  //     throw new Error('Function not implemented.')
+  //   },
+  //   isOrganized: false,
+  // },
   {
     id: 8,
     initialX: 0,
     initialY: 0,
-    name: 'POSTGRESQL',
+    name: 'SQL',
     icon: SiPostgresql,
     onClick: function (): void {
       throw new Error('Function not implemented.')
@@ -140,7 +138,7 @@ export const bubblesConfig: BubbleProps[] = [
     initialX: 0,
     initialY: 0,
     name: 'GIT',
-    icon: DiGithub,
+    icon: FaGithub,
     onClick: function (): void {
       throw new Error('Function not implemented.')
     },
@@ -151,7 +149,7 @@ export const bubblesConfig: BubbleProps[] = [
     initialX: 0,
     initialY: 0,
     name: 'DOCKER',
-    icon: DiDocker,
+    icon: FaDocker,
     onClick: function (): void {
       throw new Error('Function not implemented.')
     },
