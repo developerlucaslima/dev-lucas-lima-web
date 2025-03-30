@@ -15,12 +15,12 @@ function Card({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function CardAnimated({ className, ...props }: React.ComponentProps<'div'>) {
+function AnimatedCard({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="card"
       className={cn(
-        'border-ring/30 text-card-foreground flex max-w-sm flex-col gap-6 rounded-xl border bg-black/10 p-8 shadow-sm backdrop-blur-lg transition delay-50 duration-150 ease-in-out hover:-translate-y-1 hover:scale-102',
+        'border-ring/30 text-card-foreground hover:border-foreground/30 flex max-w-sm flex-col gap-6 rounded-xl border bg-black/10 p-8 shadow-sm backdrop-blur-lg transition delay-50 duration-150 ease-in-out hover:-translate-y-1 hover:scale-102',
         className,
       )}
       {...props}
@@ -105,7 +105,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
 
 export {
   Card,
-  CardAnimated,
+  AnimatedCard,
   CardHeader,
   CardFooter,
   CardTitle,
