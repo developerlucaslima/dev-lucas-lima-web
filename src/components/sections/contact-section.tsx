@@ -184,13 +184,24 @@ export function ContactSection() {
               viewBox="0 0 250 300"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="drop-shadow-xl"
+              className="drop-shadow-teal-500 drop-shadow-xl"
             >
               {/* Body */}
-              <ellipse cx="125" cy="180" rx="70" ry="90" fill="#6366F1" />
+              <ellipse
+                cx="125"
+                cy="180"
+                rx="70"
+                ry="90"
+                fill="oklch(0.704 0.14 182.503)"
+              />
 
               {/* Head */}
-              <circle cx="125" cy="100" r="60" fill="#818CF8" />
+              <circle
+                cx="125"
+                cy="100"
+                r="60"
+                fill="oklch(0.437 0.078 188.216)"
+              />
 
               {/* Antenna */}
               <path
@@ -219,14 +230,14 @@ export function ContactSection() {
               {/* Arms */}
               <path
                 d="M55 160 Q35 180 45 210"
-                stroke="#818CF8"
+                stroke="oklch(0.437 0.078 188.216)"
                 strokeWidth="12"
                 strokeLinecap="round"
                 className="origin-[55px_160px] animate-[wave_2s_ease-in-out_infinite]"
               />
               <path
                 d="M195 160 Q215 180 205 210"
-                stroke="#818CF8"
+                stroke="oklch(0.437 0.078 188.216)"
                 strokeWidth="12"
                 strokeLinecap="round"
               />
@@ -234,13 +245,13 @@ export function ContactSection() {
               {/* Legs */}
               <path
                 d="M95 260 L85 290"
-                stroke="#818CF8"
+                stroke="oklch(0.437 0.078 188.216)"
                 strokeWidth="12"
                 strokeLinecap="round"
               />
               <path
                 d="M155 260 L165 290"
-                stroke="#818CF8"
+                stroke="oklch(0.437 0.078 188.216)"
                 strokeWidth="12"
                 strokeLinecap="round"
               />
