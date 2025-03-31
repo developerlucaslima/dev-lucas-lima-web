@@ -21,13 +21,13 @@ export function HeroSection() {
           </h1>
         </div>
 
-        <div className="h-16">
+        <div className="text-foreground/80 h-16">
           <h2
             ref={subtitleRef}
             className="text-2xl font-light sm:text-3xl md:text-4xl"
           >
             <span>&lt;</span>
-            <span ref={textRef}></span>
+            <span ref={textRef} />
             <span className="animate-caret-blink">|</span>
             <span>/&gt;</span>
           </h2>
