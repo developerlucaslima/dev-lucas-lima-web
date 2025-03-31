@@ -43,7 +43,7 @@ export function Bubble({
           >
             <div
               data-is-organized={isOrganized}
-              className="group hover:shadow-foreground/30 text-foreground bg-foreground/10 flex h-20 w-20 max-w-sm items-center justify-center rounded-xl shadow-md backdrop-blur-md transition-all duration-200 ease-in-out hover:translate-y-[-2px] hover:opacity-100 hover:shadow-xs data-[is-organized=false]:opacity-30 data-[is-organized=true]:opacity-100"
+              className="group text-foreground flex h-20 w-20 max-w-sm items-center justify-center rounded-xl bg-teal-500/10 shadow-md backdrop-blur-md transition-all duration-200 ease-in-out hover:translate-y-[-2px] hover:opacity-100 hover:shadow-xs hover:shadow-teal-500/30 data-[is-organized=false]:opacity-30 data-[is-organized=true]:opacity-100"
             >
               <Icon className="group-hover:hidden" size={25} />
               <p className="hidden text-xs group-hover:block">{name}</p>

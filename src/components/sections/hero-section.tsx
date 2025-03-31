@@ -21,7 +21,7 @@ export function HeroSection() {
           </h1>
         </div>
 
-        <div className="text-foreground/80 h-16">
+        <div className="text-foreground/70 h-16">
           <h2
             ref={subtitleRef}
             className="text-2xl font-light sm:text-3xl md:text-4xl"

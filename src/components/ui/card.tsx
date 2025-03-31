@@ -7,7 +7,7 @@ function Card({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card"
       className={cn(
-        'text-card-foreground bg-foreground/10 hover:shadow-foreground/30 flex max-w-sm flex-col gap-4 rounded-xl p-6 backdrop-blur-md hover:shadow-xs',
+        'text-card-foreground flex max-w-sm flex-col gap-4 rounded-xl bg-teal-500/10 p-6 backdrop-blur-md hover:shadow-xs hover:shadow-teal-500/30',
         className,
       )}
       {...props}
@@ -20,7 +20,7 @@ function AnimatedCard({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card"
       className={cn(
-        'hover:shadow-foreground/30 text-card-foreground bg-foreground/10 flex max-w-sm flex-col gap-4 rounded-xl p-6 backdrop-blur-md transition-all duration-200 ease-in-out hover:translate-y-[-2px] hover:shadow-xs',
+        'text-card-foreground flex max-w-sm flex-col gap-4 rounded-xl bg-teal-500/10 p-6 backdrop-blur-md transition-all duration-200 ease-in-out hover:translate-y-[-2px] hover:shadow-xs hover:shadow-teal-500/30',
         className,
       )}
       {...props}
