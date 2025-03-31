@@ -53,15 +53,15 @@ export function AboutContent() {
                 />
               </div>
               <div className="absolute top-64 right-0">
-                <AnimatedCard className="border-ring/30 max-w-sm bg-black/10 p-8 backdrop-blur-lg">
+                <AnimatedCard className="max-w-sm">
                   <CardTitle>
                     <aboutConfig.rightCard.icon
                       className="text-foreground mr-2"
                       size={20}
                     />
-                    <h3 className="text-lg font-semibold uppercase">
+                    <div className="uppercase">
                       {aboutConfig.rightCard.title}
-                    </h3>
+                    </div>
                   </CardTitle>
                   <CardContent>
                     {aboutConfig.rightCard.details.map((detail, index) => (
@@ -77,7 +77,7 @@ export function AboutContent() {
                         href={footer.href}
                         target={footer.target}
                         rel={footer.rel}
-                        className="text-muted-foreground hover:text-foreground"
+                        className="text-foreground/80 hover:text-foreground mt-4"
                       >
                         <footer.icon size={20} />
                       </a>

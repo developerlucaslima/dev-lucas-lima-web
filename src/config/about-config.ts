@@ -63,7 +63,7 @@ export const aboutConfig = {
   rightCard: {
     icon: Code2,
     title: 'Dev Lucas Lima',
-    details: heroConfig.subtitles.map((subtitle) => `- ${subtitle}`),
+    details: heroConfig.subtitles.map((subtitle) => `${subtitle}`),
     footer: [
       {
         href: 'https://www.linkedin.com/in/developerlucaslima',
