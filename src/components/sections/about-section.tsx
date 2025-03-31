@@ -53,7 +53,7 @@ export function AboutSection() {
     <section
       id="about"
       ref={bubblesSectionRef}
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden"
+      className="relative mb-10 flex min-h-screen flex-col items-center justify-center"
     >
       {/* Render each bubble */}
       {bubblesConfig.map((bubble) => (
