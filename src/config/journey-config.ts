@@ -38,7 +38,7 @@ export const experiences: TimelineItem[] = [
   },
   {
     date: '2020 - 2022',
-    title: 'Administrative & Financial Manager',
+    title: 'Administrative Manager',
     company: 'Rota Sul Travel Agency',
     href: 'https://www.rotasul.tur.br/',
   },

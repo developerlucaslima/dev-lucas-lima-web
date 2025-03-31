@@ -4,7 +4,7 @@ import { experiences } from '@/config/journey-config'
 import { useScrollFadeIn } from '@/hooks/animations/use-scroll-fade-in'
 import { useStaggerFadeSlideX } from '@/hooks/animations/use-stagger-fade-slide-x'
 
-import { Card, CardDescription, CardTitle } from '../ui/card'
+import { Card, CardDescription, CardFooter, CardTitle } from '../ui/card'
 
 export function JourneySection() {
   const items = experiences
@@ -45,13 +45,15 @@ export function JourneySection() {
                 }}
                 className="group-hover:border-foreground/30 max-w-52 min-w-52 p-6"
               >
-                <CardDescription>{card.date}</CardDescription>
-                <CardTitle className="overflow-ellipsis">
+                <CardTitle className="overflow-ellipsis uppercase">
                   {card.title}
                 </CardTitle>
-                <CardDescription className="text-primary -mt-2">
+                <CardDescription className="text-foreground/80 -mt-2">
                   {card.company}
                 </CardDescription>
+                <CardFooter className="text-foreground/80 text-sm">
+                  {card.date}
+                </CardFooter>
               </Card>
             </a>
           </div>
