@@ -35,7 +35,7 @@ export function JourneySection() {
             }`}
           >
             {/* Timeline dot */}
-            <div className="sm:bg-ring/30 sm:group-hover:bg-foreground absolute top-1/2 left-1/2 z-10 flex h-2 w-2 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full transition delay-50 duration-150 ease-in-out" />
+            <div className="sm:group-hover:bg-foreground/70 absolute top-1/2 left-1/2 z-10 flex h-2 w-2 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full transition delay-50 duration-150 ease-in-out sm:bg-teal-500/30" />
 
             {/* Content */}
             <a href={card.href} target={'_blank'} rel={'noopener noreferrer'}>
