@@ -9,7 +9,7 @@ export const experiences: TimelineItem[] = [
   {
     date: '2024 - 2025',
     title: 'Front End',
-    company: 'Visite Ai',
+    company: 'Visit Ai',
     href: 'https://visiteai.com.br',
   },
   {
@@ -21,7 +21,7 @@ export const experiences: TimelineItem[] = [
   {
     date: '2023 - 2024',
     title: 'Full Stack',
-    company: 'Tech Innovations Inc.',
+    company: 'Declink',
     href: 'https://declink.com.br/',
   },
   {
