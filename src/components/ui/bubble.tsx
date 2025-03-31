@@ -52,7 +52,7 @@ export function Bubble({
         </TooltipTrigger>
         <TooltipContent>
           <p className="uppercase">
-            click to {isOrganized ? 'float' : 'organize'}
+            {isOrganized ? 'Disable Gravity' : 'Enable Gravity'}
           </p>
         </TooltipContent>
       </Tooltip>
