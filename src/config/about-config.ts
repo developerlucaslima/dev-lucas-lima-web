@@ -1,12 +1,4 @@
-import {
-  Clock,
-  Clover,
-  Code2,
-  Github,
-  HandHelping,
-  Linkedin,
-  SmilePlus,
-} from 'lucide-react'
+import { Code2, Github, Linkedin } from 'lucide-react'
 
 import { calculateDurationFrom } from '@/utils/calculate-duration'
 
@@ -22,43 +14,9 @@ const { years: yearsOld } = calculateDurationFrom({
 export const aboutConfig = {
   sectionTitle: 'About',
   paragraphs: [
-    `Hello, my name is Lucas Fraga de Lima. I am ${yearsOld} years old, gaucho from Gramado - RS, and currently living in Florianópolis - SC.`,
+    `Hello, my name is Lucas Fraga de Lima. I am ${yearsOld} years old, Brazilian from Gramado - RS, and currently living in Florianópolis - SC.`,
     `My journey as a developer began about ${yearsAsDev} years ago; since then, I have worked with various technologies and frameworks, specializing in frontend with JavaScript, TypeScript, React, Next, and Vue. Leveraging my design skills, I create intuitive, functional, and visually appealing interfaces.`,
     'I have also frequently worked as a backend or full stack developer, delivering high-quality solutions using primarily Node but also Java, including the development and consumption of REST and GraphQL APIs. Constantly staying updated on best practices, applying modern patterns to ensure performance, scalability, and maintainability.',
-  ],
-  leftCards: [
-    {
-      icon: SmilePlus,
-      title: 'Kaizen ',
-      details: [
-        'Continuous, incremental improvement in every aspect of life and work.',
-      ],
-      footer: '改善',
-    },
-    {
-      icon: Clover,
-      title: 'Ikigai ',
-      details: [
-        'Where passion, mission, vocation, and profession converge to give life meaning.',
-      ],
-      footer: '生き甲斐',
-    },
-    {
-      icon: HandHelping,
-      title: 'Omoiyari',
-      details: [
-        'Fosters genuine empathy and proactive care for others, easing their burdens and enriching your own life.',
-      ],
-      footer: '思いやり',
-    },
-    {
-      icon: Clock,
-      title: 'Shikata ga nai',
-      details: [
-        'Embraces the inevitable flow of time and the acceptance of circumstances that cannot be changed.',
-      ],
-      footer: '仕方がない',
-    },
   ],
   rightCard: {
     icon: Code2,

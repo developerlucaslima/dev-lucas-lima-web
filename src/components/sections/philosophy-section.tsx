@@ -1,6 +1,6 @@
 'use client'
 
-import { aboutConfig } from '@/config/about-config'
+import { philosophyConfig } from '@/config/philosophy.config'
 import { useScrollFadeIn } from '@/hooks/animations/use-scroll-fade-in'
 import { useStaggerFadeSlideY } from '@/hooks/animations/use-stagger-fade-slide-y'
 
@@ -19,13 +19,13 @@ export function PhilosophySection() {
       <div ref={titleRef} className="mb-16 text-center">
         <div className="text-center">
           <h2 className="mb-4 text-2xl font-light uppercase sm:text-3xl md:text-4xl">
-            Philosophy
+            {philosophyConfig.title}
           </h2>
           <div className="bg-foreground mx-auto h-0.5 w-20" />
         </div>
       </div>
       <div className="my-auto flex flex-wrap items-center justify-center gap-8">
-        {aboutConfig.leftCards.map((card, index) => (
+        {philosophyConfig.cards.map((card, index) => (
           <div
             key={card.title}
             ref={(el) => {
@@ -39,7 +39,9 @@ export function PhilosophySection() {
                   {card.title}
                 </h3>
               </CardTitle>
-              <CardContent className="text-center">{card.details}</CardContent>
+              <CardContent className="text-center">
+                {card.description}
+              </CardContent>
               <CardFooter>{card.footer}</CardFooter>
             </AnimatedCard>
           </div>
