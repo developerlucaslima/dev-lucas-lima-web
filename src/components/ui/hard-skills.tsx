@@ -13,18 +13,18 @@ export type HardSkillType = {
   icon: IconType
 }
 
-export interface HardSkillsProps extends HardSkillType {
+export interface HardSkillProps extends HardSkillType {
   onClick: () => void
   isOrganized: boolean
 }
 
-export function HardSkills({
+export function HardSkill({
   id,
   name,
   icon: Icon,
   onClick,
   isOrganized,
-}: HardSkillsProps) {
+}: HardSkillProps) {
   return (
     <TooltipProvider>
       <Tooltip>

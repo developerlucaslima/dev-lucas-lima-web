@@ -29,7 +29,7 @@ export function useFloatHardSkills({
     const containerWidth = container.clientWidth
     const containerHeight = container.clientHeight
 
-    // Define the hardSkill size (should match the HardSkill component)
+    // Define the size (should match the HardSkill component)
     const hardSkillSize = 20
 
     killAnimations()
@@ -38,8 +38,8 @@ export function useFloatHardSkills({
       const randomX = Math.random() * (containerWidth - hardSkillSize)
       const randomY = Math.random() * (containerHeight - hardSkillSize)
 
-      animationsRef.current[`hardSkill-${hardSkill.id}`] = gsap.to(
-        `#hardSkill-${hardSkill.id}`,
+      animationsRef.current[`hard-skill-${hardSkill.id}`] = gsap.to(
+        `#hard-skill-${hardSkill.id}`,
         {
           x: randomX,
           y: randomY,

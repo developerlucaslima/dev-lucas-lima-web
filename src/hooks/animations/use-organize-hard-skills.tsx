@@ -27,37 +27,37 @@ export function useOrganizeHardSkills({
 
   const organizeHardSkills = (duration = 1) => {
     const containerWidth = hardSkillsSectionRef.current?.clientWidth || 0
-    const cellSize = 120 // each hardSkill cell's width/height
-    const hardSkillPerRow = Math.max(1, Math.floor(containerWidth / cellSize))
+    const cellSize = 120 // each hard skill cell's width/height
+    const hardSkillsPerRow = Math.max(1, Math.floor(containerWidth / cellSize))
     const bottomAreaTop = hardSkillsSectionBottomRef.current?.offsetTop || 0
 
     killAnimations()
 
     hardSkills.forEach((hardSkill, id) => {
-      const row = Math.floor(id / hardSkillPerRow)
-      // Determine if it's the last row and calculate hardSkill count accordingly
+      const row = Math.floor(id / hardSkillsPerRow)
+      // Determine if it's the last row and calculate item count accordingly
       const isLastRow =
-        row === Math.floor((hardSkills.length - 1) / hardSkillPerRow)
+        row === Math.floor((hardSkills.length - 1) / hardSkillsPerRow)
       const rowHardSkillCount =
-        isLastRow && hardSkills.length % hardSkillPerRow !== 0
-          ? hardSkills.length % hardSkillPerRow
-          : hardSkillPerRow
+        isLastRow && hardSkills.length % hardSkillsPerRow !== 0
+          ? hardSkills.length % hardSkillsPerRow
+          : hardSkillsPerRow
 
       // Calculate startX for the current row
       const rowStartX = (containerWidth - rowHardSkillCount * cellSize) / 2
-      const col = id % hardSkillPerRow
+      const col = id % hardSkillsPerRow
       const baseY = bottomAreaTop + row * cellSize + 40
 
-      // Get the hardSkill element and its dimensions
-      const hardSkillEl = document.getElementById(`hardSkill-${hardSkill.id}`)
+      // Get the element and its dimensions
+      const hardSkillEl = document.getElementById(`hard-skill-${hardSkill.id}`)
       if (hardSkillEl) {
         const { width: hardSkillWidth, height: hardSkillHeight } =
           hardSkillEl.getBoundingClientRect()
-        // Calculate offsets to center the hardSkill within its cell
+        // Calculate offsets to center the item within its cell
         const xOffset = (cellSize - hardSkillWidth) / 2
         const yOffset = (cellSize - hardSkillHeight) / 2
 
-        animationsRef.current[`hardSkill-${hardSkill.id}`] = gsap.to(
+        animationsRef.current[`hard-skill-${hardSkill.id}`] = gsap.to(
           hardSkillEl,
           {
             x: rowStartX + col * cellSize + xOffset,
@@ -71,7 +71,7 @@ export function useOrganizeHardSkills({
     })
 
     // Adjust the bottom area height
-    const rows = Math.ceil(hardSkills.length / hardSkillPerRow)
+    const rows = Math.ceil(hardSkills.length / hardSkillsPerRow)
     const requiredHeight = rows * cellSize
     if (hardSkillsSectionBottomRef.current) {
       hardSkillsSectionBottomRef.current.style.minHeight = `${requiredHeight}px`
