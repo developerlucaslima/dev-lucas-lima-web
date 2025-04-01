@@ -15,7 +15,7 @@ export async function contactMe(formData: ContactMeFormData) {
 
   const result = await resend.emails.send({
     from: 'onboarding@resend.dev',
-    to: 'devcom',
+    to: 'developerlucaslima@gmail.com',
     subject: `${name.toUpperCase()} - CONTACT REQUEST`,
     html: `
         <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; padding: 20px;">
