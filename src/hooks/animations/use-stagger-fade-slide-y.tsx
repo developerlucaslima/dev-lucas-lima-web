@@ -16,13 +16,13 @@ export const useStaggerFadeSlideY = ({
   const refs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
-    refs.current.forEach((ref, index) => {
+    refs.current.forEach((ref) => {
       if (!ref) return
-      const yStart = index % 2 === 0 ? 100 : 100
+      // const yStart = index % 2 === 0 ? -40 : 40
 
       gsap.fromTo(
         ref,
-        { opacity: 0, y: yStart },
+        { opacity: 0, y: 0 },
         {
           opacity: 1,
           y: 0,
