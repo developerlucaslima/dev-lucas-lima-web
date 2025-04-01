@@ -40,6 +40,7 @@ export const ContactMeForm = () => {
               <Label htmlFor="name">{item.name}</Label>
               <Input
                 id={item.register}
+                type={item.type}
                 placeholder={item.placeholder}
                 {...register(item.register as 'message' | 'name' | 'email')}
               />
