@@ -7,8 +7,13 @@ import {
   type ContactMeFormData,
   contactMeSchema,
 } from '@/app/actions/contact-me-type'
+import { english } from '@/config/english-config'
 
-export function useContactMeSubmit() {
+interface ContactMeSubmiTProps {
+  shouldAnimate: () => void
+}
+
+export function useContactMeSubmit({ shouldAnimate }: ContactMeSubmiTProps) {
   const {
     register,
     handleSubmit,
@@ -18,19 +23,19 @@ export function useContactMeSubmit() {
     resolver: zodResolver(contactMeSchema),
   })
 
+  const submitToastMessages = english.contactMe.submitToastMessages
+
   const onSubmit = async (data: ContactMeFormData) => {
+    shouldAnimate()
     const result = await contactMe(data)
     if (result.data?.id === undefined) {
-      toast.error('Intergalactic error', {
-        description: 'The alien receiver is offline! Try later please.',
-        duration: 5000,
+      toast.error(submitToastMessages.error.title, {
+        description: submitToastMessages.error.description,
       })
       return
     }
-    toast.success('Cosmic success!', {
-      description:
-        'Your message has been beamed to our extraterrestrial friends.',
-      duration: 5000,
+    toast.success(submitToastMessages.success.title, {
+      description: submitToastMessages.success.description,
     })
     reset()
   }

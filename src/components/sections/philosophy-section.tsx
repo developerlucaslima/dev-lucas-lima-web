@@ -2,7 +2,7 @@
 
 import { english } from '@/config/english-config'
 import { useScrollFadeIn } from '@/hooks/animations/use-scroll-fade-in'
-import { useStaggerFadeSlideY } from '@/hooks/animations/use-stagger-fade-slide-y'
+import { useStaggerFadeSlideX } from '@/hooks/animations/use-stagger-fade-slide-x'
 
 import {
   AnimatedCard,
@@ -14,7 +14,7 @@ import {
 export function PhilosophySection() {
   // TODO : animated fade must to be one each time
   const config = english.philosophy
-  const refs = useStaggerFadeSlideY()
+  const cardsAnimation = useStaggerFadeSlideX()
   const titleRef = useScrollFadeIn()
 
   return (
@@ -35,7 +35,7 @@ export function PhilosophySection() {
           <div
             key={card.title}
             ref={(el) => {
-              refs.current[index] = el
+              cardsAnimation.current[index] = el
             }}
           >
             <AnimatedCard className="min-h-60">

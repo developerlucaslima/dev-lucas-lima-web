@@ -1,21 +1,21 @@
 'use client'
 
 import { english } from '@/config/english-config'
-import { useAlienAnimated } from '@/hooks/animations/use-alien'
+import { useMoonRocketAnimation } from '@/hooks/animations/use-moon-rocket-animation'
 import { useScrollFadeIn } from '@/hooks/animations/use-scroll-fade-in'
 import { useScrollFadeSlideX } from '@/hooks/animations/use-scroll-fade-slide-x'
-import { useScrollRotateSlideX } from '@/hooks/animations/use-scroll-rotate-slide-x'
 
 import { ContactMeForm } from '../contact-me-form'
-import { Alien } from '../ui/alien'
+import { MoonAndRocket } from '../ui/moon'
 
 export function ContactMeSection() {
   const config = english.contactMe
-  const { containerRef, antennaRef, characterRef, leftEyeRef, rightEyeRef } =
-    useAlienAnimated()
 
-  const alienRotate = useScrollRotateSlideX()
-  const formAnimation = useScrollFadeSlideX()
+  const { moonRef, rocketRef, containerRef, triggerAnimation } =
+    useMoonRocketAnimation()
+
+  const formInitialAnimation = useScrollFadeSlideX({ fromX: -100 })
+  const moonInitialAnimation = useScrollFadeSlideX({ fromX: 100 })
   const titleRef = useScrollFadeIn()
 
   return (
@@ -34,25 +34,18 @@ export function ContactMeSection() {
       </div>
 
       <div className="flex flex-wrap-reverse items-center justify-center gap-4 sm:flex-wrap sm:gap-0">
-        {/* Form Side */}
         <div
-          ref={formAnimation}
+          ref={formInitialAnimation}
           className="mx-auto flex w-full max-w-md items-center justify-center"
         >
-          <ContactMeForm />
+          <ContactMeForm shouldAnimate={triggerAnimation} />
         </div>
 
-        {/* Character Side */}
         <div
-          ref={alienRotate}
-          className="mx-auto flex w-full max-w-md items-center justify-center"
+          ref={moonInitialAnimation}
+          className="mx-auto flex w-full max-w-40 items-center justify-center sm:max-w-xs"
         >
-          <Alien
-            characterRef={characterRef}
-            leftEyeRef={leftEyeRef}
-            rightEyeRef={rightEyeRef}
-            antennaRef={antennaRef}
-          />
+          <MoonAndRocket moonRef={moonRef} rocketRef={rocketRef} />
         </div>
       </div>
     </section>

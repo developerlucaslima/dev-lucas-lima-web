@@ -18,10 +18,14 @@ import {
 import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 
-export const ContactMeForm = () => {
+interface ContactMeFormProps {
+  shouldAnimate: () => void
+}
+
+export const ContactMeForm = ({ shouldAnimate }: ContactMeFormProps) => {
   const config = english.contactMe.form
   const { errors, handleSubmit, isSubmitting, onSubmit, register } =
-    useContactMeSubmit()
+    useContactMeSubmit({ shouldAnimate })
 
   return (
     <Card className="w-full">
@@ -76,7 +80,7 @@ export const ContactMeForm = () => {
           </div>
           <CardFooter>
             <Button
-              className="form-element w-full"
+              className="form-element w-full cursor-pointer"
               variant="ghost"
               type="submit"
               disabled={isSubmitting}

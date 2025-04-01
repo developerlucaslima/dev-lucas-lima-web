@@ -59,7 +59,7 @@ export const english = {
       ],
     },
     image: {
-      src: '/me.png',
+      src: '/me.jpg',
       alt: 'Dev Lucas Lima',
       width: 400,
       height: 400,
@@ -202,38 +202,50 @@ export const english = {
     },
   ],
   contactMe: {
-    title: "Let's chat",
+    title: 'Space Communication',
     form: {
-      formTitle: 'Interstellar chat',
-      formSubtitle: 'Beam your message across the cosmos',
+      formTitle: 'Launch Your Message',
+      formSubtitle: 'Prepare for liftoff!',
       inputs: [
         {
-          name: 'Name',
-          placeholder: 'Your name',
-          type: 'text',
+          name: 'Astronaut Name',
+          placeholder: 'Your astronaut name',
+          type: '',
           register: 'name',
         },
         {
-          name: 'Email',
-          placeholder: 'alien.doe@example.com',
+          name: 'Space Email',
+          placeholder: 'astronaut@example.space',
           type: 'email',
           register: 'email',
         },
       ],
       textArea: {
-        name: 'Message',
-        placeholder: 'Your message...',
+        name: 'Space Message',
+        placeholder: 'Your message to the cosmos...',
         register: 'message',
       },
       buttonTexts: {
-        isSubmitting: 'Beaming...',
-        isNotSubmitting: 'Beam Message',
+        isSubmitting: 'Launching...',
+        isNotSubmitting: 'Launch Message',
       },
     },
     formErrorMessages: {
       name: 'Name must be at least 2 characters',
-      email: 'Enter a valid email',
+      email: 'Enter a valid space email',
       message: 'Message must be at least 20 characters',
+    },
+    submitToastMessages: {
+      success: {
+        title: 'Launched Successfully!',
+        description:
+          'Your message has successfully entered orbit and is on its way to the cosmos!',
+      },
+      error: {
+        title: 'Communication Failure',
+        description:
+          'Communication satellites are experiencing interference! Please try again later.',
+      },
     },
   },
 }

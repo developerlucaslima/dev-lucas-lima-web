@@ -8,7 +8,7 @@ import { Card, CardDescription, CardFooter, CardTitle } from '../ui/card'
 
 export function JourneySection() {
   const config = english.journey
-  const refs = useStaggerFadeSlideX()
+  const cardsAnimation = useStaggerFadeSlideX()
   const titleRef = useScrollFadeIn()
 
   return (
@@ -24,7 +24,7 @@ export function JourneySection() {
           <div className="bg-foreground mx-auto h-0.5 w-20" />
         </div>
       </div>
-      <div className="relative">
+      <div className="relative flex flex-col gap-4">
         {/* Timeline line */}
         <div className="sm:bg-ring/30 absolute top-0 bottom-0 left-1/2 w-0.5 -translate-x-1/2 transform" />
         {config.cards.map((card, index) => (
@@ -41,7 +41,7 @@ export function JourneySection() {
             <a href={card.href} target={'_blank'} rel={'noopener noreferrer'}>
               <Card
                 ref={(el) => {
-                  refs.current[index] = el
+                  cardsAnimation.current[index] = el
                 }}
                 className="group-hover:border-foreground/30 max-w-52 min-w-52 p-6"
               >
