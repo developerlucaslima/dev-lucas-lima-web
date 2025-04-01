@@ -9,7 +9,7 @@ import { Background } from '@/components/ui/stars-background'
 export default function Home() {
   return (
     <main className="min-h-screen max-w-screen overflow-hidden">
-      <Toaster />
+      <Toaster position="top-left" duration={7000} />
       <Background />
       <HeroSection />
       <AboutSection />
