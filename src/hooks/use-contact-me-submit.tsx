@@ -18,7 +18,6 @@ export function useContactMeSubmit() {
     resolver: zodResolver(contactMeSchema),
   })
 
-  // onSubmit function that sends form data to the API
   const onSubmit = async (data: ContactMeFormData) => {
     const result = await contactMe(data)
     if (result.data?.id === undefined) {
