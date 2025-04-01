@@ -20,7 +20,7 @@ export const useStaggerFadeSlideX = ({
   useEffect(() => {
     refs.current.forEach((ref, index) => {
       if (!ref) return
-      const xStart = index % 2 === 0 ? -200 : 200
+      const xStart = index % 2 === 0 ? 40 : -40
 
       gsap.fromTo(
         ref,
