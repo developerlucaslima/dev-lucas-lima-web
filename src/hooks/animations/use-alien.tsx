@@ -1,7 +1,8 @@
+import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 
-export const UseAlienAnimated = () => {
-  const containerRef = useRef<SVGSVGElement>(null)
+export const useAlienAnimated = () => {
+  const containerRef = useRef<HTMLElement>(null)
   const characterRef = useRef<SVGSVGElement>(null)
   const leftEyeRef = useRef<SVGCircleElement>(null)
   const rightEyeRef = useRef<SVGCircleElement>(null)
@@ -86,5 +87,5 @@ export const UseAlienAnimated = () => {
     }
   })
 
-  return { characterRef, leftEyeRef, rightEyeRef, antennaRef }
+  return { containerRef, characterRef, leftEyeRef, rightEyeRef, antennaRef }
 }
