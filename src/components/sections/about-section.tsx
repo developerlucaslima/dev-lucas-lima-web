@@ -3,23 +3,21 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { english } from '@/config/english-config'
-import { useFloatHardSkills } from '@/hooks/animations/use-float-hard-skill'
-import { useOrganizeHardSkills } from '@/hooks/animations/use-organize-hard-skill'
+import { useFloatHardSkills } from '@/hooks/animations/use-float-hard-skills'
+import { useOrganizeHardSkills } from '@/hooks/animations/use-organize-hard-skills'
 import { useWindowResize } from '@/hooks/use-window-resize'
 
 import { AboutContent } from '../about-content'
-import { HardSkills } from '../ui/hard-skills'
+import { HardSkill } from '../ui/hard-skills'
 
 export function AboutSection() {
-  const hardSkills = english.hardSkills
+  const hardSkillsConfig = english.hardSkills
   const hardSkillsSectionRef = useRef<HTMLDivElement | null>(null)
   const hardSkillsSectionBottomRef = useRef<HTMLDivElement | null>(null)
 
-  const hardSkillLength = hardSkills.length
-
   const [isOrganized, setIsOrganized] = useState(true)
 
-  // It attaches a resize event listener to the window
+  // Attaches a resize event listener to the window
   useWindowResize({
     callback: isOrganized
       ? () => organizeHardSkills()
@@ -28,24 +26,24 @@ export function AboutSection() {
 
   // Get animation functions from the separated hooks.
   const { organizeHardSkills } = useOrganizeHardSkills({
-    hardSkills,
+    hardSkills: hardSkillsConfig,
     hardSkillsSectionRef,
     hardSkillsSectionBottomRef,
   })
 
   const { floatHardSkills } = useFloatHardSkills({
-    hardSkills,
+    hardSkills: hardSkillsConfig,
     hardSkillsSectionRef,
   })
 
-  // Trigger animations when isOrganized state or hardSkill count changes.
+  // Trigger animations when isOrganized state or item count changes.
   useEffect(() => {
     if (isOrganized) {
       organizeHardSkills()
     } else {
       floatHardSkills()
     }
-  }, [isOrganized, hardSkillLength, organizeHardSkills, floatHardSkills])
+  }, [isOrganized, organizeHardSkills, floatHardSkills])
 
   const handleHardSkillClick = () => {
     setIsOrganized((prev) => !prev)
@@ -58,9 +56,9 @@ export function AboutSection() {
       ref={hardSkillsSectionRef}
       className="relative mb-10 flex min-h-screen flex-col items-center justify-center"
     >
-      {/* Render each hardSkill */}
-      {hardSkills.map((hardSkill) => (
-        <HardSkills
+      {/* Render each hard skill */}
+      {hardSkillsConfig.map((hardSkill) => (
+        <HardSkill
           key={hardSkill.name}
           id={hardSkill.id}
           onClick={handleHardSkillClick}
