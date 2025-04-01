@@ -31,13 +31,11 @@ export function useContactMeSubmit({ shouldAnimate }: ContactMeSubmiTProps) {
     if (result.data?.id === undefined) {
       toast.error(submitToastMessages.error.title, {
         description: submitToastMessages.error.description,
-        duration: 5000,
       })
       return
     }
     toast.success(submitToastMessages.success.title, {
       description: submitToastMessages.success.description,
-      duration: 5000,
     })
     reset()
   }
