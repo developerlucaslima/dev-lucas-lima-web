@@ -20,7 +20,7 @@ function AnimatedCard({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card"
       className={cn(
-        'text-card-foreground flex max-w-sm flex-col gap-4 rounded-xl bg-teal-500/10 p-6 backdrop-blur-md transition-all duration-200 ease-in-out hover:translate-y-[-2px] hover:shadow-xs hover:shadow-teal-500/30',
+        'text-card-foreground flex max-w-sm flex-col gap-4 rounded-xl bg-teal-500/10 p-6 backdrop-blur-md transition delay-50 duration-150 ease-in-out hover:-translate-y-1 hover:scale-102 hover:shadow-xs hover:shadow-teal-500/30',
         className,
       )}
       {...props}
@@ -33,7 +33,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card-header"
       className={cn(
-        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
+        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
         className,
       )}
       {...props}
@@ -42,6 +42,16 @@ function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="card-title"
+      className={cn('leading-none font-medium', className)}
+      {...props}
+    />
+  )
+}
+
+function CardIconTitle({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="card-title"
@@ -103,6 +113,7 @@ export {
   CardHeader,
   CardFooter,
   CardTitle,
+  CardIconTitle,
   CardAction,
   CardDescription,
   CardContent,
