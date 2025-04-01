@@ -1,14 +1,17 @@
 'use client'
 
+import { Code2 } from 'lucide-react'
 import Image from 'next/image'
 
-import { aboutConfig } from '@/config/about-config'
+import { english } from '@/config/english-config'
 import { useScrollFadeIn } from '@/hooks/animations/use-scroll-fade-in'
 import { useScrollFadeSlideX } from '@/hooks/animations/use-scroll-fade-slide-x'
 
-import { AnimatedCard, CardContent, CardFooter, CardTitle } from './ui/card'
+import { AnimatedCard, CardContent, CardFooter, CardIconTitle } from './ui/card'
 
 export function AboutContent() {
+  const config = english.about
+  const subtitles = english.hero.subtitles
   const titleRef = useScrollFadeIn()
   const textRef = useScrollFadeSlideX({ fromX: -50 })
   const imageRef = useScrollFadeSlideX({ fromX: 50 })
@@ -17,7 +20,7 @@ export function AboutContent() {
     <div className="m-8 mx-auto">
       <div ref={titleRef} className="mb-16 text-center">
         <h2 className="mb-4 text-2xl font-light uppercase sm:text-3xl md:text-4xl">
-          {aboutConfig.sectionTitle}
+          {config.sectionTitle}
         </h2>
         <div className="bg-foreground mx-auto h-0.5 w-20" />
       </div>
@@ -28,7 +31,7 @@ export function AboutContent() {
             ref={textRef}
             className="flex flex-1 flex-col justify-center px-4"
           >
-            {aboutConfig.paragraphs.map((paragraph) => (
+            {config.paragraphs.map((paragraph) => (
               <p
                 key={paragraph}
                 className="text-muted-foreground mb-6 text-justify indent-8 text-lg leading-relaxed hyphens-none"
@@ -46,40 +49,35 @@ export function AboutContent() {
             <div className="relative h-full">
               <div className="border-ring/30 h-80 w-80 overflow-hidden rounded-full border-1">
                 <Image
-                  src={aboutConfig.image.src}
-                  alt={aboutConfig.image.alt}
-                  width={aboutConfig.image.width}
-                  height={aboutConfig.image.height}
+                  src={config.image.src}
+                  alt={config.image.alt}
+                  width={config.image.width}
+                  height={config.image.height}
                 />
               </div>
               <div className="absolute top-64 right-0">
                 <AnimatedCard className="max-w-sm">
-                  <CardTitle>
-                    <aboutConfig.rightCard.icon
-                      className="text-foreground mr-2"
-                      size={20}
-                    />
-                    <div className="uppercase">
-                      {aboutConfig.rightCard.title}
-                    </div>
-                  </CardTitle>
+                  <CardIconTitle>
+                    <Code2 className="text-foreground mr-2" size={20} />
+                    <div className="uppercase">{config.aboutCard.title}</div>
+                  </CardIconTitle>
                   <CardContent>
-                    {aboutConfig.rightCard.details.map((detail, index) => (
+                    {subtitles.map((subtitles, index) => (
                       <p key={index} className="overflow-hidden">
-                        {detail}
+                        {subtitles}
                       </p>
                     ))}
                   </CardContent>
                   <CardFooter>
-                    {aboutConfig.rightCard.footer.map((footer) => (
+                    {config.aboutCard.icons.map((icon) => (
                       <a
-                        key={footer.href}
-                        href={footer.href}
-                        target={footer.target}
-                        rel={footer.rel}
+                        key={icon.href}
+                        href={icon.href}
+                        target={icon.target}
+                        rel={icon.rel}
                         className="text-foreground/80 hover:text-foreground mt-4"
                       >
-                        <footer.icon size={20} />
+                        <icon.iconKey size={20} />
                       </a>
                     ))}
                   </CardFooter>

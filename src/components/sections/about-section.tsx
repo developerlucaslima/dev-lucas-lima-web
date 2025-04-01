@@ -2,49 +2,52 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-import { bubblesConfig } from '@/config/bubbles-config'
-import { useFloatBubbles } from '@/hooks/animations/use-float-bubbles'
-import { useOrganizeBubbles } from '@/hooks/animations/use-organize-bubbles'
+import { english } from '@/config/english-config'
+import { useFloatHardSkills } from '@/hooks/animations/use-float-hard-skill'
+import { useOrganizeHardSkills } from '@/hooks/animations/use-organize-hard-skill'
 import { useWindowResize } from '@/hooks/use-window-resize'
 
 import { AboutContent } from '../about-content'
-import { Bubble } from '../ui/bubble'
+import { HardSkills } from '../ui/hard-skills'
 
 export function AboutSection() {
-  const bubblesSectionRef = useRef<HTMLDivElement | null>(null)
-  const bubblesSectionBottomRef = useRef<HTMLDivElement | null>(null)
+  const hardSkills = english.hardSkills
+  const hardSkillsSectionRef = useRef<HTMLDivElement | null>(null)
+  const hardSkillsSectionBottomRef = useRef<HTMLDivElement | null>(null)
 
-  const bubbleLength = bubblesConfig.length
+  const hardSkillLength = hardSkills.length
 
-  const [isOrganized, setIsOrganized] = useState(false)
+  const [isOrganized, setIsOrganized] = useState(true)
 
   // It attaches a resize event listener to the window
   useWindowResize({
-    callback: isOrganized ? () => organizeBubbles() : () => floatBubbles(),
+    callback: isOrganized
+      ? () => organizeHardSkills()
+      : () => floatHardSkills(),
   })
 
   // Get animation functions from the separated hooks.
-  const { organizeBubbles } = useOrganizeBubbles({
-    bubbles: bubblesConfig,
-    bubblesSectionRef,
-    bubblesSectionBottomRef,
+  const { organizeHardSkills } = useOrganizeHardSkills({
+    hardSkills,
+    hardSkillsSectionRef,
+    hardSkillsSectionBottomRef,
   })
 
-  const { floatBubbles } = useFloatBubbles({
-    bubbles: bubblesConfig,
-    bubblesSectionRef,
+  const { floatHardSkills } = useFloatHardSkills({
+    hardSkills,
+    hardSkillsSectionRef,
   })
 
-  // Trigger animations when isOrganized state or bubble count changes.
+  // Trigger animations when isOrganized state or hardSkill count changes.
   useEffect(() => {
     if (isOrganized) {
-      organizeBubbles()
+      organizeHardSkills()
     } else {
-      floatBubbles()
+      floatHardSkills()
     }
-  }, [isOrganized, bubbleLength, organizeBubbles, floatBubbles])
+  }, [isOrganized, hardSkillLength, organizeHardSkills, floatHardSkills])
 
-  const handleBubbleClick = () => {
+  const handleHardSkillClick = () => {
     setIsOrganized((prev) => !prev)
   }
 
@@ -52,20 +55,18 @@ export function AboutSection() {
     // Content Area
     <section
       id="about"
-      ref={bubblesSectionRef}
+      ref={hardSkillsSectionRef}
       className="relative mb-10 flex min-h-screen flex-col items-center justify-center"
     >
-      {/* Render each bubble */}
-      {bubblesConfig.map((bubble) => (
-        <Bubble
-          key={bubble.name}
-          id={bubble.id}
-          initialX={bubble.initialX}
-          initialY={bubble.initialY}
-          onClick={handleBubbleClick}
+      {/* Render each hardSkill */}
+      {hardSkills.map((hardSkill) => (
+        <HardSkills
+          key={hardSkill.name}
+          id={hardSkill.id}
+          onClick={handleHardSkillClick}
           isOrganized={isOrganized}
-          name={bubble.name}
-          icon={bubble.icon}
+          name={hardSkill.name}
+          icon={hardSkill.icon}
         />
       ))}
 
@@ -74,7 +75,7 @@ export function AboutSection() {
 
       {/* Bottom Area for layout adjustments */}
       <div
-        ref={bubblesSectionBottomRef}
+        ref={hardSkillsSectionBottomRef}
         className="mx-auto min-h-[120px] max-w-5xl"
       />
     </section>
