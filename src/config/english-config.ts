@@ -215,7 +215,7 @@ export const english = {
         },
         {
           name: 'Space Email',
-          placeholder: 'your.astronaut@example.space',
+          placeholder: 'astronaut@example.space',
           type: 'email',
           register: 'email',
         },
@@ -231,9 +231,9 @@ export const english = {
       },
     },
     formErrorMessages: {
-      astronautName: 'Name must be at least 2 characters',
-      spaceEmail: 'Enter a valid space email',
-      spaceMessage: 'Message must be at least 20 characters',
+      name: 'Name must be at least 2 characters',
+      email: 'Enter a valid space email',
+      message: 'Message must be at least 20 characters',
     },
     submitToastMessages: {
       success: {
