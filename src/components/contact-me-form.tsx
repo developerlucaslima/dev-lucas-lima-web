@@ -41,19 +41,17 @@ export const ContactMeForm = ({ shouldAnimate }: ContactMeFormProps) => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {config.inputs.map((item) => (
             <div key={item.name} className="form-element space-y-2">
-              <Label htmlFor="name">{item.name}</Label>
+              <Label htmlFor={item.register}>{item.name}</Label>
               <Input
                 id={item.register}
                 type={item.type}
                 placeholder={item.placeholder}
-                {...register(item.register as 'message' | 'name' | 'email')}
+                autoComplete={item.register}
+                {...register(item.register as 'name' | 'email')}
               />
               {errors.name && (
                 <p className="text-sm text-red-500">
-                  {
-                    errors[item.register as 'message' | 'name' | 'email']
-                      ?.message
-                  }
+                  {errors[item.register as 'name' | 'email']?.message}
                 </p>
               )}
             </div>
@@ -64,17 +62,11 @@ export const ContactMeForm = ({ shouldAnimate }: ContactMeFormProps) => {
               id={config.textArea.register}
               placeholder={config.textArea.placeholder}
               className="min-h-[120px]"
-              {...register(
-                config.textArea.register as 'message' | 'name' | 'email',
-              )}
+              {...register(config.textArea.register as 'message')}
             />
             {errors.message && (
               <p className="text-sm text-red-500">
-                {
-                  errors[
-                    config.textArea.register as 'message' | 'name' | 'email'
-                  ]?.message
-                }
+                {errors[config.textArea.register as 'message']?.message}
               </p>
             )}
           </div>
