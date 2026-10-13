@@ -26,10 +26,12 @@ export const portfolioContentEn = {
         {
           href: 'https://www.linkedin.com/in/developerlucaslima',
           iconKey: 'linkedin',
+          accessibleName: 'LinkedIn profile',
         },
         {
           href: 'https://github.com/developerlucaslima',
           iconKey: 'github',
+          accessibleName: 'GitHub profile',
         },
       ],
     },

@@ -86,6 +86,7 @@ export function AboutContent({ content, heroContent }: AboutContentProps) {
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={link.accessibleName}
                           className="text-foreground/80 hover:text-foreground mt-4"
                         >
                           <Icon size={20} />

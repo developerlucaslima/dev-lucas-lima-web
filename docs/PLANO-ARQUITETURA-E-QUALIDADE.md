@@ -4,7 +4,7 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: A01 integrada em `main` pela PR histórica #12; A02–A06 integradas em `developer` pelas PRs #13–#15. A07 concluída na branch `codex/A07-stars-timeout-cleanup` (commit `9a5bc70`, enviada ao remoto), mas a PR #16 ainda não foi criada: a integração GitHub recusou acesso e a automação do navegador foi interrompida por não conseguir confirmar a URL da janela. A08–A12 concluídas localmente em `codex/A08-A12-animation-content-accessibility`, ainda sem commit ou PR. A proteção WAF/rate limit de A05 continua pendente de evidência. A13 em diante permanecem planejadas.
+- Status: A01 integrada em `main` pela PR histórica #12; A02–A06 integradas em `developer` pelas PRs #13–#15. A07 está commitada e enviada em `codex/A07-stars-timeout-cleanup` (commit `9a5bc70`), sem PR #16: a integração GitHub recusou acesso e a automação do navegador foi interrompida por não confirmar a URL da janela. A08–A12 estão commitadas e enviadas em `codex/A08-A12-animation-content-accessibility` (commit `b62b78d`), mas a PR também não pôde ser criada porque a integração GitHub respondeu 403. A13 está implementada localmente em branch dependente de A08–A12; seu PR aguarda integração da dependência em `developer`. A proteção WAF/rate limit de A05 continua pendente de evidência. A14 em diante permanecem planejadas.
 - Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
@@ -559,7 +559,13 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - A12: cada habilidade usa botão nativo com teclado, nome acessível, `aria-pressed`, foco visível e largura válida de 120 px.
 - Passaram: Prettier nos arquivos alterados; `npx tsc --noEmit`; `npx eslint src`; `npm run build`; `git diff --check`; busca heurística por padrões de segredos sem correspondências; seis casos de fronteira de data e rejeição de data inicial futura no cálculo de duração.
 - `npm run lint` não concluiu nesta execução porque o SWC não conseguiu canonicalizar o caminho do projeto (acesso negado); a verificação direta `npx eslint src` passou. O build concluiu; Next exibiu os avisos já existentes sobre o plugin ESLint e `next lint` deprecated.
-- O projeto não configura runner de testes; não houve validação manual em navegador, instalação de dependências, auditoria completa, email, merge ou deploy. Alterações permanecem locais na branch `codex/A08-A12-animation-content-accessibility`, baseada em `origin/developer` no commit `c721ca9`; sem commit ou PR.
+- O projeto não configura runner de testes; não houve validação manual em navegador, instalação de dependências, auditoria completa, email, merge ou deploy. Branch `codex/A08-A12-animation-content-accessibility`, baseada em `origin/developer` no commit `c721ca9`; commit `b62b78d` enviada ao remoto. A criação da PR foi bloqueada pela resposta 403 da integração GitHub.
+
+### Implementação A13 — 13/10/2026
+
+- Links sociais de GitHub e LinkedIn agora recebem nome acessível pelo atributo `aria-label`; os nomes ficam no conteúdo tipado (`accessibleName`) junto aos dados de cada link. Texto visível, ícones e destinos não foram alterados.
+- Passaram: Prettier nos três arquivos alterados, `npx eslint src`, `npx tsc --noEmit`, `npm run build` (após repetir com acesso ao diretório, pois a primeira tentativa no sandbox foi bloqueada pelo SWC), `git diff --check` e busca heurística de segredos sem correspondências. `npm run lint` continuou sem executar por erro de acesso do SWC ao canonicalizar a pasta; o ESLint direto passou.
+- Não há runner de testes configurado nem validação manual no navegador. A mudança está local, sem commit ou push, na branch `codex/A13-social-link-accessibility`, baseada no commit A08–A12 `b62b78d`. A dependência A09 ainda não está integrada em `developer`; a PR A13 deve aguardar essa integração e seguir o destino `developer` definido em `AGENTS.md`.
 
 ## 17. Fontes oficiais
 

@@ -23,6 +23,7 @@ export interface HeroContent {
 export interface SocialLinkContent {
   readonly href: string
   readonly iconKey: SocialIconKey
+  readonly accessibleName: string
 }
 
 export interface AboutSectionContent {
