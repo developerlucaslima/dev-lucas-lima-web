@@ -39,34 +39,44 @@ export const ContactMeForm = ({ shouldAnimate }: ContactMeFormProps) => {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {config.inputs.map((item) => (
-            <div key={item.name} className="form-element space-y-2">
-              <Label htmlFor={item.register}>{item.name}</Label>
-              <Input
-                id={item.register}
-                type={item.type}
-                placeholder={item.placeholder}
-                autoComplete={item.register}
-                {...register(item.register as 'name' | 'email')}
-              />
-              {errors.name && (
-                <p className="text-sm text-red-500">
-                  {errors[item.register as 'name' | 'email']?.message}
-                </p>
-              )}
-            </div>
-          ))}
+          {config.inputs.map((item) => {
+            const fieldName = item.register as 'name' | 'email'
+            const fieldError = errors[fieldName]?.message
+            const errorId = `${fieldName}-error`
+
+            return (
+              <div key={item.name} className="form-element space-y-2">
+                <Label htmlFor={fieldName}>{item.name}</Label>
+                <Input
+                  id={fieldName}
+                  type={item.type}
+                  placeholder={item.placeholder}
+                  autoComplete={item.register}
+                  aria-invalid={Boolean(fieldError)}
+                  aria-describedby={fieldError ? errorId : undefined}
+                  {...register(fieldName)}
+                />
+                {fieldError && (
+                  <p id={errorId} className="text-sm text-red-500">
+                    {fieldError}
+                  </p>
+                )}
+              </div>
+            )
+          })}
           <div className="form-element space-y-2">
             <Label htmlFor="message">{config.textArea.name}</Label>
             <Textarea
               id={config.textArea.register}
               placeholder={config.textArea.placeholder}
               className="min-h-[120px]"
+              aria-invalid={Boolean(errors.message)}
+              aria-describedby={errors.message ? 'message-error' : undefined}
               {...register(config.textArea.register as 'message')}
             />
             {errors.message && (
-              <p className="text-sm text-red-500">
-                {errors[config.textArea.register as 'message']?.message}
+              <p id="message-error" className="text-sm text-red-500">
+                {errors.message.message}
               </p>
             )}
           </div>

@@ -4,7 +4,7 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: planejamento geral com implementação incremental autorizada. A01–A04 concluídas localmente em branches próprias; A02/A03 têm PR aberta para `developer`; A04 aguarda integração dessa base para uma PR independente. Os demais itens permanecem planejados.
+- Status: planejamento geral com implementação incremental autorizada. A01–A04 concluídas localmente em branches próprias; PR #13 (A02/A03) integrada em `developer`; PR #14 (A04) aberta para `developer`. A05 tem limite local de payload; proteção de abuso na infraestrutura continua pendente de evidência. A06 concluída localmente na branch A05/A06. Os demais itens permanecem planejados.
 - Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
@@ -35,8 +35,8 @@ Os caminhos abaixo são os atuais. As linhas correspondem à base inspecionada. 
 | A02 | Alta       | src/app/actions/contact-me.ts:7                                         | Tipo TypeScript substitui validação runtime; schema só no cliente                                         | Concluída localmente: schema compartilhado e parse server de entrada unknown |
 | A03 | Alta       | src/app/actions/contact-me.ts:20                                        | Interpolação de conteúdo recebido diretamente em HTML                                                     | Concluída localmente: conteúdo enviado como texto simples                 |
 | A04 | Alta       | action:39 e use-contact-me-submit                                       | SDK retorna à UI e hook não captura exceções                                                              | Concluída localmente: resultado próprio serializável, falhas tipadas e fallback seguro |
-| A05 | Alta       | action de contato                                                       | Sem controle de abuso local                                                                               | Limites e proteção real na infraestrutura ou solução mínima confirmada   |
-| A06 | Alta       | contact-me-form.tsx:52                                                  | Erro de email depende de errors.name                                                                      | Condição do próprio campo, aria-invalid/describedby                      |
+| A05 | Alta       | action de contato                                                       | Sem controle de abuso local                                                                               | Limite local de payload aplicado; rate limit/WAF depende de confirmação da infraestrutura |
+| A06 | Alta       | contact-me-form.tsx:52                                                  | Erro de email depende de errors.name                                                                      | Concluída localmente: erro por campo associado com aria-invalid/describedby |
 | A07 | Alta       | stars-background.tsx:161,169,173                                        | Cleanup só cancela primeiro timer; cadeia e remoções sem rastreamento                                     | Cancelar todos e impedir reagendamento após unmount                      |
 | A08 | Alta       | use-typewriter, fade-in, fade-slide-y, scroll-\* e stagger-fade-slide-x | Recursos criados sem cleanup correspondente                                                               | Encerrar recursos por instância; remount/Strict Mode                     |
 | A09 | Média      | components/sections e about-content                                     | Todas as seções client importam grande objeto english                                                     | Conteúdo server e ilhas client menores                                   |
@@ -282,7 +282,7 @@ Limites e variáveis novas são propostas, não configurações existentes/aprov
 
 ### Pendência operacional: abuso
 
-WAF/rate limit da Vercel não foi inspecionado. Propor limite efetivo na infraestrutura e tamanho de payload/action; comprovar em preview antes de liberar envio. Se insuficiente, escolher CAPTCHA verificado server ou limitador distribuído compatível com serverless antes desse item. Não adotar contador em memória como garantia; não criar Redis/serviço sem necessidade confirmada. Honeypot é complemento. Pendência não bloqueia organização/testes fake, mas não declarar contato protegido sem evidência.
+O tamanho máximo do corpo de Server Actions foi reduzido para `32kb`, cobrindo o máximo permitido pelo schema da mensagem (5.000 caracteres Unicode) mais o envelope da action. Isso limita cada requisição, mas não impõe frequência por origem e não é rate limit. WAF/rate limit da Vercel continua não inspecionado; confirmar a configuração do projeto e comprovar em preview antes de declarar proteção contra abuso. Se a infraestrutura não oferecer limite efetivo, escolher CAPTCHA verificado no servidor ou limitador distribuído compatível com serverless. Não adotar contador em memória como garantia; não criar Redis/serviço sem necessidade confirmada. Honeypot é complemento. Até obter essa evidência, não declarar o contato protegido contra abuso.
 
 ## 8. Conteúdo e seções
 
@@ -532,8 +532,17 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Hook captura rejeição da chamada como fallback seguro. Falhas mantêm o rascunho e não acionam a animação; o formulário só é limpo e a animação de confirmação só começa após resposta de sucesso com ID do provedor.
 - Passaram: `npm run lint`, `npx tsc --noEmit`, `npm run build`, `git diff --check` e busca heurística de padrões de credenciais nos arquivos alterados sem ocorrências. Lint/build emitiram o aviso de ausência do plugin Next na configuração ESLint.
 - Testes automatizados não foram executados porque o projeto ainda não tem runner configurado; não houve envio real de email nem validação manual no navegador.
-- Branch `codex/A04-contact-result` deriva do commit A02/A03 da PR #13, pois `developer` ainda não contém o contrato necessário. A04 permanece local, sem commit/push; uma PR independente destinada a `developer` depende da integração da PR #13. Sem merge ou deploy.
-- A05 (abuso/rate limit), A06 (associação acessível dos erros de campo) e os demais itens continuam pendentes.
+- Branch `codex/A04-contact-result`; commit `eec36c9`; PR #14 aberta para `developer`. A comparação remota contém apenas o commit A04 sobre a base e está pronta para revisão. Sem merge ou deploy.
+- A05 (proteção de abuso na infraestrutura) e A06 (associação acessível dos erros de campo) foram autorizadas na sequência; evidências na seção abaixo.
+
+### Implementação A05/A06 — 13/10/2026
+
+- A05: configurado `experimental.serverActions.bodySizeLimit: '32kb'` em `next.config.ts`, um limite de tamanho por requisição compatível com o máximo do schema. A política padrão same-origin das Server Actions foi preservada; não foram adicionados domínios permitidos. A documentação oficial do Next.js 15 confirma limite ajustável para o corpo de Server Actions; esse limite não substitui rate limit.
+- A06: corrigida a associação do erro de email (antes condicionada a `errors.name`) e adicionados `aria-invalid` e `aria-describedby` vinculados às mensagens de erro de nome, email e mensagem.
+- Pendente real de A05: não há acesso/evidência da configuração WAF/rate limit da Vercel nem validação em preview nesta etapa. A infraestrutura ainda precisa ser confirmada antes de afirmar proteção efetiva contra abuso; nenhuma dependência nova, serviço externo ou contador em memória foi introduzido.
+- Passaram localmente: `npx prettier --check --single-quote --no-semi` nos arquivos alterados, `npx tsc --noEmit`, `npm run lint`, `npm run build` e `git diff --check`; a busca heurística por credenciais não encontrou correspondências. Lint/build mantêm o aviso existente de plugin Next ausente na configuração ESLint.
+- Testes automatizados não foram executados: o projeto não configura runner de testes. Não houve validação em preview, envio real de email, merge ou deploy.
+- Fonte: [Configuração serverActions do Next.js 15](https://nextjs.org/docs/15/app/api-reference/config/next-config-js/serverActions).
 
 ## 17. Fontes oficiais
 
