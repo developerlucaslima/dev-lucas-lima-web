@@ -1,32 +1,56 @@
 'use server'
 
-import { Resend } from 'resend'
+import type { ZodError } from 'zod'
 
+import { createContactService } from '@/features/contact/actions/create-contact-service'
+import { ContactMessageDeliveryError } from '@/features/contact/application/contact-message-sender.port'
 import { contactMessageSchema } from '@/features/contact/contracts/contact-message.schema'
+import type {
+  ContactFieldErrors,
+  ContactMessageResult,
+} from '@/features/contact/contracts/contact-result.types'
 
-export async function contactMe(input: unknown) {
-  const { name, email, message } = contactMessageSchema.parse(input)
+function toFieldErrors(error: ZodError): ContactFieldErrors {
+  const fieldErrors: ContactFieldErrors = {}
 
-  if (!process.env.RESEND_API_KEY) {
-    throw new Error('RESEND_API_KEY is not found.')
+  for (const issue of error.issues) {
+    const field = issue.path[0]
+
+    if (
+      (field === 'name' || field === 'email' || field === 'message') &&
+      fieldErrors[field] === undefined
+    ) {
+      fieldErrors[field] = issue.message
+    }
   }
 
-  const resend = new Resend(process.env.RESEND_API_KEY)
+  return fieldErrors
+}
 
-  const result = await resend.emails.send({
-    from: 'onboarding@resend.dev',
-    to: 'developerlucaslima@gmail.com',
-    subject: `${name.toUpperCase()} - CONTACT REQUEST`,
-    text: `${name.toUpperCase()} - CONTACT REQUEST
+export async function contactMe(input: unknown): Promise<ContactMessageResult> {
+  const validation = contactMessageSchema.safeParse(input)
 
-Message:
-${message}
+  if (!validation.success) {
+    return {
+      status: 'validation_error',
+      fieldErrors: toFieldErrors(validation.error),
+    }
+  }
 
-Name: ${name}
-Email: ${email}
+  try {
+    const sendContactMessage = createContactService()
+    await sendContactMessage(validation.data)
 
-This email was sent from the contact form on your website.`,
-  })
+    return { status: 'success' }
+  } catch (error) {
+    if (
+      error instanceof ContactMessageDeliveryError &&
+      error.code === 'unavailable'
+    ) {
+      return { status: 'unavailable' }
+    }
 
-  return result
+    console.error('Contact message submission failed')
+    return { status: 'unexpected_error' }
+  }
 }

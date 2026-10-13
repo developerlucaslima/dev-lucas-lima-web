@@ -4,7 +4,7 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: planejamento geral com implementação incremental autorizada. A01, A02 e A03 concluídas localmente em branches próprias; os demais itens permanecem planejados.
+- Status: planejamento geral com implementação incremental autorizada. A01–A04 concluídas localmente em branches próprias; A02/A03 têm PR aberta para `developer`; A04 aguarda integração dessa base para uma PR independente. Os demais itens permanecem planejados.
 - Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
@@ -34,7 +34,7 @@ Os caminhos abaixo são os atuais. As linhas correspondem à base inspecionada. 
 | A01 | Crítica    | package.json/lock: Next 15.2.3, React 19.0.0                            | Next na faixa afetada pelo advisory oficial de execução remota em RSC; exposição em produção desconhecida | Atualizar versões corrigidas e compatíveis antes de publicar refatoração |
 | A02 | Alta       | src/app/actions/contact-me.ts:7                                         | Tipo TypeScript substitui validação runtime; schema só no cliente                                         | Concluída localmente: schema compartilhado e parse server de entrada unknown |
 | A03 | Alta       | src/app/actions/contact-me.ts:20                                        | Interpolação de conteúdo recebido diretamente em HTML                                                     | Concluída localmente: conteúdo enviado como texto simples                 |
-| A04 | Alta       | action:39 e use-contact-me-submit                                       | SDK retorna à UI e hook não captura exceções                                                              | Resultado próprio serializável, falhas tipadas e fallback seguro         |
+| A04 | Alta       | action:39 e use-contact-me-submit                                       | SDK retorna à UI e hook não captura exceções                                                              | Concluída localmente: resultado próprio serializável, falhas tipadas e fallback seguro |
 | A05 | Alta       | action de contato                                                       | Sem controle de abuso local                                                                               | Limites e proteção real na infraestrutura ou solução mínima confirmada   |
 | A06 | Alta       | contact-me-form.tsx:52                                                  | Erro de email depende de errors.name                                                                      | Condição do próprio campo, aria-invalid/describedby                      |
 | A07 | Alta       | stars-background.tsx:161,169,173                                        | Cleanup só cancela primeiro timer; cadeia e remoções sem rastreamento                                     | Cancelar todos e impedir reagendamento após unmount                      |
@@ -520,10 +520,20 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Schema em `src/features/contact/contracts/contact-message.schema.ts`: trim, objeto estrito, nome de 2–100 caracteres sem controles de cabeçalho, email válido até 254 caracteres e mensagem de 20–5.000 caracteres.
 - Server Action agora recebe `unknown` e executa `parse` antes de conferir configuração ou instanciar o Resend; o cliente usa o mesmo schema para validação imediata.
 - Corpo enviado ao Resend passou de HTML interpolado para texto simples, preservando assunto, destinatário, remetente e informações exibidas.
-- Branch: `codex/A02-A03-contact-validation`, baseada em `developer` alinhada a `origin/developer` no início; PR da tarefa destinada a `developer`. Sem merge, email real ou deploy.
+- Branch: `codex/A02-A03-contact-validation`, baseada em `developer` alinhada a `origin/developer` no início; PR #13 aberta em 13/10/2026 para `developer`. Sem merge, email real ou deploy.
 - Passaram: `npm run lint`, `npx tsc --noEmit`, `npm run build` e `git diff --check`; busca heurística de padrões de credenciais nos arquivos alterados sem ocorrências. Lint/build emitiram o aviso preexistente de ausência do plugin Next na configuração ESLint.
 - Testes automatizados e verificação visual não foram executados neste incremento.
 - A04 e os demais itens do fluxo de contato permanecem pendentes; esta mudança não adiciona origem, rate limit, proteção de abuso ou resultado público sanitizado.
+
+### Implementação A04 — 13/10/2026
+
+- Criado `src/features/contact/contracts/contact-result.types.ts` com união discriminada e serializável para sucesso, erro de validação com erros por campo, indisponibilidade e falha inesperada.
+- Server Action valida com `safeParse`, converte erros Zod para campos conhecidos e traduz configuração ausente, falha retornada pelo Resend e exceção em estados próprios; nenhum objeto ou mensagem do SDK é enviado ao cliente.
+- Hook captura rejeição da chamada como fallback seguro. Falhas mantêm o rascunho e não acionam a animação; o formulário só é limpo e a animação de confirmação só começa após resposta de sucesso com ID do provedor.
+- Passaram: `npm run lint`, `npx tsc --noEmit`, `npm run build`, `git diff --check` e busca heurística de padrões de credenciais nos arquivos alterados sem ocorrências. Lint/build emitiram o aviso de ausência do plugin Next na configuração ESLint.
+- Testes automatizados não foram executados porque o projeto ainda não tem runner configurado; não houve envio real de email nem validação manual no navegador.
+- Branch `codex/A04-contact-result` deriva do commit A02/A03 da PR #13, pois `developer` ainda não contém o contrato necessário. A04 permanece local, sem commit/push; uma PR independente destinada a `developer` depende da integração da PR #13. Sem merge ou deploy.
+- A05 (abuso/rate limit), A06 (associação acessível dos erros de campo) e os demais itens continuam pendentes.
 
 ## 17. Fontes oficiais
 
