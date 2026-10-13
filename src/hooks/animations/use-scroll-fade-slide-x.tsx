@@ -15,16 +15,18 @@ interface UseScrollFadeSlideXProps {
   fromX?: number
 }
 
-export function useScrollFadeSlideX({
+export function useScrollFadeSlideX<T extends HTMLElement = HTMLDivElement>({
   duration = 1.5,
   delay = 0,
   triggerOffset = 100,
   fromX = -50,
 }: UseScrollFadeSlideXProps = {}) {
-  const ref = useRef(null)
+  const ref = useRef<T | null>(null)
 
   useEffect(() => {
-    if (ref.current) {
+    if (!ref.current) return
+
+    const context = gsap.context(() => {
       gsap.fromTo(
         ref.current,
         { opacity: 0, x: fromX },
@@ -40,7 +42,9 @@ export function useScrollFadeSlideX({
           },
         },
       )
-    }
+    }, ref)
+
+    return () => context.revert()
   }, [duration, delay, triggerOffset, fromX])
 
   return ref

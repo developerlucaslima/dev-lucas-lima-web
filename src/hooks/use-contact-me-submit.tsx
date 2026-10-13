@@ -3,18 +3,22 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { contactMe } from '@/app/actions/contact-me'
-import { english } from '@/config/english-config'
 import {
   type ContactMessageInput,
   contactMessageSchema,
 } from '@/features/contact/contracts/contact-message.schema'
 import type { ContactMessageResult } from '@/features/contact/contracts/contact-result.types'
+import type { ContactUiCopy } from '@/features/contact/ui/contact-ui-copy.types'
 
 interface ContactMeSubmiTProps {
   shouldAnimate: () => void
+  submitToastMessages: ContactUiCopy['submitToastMessages']
 }
 
-export function useContactMeSubmit({ shouldAnimate }: ContactMeSubmiTProps) {
+export function useContactMeSubmit({
+  shouldAnimate,
+  submitToastMessages,
+}: ContactMeSubmiTProps) {
   const {
     register,
     handleSubmit,
@@ -23,8 +27,6 @@ export function useContactMeSubmit({ shouldAnimate }: ContactMeSubmiTProps) {
   } = useForm<ContactMessageInput>({
     resolver: zodResolver(contactMessageSchema),
   })
-
-  const submitToastMessages = english.contactMe.submitToastMessages
 
   const onSubmit = async (data: ContactMessageInput) => {
     let result: ContactMessageResult

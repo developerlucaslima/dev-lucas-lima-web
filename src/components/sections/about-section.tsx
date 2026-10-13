@@ -1,17 +1,22 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 
-import { english } from '@/config/english-config'
+import type { HardSkillContent } from '@/features/portfolio/content/portfolio-content.types'
 import { useFloatHardSkills } from '@/hooks/animations/use-float-hard-skills'
 import { useOrganizeHardSkills } from '@/hooks/animations/use-organize-hard-skills'
 import { useWindowResize } from '@/hooks/use-window-resize'
 
-import { AboutContent } from '../about-content'
 import { HardSkill } from '../ui/hard-skills'
 
-export function AboutSection() {
-  const hardSkillsConfig = english.hardSkills
+interface AboutSectionProps {
+  readonly children: ReactNode
+  readonly hardSkills: readonly HardSkillContent[]
+}
+
+export function AboutSection({ children, hardSkills }: AboutSectionProps) {
+  const hardSkillsConfig = hardSkills
   const hardSkillsSectionRef = useRef<HTMLDivElement | null>(null)
   const hardSkillsSectionBottomRef = useRef<HTMLDivElement | null>(null)
 
@@ -64,12 +69,12 @@ export function AboutSection() {
           onClick={handleHardSkillClick}
           isOrganized={isOrganized}
           name={hardSkill.name}
-          icon={hardSkill.icon}
+          iconKey={hardSkill.iconKey}
         />
       ))}
 
       {/* Content */}
-      <AboutContent />
+      {children}
 
       {/* Bottom Area for layout adjustments */}
       <div

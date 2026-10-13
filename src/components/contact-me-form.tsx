@@ -3,7 +3,7 @@
 import { Label } from '@radix-ui/react-label'
 import { Send } from 'lucide-react'
 
-import { english } from '@/config/english-config'
+import type { ContactUiCopy } from '@/features/contact/ui/contact-ui-copy.types'
 import { useContactMeSubmit } from '@/hooks/use-contact-me-submit'
 
 import { Button } from './ui/button'
@@ -19,28 +19,33 @@ import { Input } from './ui/input'
 import { Textarea } from './ui/textarea'
 
 interface ContactMeFormProps {
+  readonly copy: ContactUiCopy['form']
+  readonly submitToastMessages: ContactUiCopy['submitToastMessages']
   shouldAnimate: () => void
 }
 
-export const ContactMeForm = ({ shouldAnimate }: ContactMeFormProps) => {
-  const config = english.contactMe.form
+export const ContactMeForm = ({
+  copy,
+  submitToastMessages,
+  shouldAnimate,
+}: ContactMeFormProps) => {
   const { errors, handleSubmit, isSubmitting, onSubmit, register } =
-    useContactMeSubmit({ shouldAnimate })
+    useContactMeSubmit({ shouldAnimate, submitToastMessages })
 
   return (
     <Card className="w-full">
       <CardHeader className="text-center">
         <CardTitle className="form-element text-center text-2xl uppercase">
-          {config.formTitle}
+          {copy.formTitle}
         </CardTitle>
         <CardDescription className="form-element">
-          {config.formSubtitle}
+          {copy.formSubtitle}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {config.inputs.map((item) => {
-            const fieldName = item.register as 'name' | 'email'
+          {copy.inputs.map((item) => {
+            const fieldName = item.register
             const fieldError = errors[fieldName]?.message
             const errorId = `${fieldName}-error`
 
@@ -65,14 +70,14 @@ export const ContactMeForm = ({ shouldAnimate }: ContactMeFormProps) => {
             )
           })}
           <div className="form-element space-y-2">
-            <Label htmlFor="message">{config.textArea.name}</Label>
+            <Label htmlFor="message">{copy.textArea.name}</Label>
             <Textarea
-              id={config.textArea.register}
-              placeholder={config.textArea.placeholder}
+              id={copy.textArea.register}
+              placeholder={copy.textArea.placeholder}
               className="min-h-[120px]"
               aria-invalid={Boolean(errors.message)}
               aria-describedby={errors.message ? 'message-error' : undefined}
-              {...register(config.textArea.register as 'message')}
+              {...register(copy.textArea.register)}
             />
             {errors.message && (
               <p id="message-error" className="text-sm text-red-500">
@@ -89,8 +94,8 @@ export const ContactMeForm = ({ shouldAnimate }: ContactMeFormProps) => {
             >
               <Send className="mr-2 h-4 w-4" />
               {isSubmitting
-                ? config.buttonTexts.isSubmitting
-                : config.buttonTexts.isNotSubmitting}
+                ? copy.buttonTexts.isSubmitting
+                : copy.buttonTexts.isNotSubmitting}
             </Button>
           </CardFooter>
         </form>

@@ -3,12 +3,12 @@
 import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
 
-import type { HardSkillType } from '@/components/ui/hard-skills'
+import type { HardSkillContent } from '@/features/portfolio/content/portfolio-content.types'
 
 // TODO: max width 1024px
 
 interface UseOrganizeHardSkillsProps {
-  hardSkills: HardSkillType[]
+  hardSkills: readonly Pick<HardSkillContent, 'id'>[]
   hardSkillsSectionRef: React.RefObject<HTMLDivElement | null>
   hardSkillsSectionBottomRef: React.RefObject<HTMLDivElement | null>
 }

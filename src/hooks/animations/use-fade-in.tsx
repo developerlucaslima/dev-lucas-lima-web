@@ -8,16 +8,20 @@ interface UseFadeInProps {
   delay?: number
 }
 
-export const useFadeIn = ({
+export const useFadeIn = <T extends HTMLElement = HTMLDivElement>({
   duration = 1.5,
   delay = 0.5,
 }: UseFadeInProps = {}) => {
-  const ref = useRef(null)
+  const ref = useRef<T | null>(null)
 
   useEffect(() => {
-    if (ref.current) {
+    if (!ref.current) return
+
+    const context = gsap.context(() => {
       gsap.fromTo(ref.current, { opacity: 0 }, { opacity: 1, duration, delay })
-    }
+    }, ref)
+
+    return () => context.revert()
   }, [duration, delay])
 
   return ref

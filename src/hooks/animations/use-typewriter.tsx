@@ -9,33 +9,39 @@ if (typeof window !== 'undefined') {
 }
 
 interface UseTypewriterProps {
-  texts: string[]
+  texts: readonly string[]
 }
 
-export const useTypewriter = ({ texts }: UseTypewriterProps) => {
-  const textRef = useRef<HTMLDivElement>(null)
+export const useTypewriter = <T extends HTMLElement = HTMLSpanElement>({
+  texts,
+}: UseTypewriterProps) => {
+  const textRef = useRef<T | null>(null)
 
   useEffect(() => {
     if (!textRef.current) return
 
-    const tlMaster = gsap.timeline({ repeat: -1, repeatDelay: 1 })
+    const context = gsap.context(() => {
+      const tlMaster = gsap.timeline({ repeat: -1, repeatDelay: 1 })
 
-    texts.forEach((text) => {
-      const duration = text.length / 10
-      const tlText = gsap.timeline({
-        repeat: 1,
-        yoyo: true,
-        repeatDelay: 1,
-        delay: 1,
+      texts.forEach((text) => {
+        const duration = text.length / 10
+        const tlText = gsap.timeline({
+          repeat: 1,
+          yoyo: true,
+          repeatDelay: 1,
+          delay: 1,
+        })
+
+        tlText.to(textRef.current, {
+          duration,
+          text,
+        })
+
+        tlMaster.add(tlText)
       })
+    }, textRef)
 
-      tlText.to(textRef.current, {
-        duration,
-        text,
-      })
-
-      tlMaster.add(tlText)
-    })
+    return () => context.revert()
   }, [texts])
 
   return { textRef }

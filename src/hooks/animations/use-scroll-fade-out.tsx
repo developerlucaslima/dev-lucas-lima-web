@@ -14,15 +14,17 @@ interface UseScrollFadeOutProps {
   triggerOffset?: number
 }
 
-export function useScrollFadeOut({
+export function useScrollFadeOut<T extends HTMLElement = HTMLDivElement>({
   duration = 0.8,
   delay = 0,
   triggerOffset = 100,
 }: UseScrollFadeOutProps = {}) {
-  const ref = useRef(null)
+  const ref = useRef<T | null>(null)
 
   useEffect(() => {
-    if (ref.current) {
+    if (!ref.current) return
+
+    const context = gsap.context(() => {
       gsap.fromTo(
         ref.current,
         { opacity: 1 },
@@ -37,7 +39,9 @@ export function useScrollFadeOut({
           },
         },
       )
-    }
+    }, ref)
+
+    return () => context.revert()
   }, [duration, delay, triggerOffset])
 
   return ref

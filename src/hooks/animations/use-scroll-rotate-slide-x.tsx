@@ -16,17 +16,19 @@ interface ScrollRotateSlideXProps {
   fromRotation?: number
 }
 
-export function useScrollRotateSlideX({
+export function useScrollRotateSlideX<T extends HTMLElement = HTMLDivElement>({
   duration = 2,
   delay = 0,
   triggerOffset = 100,
   fromX = 400,
   fromRotation = 180,
 }: ScrollRotateSlideXProps = {}) {
-  const ref = useRef(null)
+  const ref = useRef<T | null>(null)
 
   useEffect(() => {
-    if (ref.current) {
+    if (!ref.current) return
+
+    const context = gsap.context(() => {
       gsap.fromTo(
         ref.current,
         { opacity: 0, x: fromX, rotation: fromRotation },
@@ -43,7 +45,9 @@ export function useScrollRotateSlideX({
           },
         },
       )
-    }
+    }, ref)
+
+    return () => context.revert()
   }, [duration, delay, triggerOffset, fromX])
 
   return ref

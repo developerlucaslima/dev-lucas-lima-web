@@ -4,7 +4,7 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: planejamento geral com implementação incremental autorizada. A01–A04 concluídas localmente em branches próprias; PR #13 (A02/A03) integrada em `developer`; PR #14 (A04) aberta para `developer`. A05 tem limite local de payload; proteção de abuso na infraestrutura continua pendente de evidência. A06 concluída localmente na branch A05/A06. Os demais itens permanecem planejados.
+- Status: A01 integrada em `main` pela PR histórica #12; A02–A06 integradas em `developer` pelas PRs #13–#15. A07 concluída na branch `codex/A07-stars-timeout-cleanup` (commit `9a5bc70`, enviada ao remoto), mas a PR #16 ainda não foi criada: a integração GitHub recusou acesso e a automação do navegador foi interrompida por não conseguir confirmar a URL da janela. A08–A12 concluídas localmente em `codex/A08-A12-animation-content-accessibility`, ainda sem commit ou PR. A proteção WAF/rate limit de A05 continua pendente de evidência. A13 em diante permanecem planejadas.
 - Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
@@ -543,6 +543,23 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Passaram localmente: `npx prettier --check --single-quote --no-semi` nos arquivos alterados, `npx tsc --noEmit`, `npm run lint`, `npm run build` e `git diff --check`; a busca heurística por credenciais não encontrou correspondências. Lint/build mantêm o aviso existente de plugin Next ausente na configuração ESLint.
 - Testes automatizados não foram executados: o projeto não configura runner de testes. Não houve validação em preview, envio real de email, merge ou deploy.
 - Fonte: [Configuração serverActions do Next.js 15](https://nextjs.org/docs/15/app/api-reference/config/next-config-js/serverActions).
+
+### Implementação A07 — 13/10/2026
+
+- Timers de criação, repetição e remoção das estrelas cadentes são rastreados por instância; o cleanup marca a instância como encerrada, cancela todos os timers e impede que callbacks atrasados atualizem estado ou agendem trabalho novamente.
+- Branch `codex/A07-stars-timeout-cleanup`, commit `9a5bc70`, enviada ao remoto. A PR #16 não foi criada: a API do GitHub respondeu 403 por falta de acesso à integração; a tentativa pela janela do navegador foi encerrada pela proteção de automação por não conseguir confirmar a URL. Nenhum merge ou deploy foi feito.
+- Validações registradas na implementação: Prettier, `npx tsc --noEmit`, `npm run lint`, `npm run build`, `git diff --check` e busca heurística de segredos. Sem runner de testes ou validação manual no navegador.
+
+### Implementação A08–A12 — 13/10/2026
+
+- A08: hooks de animação GSAP previstos no item e a ilha `ScrollReveal` criam contexto por instância e executam `context.revert()` no cleanup. As animações das habilidades mantêm o cleanup de seus tweens no unmount.
+- A09: conteúdo do portfólio saiu do grande objeto importado por seções client para um módulo serializável de conteúdo server-side. Seções de apresentação passaram a ser Server Components; estado interativo e animações ficam nas ilhas cliente necessárias.
+- A10: contratos de conteúdo e cópias foram separados por feature; ícones são identificadores serializáveis resolvidos pela apresentação. O cálculo puro de duração concluída ficou isolado e os valores de idade/experiência são montados no servidor a partir da data civil de São Paulo, com revalidação diária.
+- A11: a seção de contato agora usa o ID `contact`, distinto de `about`.
+- A12: cada habilidade usa botão nativo com teclado, nome acessível, `aria-pressed`, foco visível e largura válida de 120 px.
+- Passaram: Prettier nos arquivos alterados; `npx tsc --noEmit`; `npx eslint src`; `npm run build`; `git diff --check`; busca heurística por padrões de segredos sem correspondências; seis casos de fronteira de data e rejeição de data inicial futura no cálculo de duração.
+- `npm run lint` não concluiu nesta execução porque o SWC não conseguiu canonicalizar o caminho do projeto (acesso negado); a verificação direta `npx eslint src` passou. O build concluiu; Next exibiu os avisos já existentes sobre o plugin ESLint e `next lint` deprecated.
+- O projeto não configura runner de testes; não houve validação manual em navegador, instalação de dependências, auditoria completa, email, merge ou deploy. Alterações permanecem locais na branch `codex/A08-A12-animation-content-accessibility`, baseada em `origin/developer` no commit `c721ca9`; sem commit ou PR.
 
 ## 17. Fontes oficiais
 
