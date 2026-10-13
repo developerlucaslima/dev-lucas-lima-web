@@ -8,6 +8,7 @@ import {
   type ContactMessageInput,
   contactMessageSchema,
 } from '@/features/contact/contracts/contact-message.schema'
+import type { ContactMessageResult } from '@/features/contact/contracts/contact-result.types'
 
 interface ContactMeSubmiTProps {
   shouldAnimate: () => void
@@ -26,9 +27,15 @@ export function useContactMeSubmit({ shouldAnimate }: ContactMeSubmiTProps) {
   const submitToastMessages = english.contactMe.submitToastMessages
 
   const onSubmit = async (data: ContactMessageInput) => {
-    shouldAnimate()
-    const result = await contactMe(data)
-    if (result.data?.id === undefined) {
+    let result: ContactMessageResult
+
+    try {
+      result = await contactMe(data)
+    } catch {
+      result = { status: 'unexpected_error' }
+    }
+
+    if (result.status !== 'success') {
       toast.error(submitToastMessages.error.title, {
         description: submitToastMessages.error.description,
       })
@@ -38,6 +45,7 @@ export function useContactMeSubmit({ shouldAnimate }: ContactMeSubmiTProps) {
       description: submitToastMessages.success.description,
     })
     reset()
+    shouldAnimate()
   }
 
   return {
