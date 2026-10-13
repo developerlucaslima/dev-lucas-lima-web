@@ -4,8 +4,8 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: planejamento geral com implementação incremental autorizada. A01 concluída localmente; demais itens permanecem planejados.
-- Entrega inicial: este documento de planejamento. Implementação de A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md.
+- Status: planejamento geral com implementação incremental autorizada. A01, A02 e A03 concluídas localmente em branches próprias; os demais itens permanecem planejados.
+- Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
 - Textos, experiências, fotos, idioma inglês e identidade visual permanecem como base de regressão. Atualização editorial será outra etapa.
@@ -32,8 +32,8 @@ Os caminhos abaixo são os atuais. As linhas correspondem à base inspecionada. 
 | ID  | Prioridade | Evidência                                                               | Problema/consequência                                                                                     | Plano                                                                    |
 | --- | ---------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | A01 | Crítica    | package.json/lock: Next 15.2.3, React 19.0.0                            | Next na faixa afetada pelo advisory oficial de execução remota em RSC; exposição em produção desconhecida | Atualizar versões corrigidas e compatíveis antes de publicar refatoração |
-| A02 | Alta       | src/app/actions/contact-me.ts:7                                         | Tipo TypeScript substitui validação runtime; schema só no cliente                                         | Entrada unknown e parse server                                           |
-| A03 | Alta       | src/app/actions/contact-me.ts:20                                        | Interpolação de conteúdo recebido diretamente em HTML                                                     | Texto simples; HTML só com escape contextual e testes                    |
+| A02 | Alta       | src/app/actions/contact-me.ts:7                                         | Tipo TypeScript substitui validação runtime; schema só no cliente                                         | Concluída localmente: schema compartilhado e parse server de entrada unknown |
+| A03 | Alta       | src/app/actions/contact-me.ts:20                                        | Interpolação de conteúdo recebido diretamente em HTML                                                     | Concluída localmente: conteúdo enviado como texto simples                 |
 | A04 | Alta       | action:39 e use-contact-me-submit                                       | SDK retorna à UI e hook não captura exceções                                                              | Resultado próprio serializável, falhas tipadas e fallback seguro         |
 | A05 | Alta       | action de contato                                                       | Sem controle de abuso local                                                                               | Limites e proteção real na infraestrutura ou solução mínima confirmada   |
 | A06 | Alta       | contact-me-form.tsx:52                                                  | Erro de email depende de errors.name                                                                      | Condição do próprio campo, aria-invalid/describedby                      |
@@ -514,6 +514,16 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Busca heurística de credenciais em src: nenhuma ocorrência nos padrões consultados; não é auditoria de histórico/infra.
 - Consulta oficial de segurança e migração Next.
 - Não executados: instalação, lint, tipos, build, testes, browser/site, email, audit completo e deploy.
+
+### Implementação A02/A03 — 12/10/2026
+
+- Schema em `src/features/contact/contracts/contact-message.schema.ts`: trim, objeto estrito, nome de 2–100 caracteres sem controles de cabeçalho, email válido até 254 caracteres e mensagem de 20–5.000 caracteres.
+- Server Action agora recebe `unknown` e executa `parse` antes de conferir configuração ou instanciar o Resend; o cliente usa o mesmo schema para validação imediata.
+- Corpo enviado ao Resend passou de HTML interpolado para texto simples, preservando assunto, destinatário, remetente e informações exibidas.
+- Branch: `codex/A02-A03-contact-validation`, baseada em `developer` alinhada a `origin/developer` no início; PR da tarefa destinada a `developer`. Sem merge, email real ou deploy.
+- Passaram: `npm run lint`, `npx tsc --noEmit`, `npm run build` e `git diff --check`; busca heurística de padrões de credenciais nos arquivos alterados sem ocorrências. Lint/build emitiram o aviso preexistente de ausência do plugin Next na configuração ESLint.
+- Testes automatizados e verificação visual não foram executados neste incremento.
+- A04 e os demais itens do fluxo de contato permanecem pendentes; esta mudança não adiciona origem, rate limit, proteção de abuso ou resultado público sanitizado.
 
 ## 17. Fontes oficiais
 

@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { contactMe } from '@/app/actions/contact-me'
-import {
-  type ContactMeFormData,
-  contactMeSchema,
-} from '@/app/actions/contact-me-type'
 import { english } from '@/config/english-config'
+import {
+  type ContactMessageInput,
+  contactMessageSchema,
+} from '@/features/contact/contracts/contact-message.schema'
 
 interface ContactMeSubmiTProps {
   shouldAnimate: () => void
@@ -19,13 +19,13 @@ export function useContactMeSubmit({ shouldAnimate }: ContactMeSubmiTProps) {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<ContactMeFormData>({
-    resolver: zodResolver(contactMeSchema),
+  } = useForm<ContactMessageInput>({
+    resolver: zodResolver(contactMessageSchema),
   })
 
   const submitToastMessages = english.contactMe.submitToastMessages
 
-  const onSubmit = async (data: ContactMeFormData) => {
+  const onSubmit = async (data: ContactMessageInput) => {
     shouldAnimate()
     const result = await contactMe(data)
     if (result.data?.id === undefined) {
