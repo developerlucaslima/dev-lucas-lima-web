@@ -1,0 +1,27 @@
+name: Quality checks
+
+on:
+  pull_request:
+    branches:
+      - developer
+      - main
+  push:
+    branches:
+      - developer
+      - main
+
+jobs:
+  quality:
+    name: Format, lint, types, structure, tests and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install pinned npm
+        run: npm install --global npm@11.19.0
+      - run: npm ci
+      - run: npm run ci

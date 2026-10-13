@@ -8,28 +8,35 @@ on:
       - main
 
 jobs:
-  lint:
-    name: Lint
+  quality:
+    name: Quality checks
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3
-      - run: npm install
-      - run: npm run lint
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: npm install
-      - run: npm run build
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install pinned npm
+        run: npm install --global npm@11.19.0
+      - run: npm ci
+      - run: npm run ci
   deploy-production:
     name: Deploy (Production)
-    needs: [lint, build]
+    needs: quality
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Install pinned npm
+        run: npm install --global npm@11.19.0
+      - run: npm ci
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: npm install --global vercel@59.16.0
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts

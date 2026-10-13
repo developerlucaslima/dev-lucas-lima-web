@@ -1,26 +1,24 @@
 'use client'
 
-import { ContactMeForm } from '@/components/contact-me-form'
 import { ScrollReveal } from '@/components/shared/scroll-reveal/scroll-reveal'
-import { MoonAndRocket } from '@/components/ui/moon'
-import type { ContactUiCopy } from '@/features/contact/ui/contact-ui-copy.types'
-import { useMoonRocketAnimation } from '@/hooks/animations/use-moon-rocket-animation'
+import { ContactForm } from '@/features/contact/ui/components/contact-form/contact-form'
+import { useMoonRocketAnimation } from '@/features/contact/ui/components/moon-and-rocket/hooks/use-moon-rocket-animation'
+import { MoonAndRocket } from '@/features/contact/ui/components/moon-and-rocket/moon-and-rocket'
 
-interface ContactSceneProps {
-  readonly copy: ContactUiCopy
-}
+import { contactSceneStyles } from './contact-scene.styles'
+import type { ContactSceneProps } from './contact-scene.types'
 
 export function ContactScene({ copy }: ContactSceneProps) {
   const { moonRef, rocketRef, triggerAnimation } = useMoonRocketAnimation()
 
   return (
-    <div className="flex flex-wrap-reverse items-center justify-center gap-4 sm:flex-wrap sm:gap-0">
+    <div className={contactSceneStyles.root}>
       <ScrollReveal
-        className="mx-auto flex w-full max-w-md items-center justify-center"
+        className={contactSceneStyles.form}
         fromX={-100}
         duration={1.5}
       >
-        <ContactMeForm
+        <ContactForm
           copy={copy.form}
           submitToastMessages={copy.submitToastMessages}
           shouldAnimate={triggerAnimation}
@@ -28,7 +26,7 @@ export function ContactScene({ copy }: ContactSceneProps) {
       </ScrollReveal>
 
       <ScrollReveal
-        className="mx-auto flex w-full max-w-40 items-center justify-center sm:max-w-xs"
+        className={contactSceneStyles.illustration}
         fromX={100}
         duration={1.5}
       >

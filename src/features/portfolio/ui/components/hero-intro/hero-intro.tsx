@@ -1,13 +1,10 @@
 'use client'
 
-import { useFadeIn } from '@/hooks/animations/use-fade-in'
-import { useScrollFadeOut } from '@/hooks/animations/use-scroll-fade-out'
-import { useTypewriter } from '@/hooks/animations/use-typewriter'
-
-interface HeroIntroProps {
-  readonly subtitles: readonly string[]
-  readonly scrollDown: string
-}
+import { heroIntroStyles } from './hero-intro.styles'
+import type { HeroIntroProps } from './hero-intro.types'
+import { useFadeIn } from './hooks/use-fade-in'
+import { useScrollFadeOut } from './hooks/use-scroll-fade-out'
+import { useTypewriter } from './hooks/use-typewriter'
 
 export function HeroIntro({ subtitles, scrollDown }: HeroIntroProps) {
   const { textRef } = useTypewriter<HTMLSpanElement>({ texts: subtitles })
@@ -16,22 +13,16 @@ export function HeroIntro({ subtitles, scrollDown }: HeroIntroProps) {
 
   return (
     <>
-      <div className="text-foreground/70 h-16">
-        <h2
-          ref={subtitleRef}
-          className="text-2xl font-light sm:text-3xl md:text-4xl"
-        >
+      <div className={heroIntroStyles.subtitleContainer}>
+        <h2 ref={subtitleRef} className={heroIntroStyles.subtitle}>
           <span>&lt;</span>
           <span ref={textRef}>{subtitles[0]}</span>
-          <span className="animate-caret-blink">|</span>
+          <span className={heroIntroStyles.caret}>|</span>
           <span>/&gt;</span>
         </h2>
       </div>
 
-      <p
-        ref={scrollMessageRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 transform animate-bounce uppercase"
-      >
+      <p ref={scrollMessageRef} className={heroIntroStyles.scrollMessage}>
         {scrollDown}
       </p>
     </>
