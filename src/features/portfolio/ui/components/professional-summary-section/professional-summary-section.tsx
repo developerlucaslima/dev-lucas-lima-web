@@ -1,4 +1,6 @@
-import { Card } from '@/components/shared/card/card'
+import { Badge } from '@fradelli/ui/badge'
+
+import { GlassCard } from '@/components/shared/glass-card/glass-card'
 import { ScrollReveal } from '@/components/shared/scroll-reveal/scroll-reveal'
 
 import { professionalSummarySectionStyles as styles } from './professional-summary-section.styles'
@@ -21,23 +23,25 @@ export function ProfessionalSummarySection({
       <div className={styles.groups}>
         {content.groups.map((group) => (
           <ScrollReveal key={group.id}>
-            <Card className={styles.card}>
+            <GlassCard className={styles.card}>
               <h3 className={styles.title}>{group.title}</h3>
               <p className={styles.description}>{group.description}</p>
               <ul className={styles.technologies}>
                 {group.technologies.map((technology) => (
-                  <li key={technology} className={styles.technology}>
-                    {technology}
+                  <li key={technology}>
+                    <Badge variant="secondary" className={styles.technology}>
+                      {technology}
+                    </Badge>
                   </li>
                 ))}
               </ul>
-            </Card>
+            </GlassCard>
           </ScrollReveal>
         ))}
       </div>
       <div className={styles.educationRow}>
         <ScrollReveal>
-          <Card className={styles.card}>
+          <GlassCard className={styles.card}>
             <h3 className={styles.title}>{content.education.sectionTitle}</h3>
             <p>{content.education.course}</p>
             <p className={styles.description}>
@@ -60,10 +64,10 @@ export function ProfessionalSummarySection({
                 ))}
               </ul>
             </div>
-          </Card>
+          </GlassCard>
         </ScrollReveal>
         <ScrollReveal>
-          <Card className={styles.card}>
+          <GlassCard className={styles.card}>
             <h3 className={styles.title}>{content.languages.title}</h3>
             <ul className={styles.list}>
               {content.languages.items.map((language) => (
@@ -89,7 +93,7 @@ export function ProfessionalSummarySection({
                 {content.languages.certificate.linkLabel}
               </a>
             </div>
-          </Card>
+          </GlassCard>
         </ScrollReveal>
       </div>
     </section>

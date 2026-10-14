@@ -1,5 +1,7 @@
 'use client'
 
+import { Button } from '@fradelli/ui/button'
+
 import { SUPPORTED_LOCALES } from '../config'
 import { useLocaleSwitcher } from './hooks/use-locale-switcher'
 import { localeAbbreviations, localeLabels } from './locale-switcher.constants'
@@ -17,7 +19,9 @@ export function LocaleSwitcher() {
       role="group"
     >
       {SUPPORTED_LOCALES.map((locale) => (
-        <button
+        <Button
+          variant="ghost"
+          size="sm"
           key={locale}
           aria-label={translate(localeLabels[locale])}
           aria-pressed={locale === activeLocale}
@@ -29,7 +33,7 @@ export function LocaleSwitcher() {
           type="button"
         >
           {localeAbbreviations[locale]}
-        </button>
+        </Button>
       ))}
     </div>
   )

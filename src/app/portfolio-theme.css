@@ -1,0 +1,97 @@
+/* The package owns the palette; these surfaces belong to the portfolio. */
+:root {
+  --portfolio-glass-surface: color-mix(
+    in srgb,
+    var(--fd-color-surface) 80%,
+    transparent
+  );
+  --portfolio-glass-elevated: color-mix(
+    in srgb,
+    var(--fd-color-surface-elevated) 94%,
+    transparent
+  );
+  --portfolio-glass-border: color-mix(
+    in srgb,
+    var(--fd-color-muted-foreground) 24%,
+    transparent
+  );
+  --portfolio-glass-shadow: 0 8px 32px
+    color-mix(in srgb, var(--fd-color-background) 25%, transparent);
+}
+
+/* Keep anchored headings below the fixed language selector. */
+section[id] {
+  scroll-margin-top: calc(var(--fd-space-12) + var(--fd-space-8));
+}
+
+.portfolio-glass {
+  background-color: var(--portfolio-glass-surface);
+  border-color: var(--portfolio-glass-border);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--portfolio-glass-shadow);
+}
+
+.portfolio-glass-elevated {
+  background-color: var(--portfolio-glass-elevated);
+  border-color: var(--portfolio-glass-border);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.portfolio-card {
+  transition:
+    transform var(--fd-motion-duration-normal) var(--fd-motion-easing-standard),
+    translate var(--fd-motion-duration-normal) var(--fd-motion-easing-standard),
+    scale var(--fd-motion-duration-normal) var(--fd-motion-easing-standard),
+    border-color var(--fd-motion-duration-normal)
+      var(--fd-motion-easing-standard),
+    box-shadow var(--fd-motion-duration-normal) var(--fd-motion-easing-standard);
+}
+
+@media (hover: hover) {
+  .portfolio-card:hover {
+    border-color: color-mix(
+      in srgb,
+      var(--fd-color-primary) 45%,
+      var(--fd-color-border)
+    );
+  }
+}
+
+.portfolio-section-title {
+  font-size: var(--fd-font-size-2xl);
+  line-height: var(--fd-font-line-height-2xl);
+  font-weight: var(--fd-font-weight-heading);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.portfolio-card-title {
+  font-size: var(--fd-font-size-lg);
+  line-height: var(--fd-font-line-height-lg);
+  font-weight: var(--fd-font-weight-heading);
+  letter-spacing: -0.015em;
+}
+
+.portfolio-body {
+  font-size: var(--fd-font-size-md);
+  line-height: var(--fd-font-line-height-lg);
+}
+
+.portfolio-hero-title {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  line-height: 1.05;
+  font-weight: var(--fd-font-weight-display);
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+@supports not (backdrop-filter: blur(12px)) {
+  .portfolio-glass {
+    background-color: var(--fd-color-surface);
+  }
+  .portfolio-glass-elevated {
+    background-color: var(--fd-color-surface-elevated);
+  }
+}
