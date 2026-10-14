@@ -1,4 +1,6 @@
-import { Card } from '@/components/shared/card/card'
+import { Badge } from '@fradelli/ui/badge'
+
+import { GlassCard } from '@/components/shared/glass-card/glass-card'
 import { ScrollReveal } from '@/components/shared/scroll-reveal/scroll-reveal'
 
 import { productsSectionStyles as styles } from './products-section.styles'
@@ -19,20 +21,24 @@ export function ProductsSection({ content }: ProductsSectionProps) {
       {content.cards.map((product) => (
         <ScrollReveal key={product.id}>
           <article aria-labelledby={`product-${product.id}`}>
-            <Card className={styles.card}>
+            <GlassCard className={styles.card}>
               <div className={styles.header}>
                 <h3 id={`product-${product.id}`} className={styles.name}>
                   {product.name}
                 </h3>
-                <span className={styles.status}>{product.status}</span>
+                <Badge variant="warning" className={styles.status}>
+                  {product.status}
+                </Badge>
               </div>
               <p className={styles.role}>{product.role}</p>
               <p className={styles.role}>{product.date}</p>
               <p className={styles.summary}>{product.summary}</p>
               <ul className={styles.technologies}>
                 {product.technologies.map((technology) => (
-                  <li key={technology} className={styles.technology}>
-                    {technology}
+                  <li key={technology}>
+                    <Badge variant="secondary" className={styles.technology}>
+                      {technology}
+                    </Badge>
                   </li>
                 ))}
               </ul>
@@ -46,7 +52,7 @@ export function ProductsSection({ content }: ProductsSectionProps) {
                   {content.linkLabel}
                 </a>
               )}
-            </Card>
+            </GlassCard>
           </article>
         </ScrollReveal>
       ))}

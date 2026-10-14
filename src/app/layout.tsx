@@ -7,7 +7,11 @@ import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 import { ThemeProvider } from '@/components/shared/theme-provider/theme-provider'
 import { I18nClientProvider } from '@/i18n/i18n-client-provider/i18n-client-provider'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export async function generateMetadata(): Promise<Metadata> {
   const translate = await getTranslations('Metadata')
@@ -27,10 +31,12 @@ export default async function RootLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body
-        className={`${inter.className} ${inter.variable} bg-background text-foreground antialiased`}
-      >
+    <html
+      lang={locale}
+      className={`${inter.variable} dark`}
+      suppressHydrationWarning
+    >
+      <body className="bg-background text-foreground font-sans antialiased">
         <I18nClientProvider locale={locale} messages={messages}>
           <ThemeProvider>{children}</ThemeProvider>
         </I18nClientProvider>

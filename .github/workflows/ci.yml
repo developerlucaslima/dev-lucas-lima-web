@@ -15,13 +15,20 @@ jobs:
     name: Format, lint, types, structure, tests and build
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@fradelli'
       - name: Install pinned npm
         run: npm install --global npm@11.19.0
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FRADELLI_PACKAGES_TOKEN || github.token }}
       - run: npm run ci

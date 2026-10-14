@@ -1,10 +1,8 @@
+import { CardContent, CardFooter } from '@fradelli/ui/card'
 import { Code2 } from 'lucide-react'
 import Image from 'next/image'
 
 import { AnimatedCard } from '@/components/shared/animated-card/animated-card'
-import { CardContent } from '@/components/shared/card-content/card-content'
-import { CardFooter } from '@/components/shared/card-footer/card-footer'
-import { CardIconTitle } from '@/components/shared/card-icon-title/card-icon-title'
 import { ScrollReveal } from '@/components/shared/scroll-reveal/scroll-reveal'
 
 import { socialIcons } from './about-content.constants'
@@ -42,18 +40,20 @@ export function AboutContent({ content, heroContent }: AboutContentProps) {
               </div>
               <div className={aboutContentStyles.aboutCardPosition}>
                 <AnimatedCard className={aboutContentStyles.aboutCard}>
-                  <CardIconTitle>
+                  <h3 className={aboutContentStyles.cardTitle}>
                     <Code2 className={aboutContentStyles.codeIcon} size={20} />
-                    <div className="uppercase">{content.aboutCard.title}</div>
-                  </CardIconTitle>
-                  <CardContent>
+                    <span className={aboutContentStyles.cardName}>
+                      {content.aboutCard.title}
+                    </span>
+                  </h3>
+                  <CardContent className={aboutContentStyles.cardContent}>
                     {heroContent.subtitles.map((subtitle) => (
                       <p key={subtitle} className={aboutContentStyles.subtitle}>
                         {subtitle}
                       </p>
                     ))}
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className={aboutContentStyles.cardFooter}>
                     {content.aboutCard.links.map((link) => {
                       const Icon = socialIcons[link.iconKey]
 

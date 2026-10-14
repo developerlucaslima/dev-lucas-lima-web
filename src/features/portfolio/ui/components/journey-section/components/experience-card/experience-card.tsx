@@ -1,4 +1,4 @@
-import { Card } from '@/components/shared/card/card'
+import { GlassCard } from '@/components/shared/glass-card/glass-card'
 
 import { experienceCardStyles } from './experience-card.styles'
 import type { ExperienceCardProps } from './experience-card.types'
@@ -9,7 +9,7 @@ export function ExperienceCard({
 }: ExperienceCardProps) {
   return (
     <article aria-labelledby={`experience-${content.id}`}>
-      <Card className={experienceCardStyles.card}>
+      <GlassCard className={experienceCardStyles.card}>
         <p className={experienceCardStyles.date}>{content.date}</p>
         <h3
           id={`experience-${content.id}`}
@@ -41,7 +41,7 @@ export function ExperienceCard({
             {companyLinkLabel} · {content.company}
           </a>
         )}
-      </Card>
+      </GlassCard>
     </article>
   )
 }

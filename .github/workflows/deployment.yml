@@ -12,19 +12,29 @@ jobs:
     name: Quality checks
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      packages: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
           cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@fradelli'
       - name: Install pinned npm
         run: npm install --global npm@11.19.0
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FRADELLI_PACKAGES_TOKEN || github.token }}
       - run: npm run ci
   deploy-production:
     name: Deploy (Production)
     needs: quality
+    permissions:
+      contents: read
+      packages: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,14 +42,20 @@ jobs:
         with:
           node-version-file: .node-version
           cache: npm
+          registry-url: https://npm.pkg.github.com
+          scope: '@fradelli'
       - name: Install pinned npm
         run: npm install --global npm@11.19.0
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FRADELLI_PACKAGES_TOKEN || github.token }}
       - name: Install Vercel CLI
         run: npm install --global vercel@59.16.0
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.FRADELLI_PACKAGES_TOKEN || github.token }}
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
