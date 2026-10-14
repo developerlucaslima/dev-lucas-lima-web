@@ -3,7 +3,10 @@
 import { gsap } from 'gsap'
 import { useCallback, useEffect, useRef } from 'react'
 
-import { SKILL_BADGE_SIZE } from '../skills-field.constants'
+import {
+  SKILL_BADGE_SIZE,
+  SKILL_GRID_BOTTOM_GAP,
+} from '../skills-field.constants'
 import { calculateSkillGridPositions } from '../skills-field.utils'
 import type { UseOrganizeHardSkillsProps } from './use-organize-hard-skills.types'
 
@@ -28,6 +31,7 @@ export function useOrganizeHardSkills({
         bottomAreaTop,
         skillCount: hardSkills.length,
         cellSize: SKILL_BADGE_SIZE,
+        bottomGap: SKILL_GRID_BOTTOM_GAP,
       })
 
       killAnimations()
