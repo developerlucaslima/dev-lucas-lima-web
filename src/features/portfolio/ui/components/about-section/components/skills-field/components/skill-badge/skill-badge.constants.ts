@@ -1,10 +1,12 @@
 import type { IconType } from 'react-icons'
-import { FaCss3, FaGithub, FaNodeJs, FaReact } from 'react-icons/fa'
+import { FaCss3, FaGithub, FaJava, FaNodeJs, FaReact } from 'react-icons/fa'
 import { RiNextjsFill, RiTailwindCssFill } from 'react-icons/ri'
 import {
   SiGraphql,
   SiJavascript,
+  SiNestjs,
   SiPostgresql,
+  SiSpringboot,
   SiTypescript,
 } from 'react-icons/si'
 
@@ -21,4 +23,7 @@ export const hardSkillIcons: Record<HardSkillIconKey, IconType> = {
   react: FaReact,
   tailwind: RiTailwindCssFill,
   typescript: SiTypescript,
+  nestjs: SiNestjs,
+  java: FaJava,
+  spring: SiSpringboot,
 }

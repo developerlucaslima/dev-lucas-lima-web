@@ -2,6 +2,7 @@ import type { ContactMessageValidationMessages } from '@/features/contact/contra
 
 export interface ContactUiCopy {
   readonly title: string
+  readonly introduction: string
   readonly illustration: {
     readonly moonTitle: string
     readonly rocketTitle: string

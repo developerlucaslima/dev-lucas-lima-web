@@ -9,6 +9,9 @@ import { AboutSection } from '@/features/portfolio/ui/components/about-section/a
 import { HeroSection } from '@/features/portfolio/ui/components/hero-section/hero-section'
 import { JourneySection } from '@/features/portfolio/ui/components/journey-section/journey-section'
 import { PhilosophySection } from '@/features/portfolio/ui/components/philosophy-section/philosophy-section'
+import { PortfolioNavigation } from '@/features/portfolio/ui/components/portfolio-navigation/portfolio-navigation'
+import { ProductsSection } from '@/features/portfolio/ui/components/products-section/products-section'
+import { ProfessionalSummarySection } from '@/features/portfolio/ui/components/professional-summary-section/professional-summary-section'
 import { SpaceBackground } from '@/features/portfolio/ui/components/space-background/space-background'
 import { LocaleSwitcher } from '@/i18n/locale-switcher/locale-switcher'
 
@@ -25,11 +28,14 @@ export default async function Home() {
       <LocaleSwitcher />
       <SpaceBackground />
       <HeroSection content={content.hero} />
+      <PortfolioNavigation {...content.navigation} />
       <AboutSection hardSkills={content.hardSkills}>
         <AboutContent content={content.about} heroContent={content.hero} />
       </AboutSection>
-      <PhilosophySection content={content.philosophy} />
+      <ProductsSection content={content.products} />
       <JourneySection content={content.journey} />
+      <ProfessionalSummarySection content={content.professionalSummary} />
+      <PhilosophySection content={content.philosophy} />
       <ContactSection copy={contactCopy} />
     </main>
   )

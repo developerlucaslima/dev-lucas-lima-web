@@ -11,6 +11,9 @@ export type HardSkillIconKey =
   | 'react'
   | 'tailwind'
   | 'typescript'
+  | 'nestjs'
+  | 'java'
+  | 'spring'
 
 export type SocialIconKey = 'github' | 'linkedin'
 
@@ -54,15 +57,20 @@ export interface PhilosophySectionContent {
 }
 
 export interface JourneyCardContent {
+  readonly id: string
   readonly date: string
   readonly title: string
   readonly company: string
-  readonly href: string
+  readonly href?: string
+  readonly summary: string
+  readonly contributions: readonly string[]
 }
 
 export interface JourneySectionContent {
   readonly sectionTitle: string
   readonly cards: readonly JourneyCardContent[]
+  readonly detailsLabel: string
+  readonly companyLinkLabel: string
 }
 
 export interface HardSkillContent {
@@ -71,27 +79,72 @@ export interface HardSkillContent {
   readonly name: string
 }
 
+export interface ProfessionalExperience {
+  readonly id: string
+  readonly company: string
+  readonly start: string
+  readonly end?: string
+  readonly href?: string
+}
+export interface ProductSectionContent {
+  readonly sectionTitle: string
+  readonly linkLabel: string
+  readonly cards: readonly {
+    readonly id: string
+    readonly name: string
+    readonly date: string
+    readonly status: string
+    readonly role: string
+    readonly summary: string
+    readonly technologies: readonly string[]
+    readonly href?: string
+  }[]
+}
+export interface ProfessionalSummaryContent {
+  readonly sectionTitle: string
+  readonly groups: readonly {
+    readonly id: string
+    readonly title: string
+    readonly description: string
+    readonly technologies: readonly string[]
+  }[]
+  readonly education: {
+    readonly sectionTitle: string
+    readonly institution: string
+    readonly course: string
+    readonly completion: string
+    readonly complementary: {
+      readonly title: string
+      readonly courses: readonly {
+        readonly id: string
+        readonly label: string
+        readonly completion: string
+      }[]
+    }
+  }
+  readonly languages: {
+    readonly title: string
+    readonly items: readonly string[]
+    readonly certificate: {
+      readonly title: string
+      readonly scope: string
+      readonly issued: string
+      readonly href: string
+      readonly linkLabel: string
+    }
+  }
+}
+
 export interface PortfolioContent {
+  readonly navigation: {
+    readonly label: string
+    readonly links: readonly { readonly id: string; readonly label: string }[]
+  }
   readonly hero: HeroContent
   readonly about: AboutSectionContent
   readonly philosophy: PhilosophySectionContent
   readonly journey: JourneySectionContent
   readonly hardSkills: readonly HardSkillContent[]
-}
-
-export interface StaticPortfolioContent {
-  readonly hero: HeroContent
-  readonly about: {
-    readonly sectionTitle: string
-    readonly paragraphs: {
-      readonly introduction: string
-      readonly developerJourney: string
-      readonly professionalExperience: string
-    }
-    readonly aboutCard: AboutSectionContent['aboutCard']
-    readonly image: AboutSectionContent['image']
-  }
-  readonly philosophy: PhilosophySectionContent
-  readonly journey: JourneySectionContent
-  readonly hardSkills: readonly HardSkillContent[]
+  readonly products: ProductSectionContent
+  readonly professionalSummary: ProfessionalSummaryContent
 }

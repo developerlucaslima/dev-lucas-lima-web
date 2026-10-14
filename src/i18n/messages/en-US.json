@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "Dev Lucas Lima",
-    "description": "Portfolio website for Dev Lucas Lima"
+    "description": "Lucas Lima — Full Stack Developer and Product Engineer. Software engineering, product thinking, and user experience."
   },
   "LocaleSwitcher": {
     "label": "Choose language",
@@ -17,48 +17,28 @@
   },
   "Portfolio": {
     "hero": {
-      "sectionTitle": "Dev Lucas Lima",
-      "subtitles": [
-        "Full Stack Developer",
-        "Stronger in Front End",
-        "UI/UX Enthusiast"
-      ],
+      "subtitles": ["Full Stack Developer", "Product Engineer"],
       "scrollDown": "scroll down"
     },
     "about": {
       "sectionTitle": "About",
       "paragraphs": {
-        "introduction": "Hello, my name is Lucas Fraga de Lima. I am {age} years old, Brazilian from Gramado - RS, and currently living in Florianópolis - SC.",
-        "developerJourney": "My journey as a developer began about {duration} ago; since then, I have worked with various technologies and frameworks, specializing in frontend with JavaScript, TypeScript, React, Next, and Vue. Leveraging my design skills, I create intuitive, functional, and visually appealing interfaces.",
-        "professionalExperience": "I have also frequently worked as a backend or full stack developer, delivering high-quality solutions using primarily Node but also Java, including the development and consumption of REST and GraphQL APIs. Constantly staying updated on best practices, applying modern patterns to ensure performance, scalability, and maintainability."
+        "journey": "My journey began in administrative and financial operations, moved through design, and led me to software development. Curiosity and the desire to turn ideas into useful solutions connect every step.",
+        "currentWork": "Today, I work as a Full Stack Developer at WeFit, building frontend applications, backend services, and reactive APIs. I combine engineering, product thinking, and user experience to build software for users, businesses, and the people maintaining it.",
+        "ownProducts": "I also build my own products. I am the sole developer of Sandicts, an MVP in development for the sand sports community, and handle product definition, design, implementation, and delivery. I am also creating Kaizen to organize and improve my training, nutrition, and routine.",
+        "principles": "I value clear code, maintainable systems, and decisions that reduce complexity. I want to work with people who share the desire to make the world a better place.",
+        "outsideWork": "Outside work, you will usually find me at the beach, playing footvolley, or learning new recipes on YouTube."
       },
-      "aboutCard": {
-        "title": "Dev Lucas Lima",
-        "links": [
-          {
-            "href": "https://www.linkedin.com/in/developerlucaslima",
-            "iconKey": "linkedin",
-            "accessibleName": "LinkedIn profile"
-          },
-          {
-            "href": "https://github.com/developerlucaslima",
-            "iconKey": "github",
-            "accessibleName": "GitHub profile"
-          }
-        ]
-      },
-      "image": {
-        "src": "/me.jpg",
-        "alt": "Dev Lucas Lima",
-        "width": 400,
-        "height": 400
+      "imageAlt": "Illustration of Lucas Lima in anime style, wearing an astronaut suit by the sea",
+      "socialLabels": {
+        "linkedin": "LinkedIn profile",
+        "github": "GitHub profile"
       }
     },
     "philosophy": {
       "sectionTitle": "philosophy",
       "cards": [
         {
-          "iconKey": "smilePlus",
           "title": "Kaizen",
           "description": [
             "Continuous, incremental improvement in every aspect of life and work."
@@ -66,7 +46,6 @@
           "footer": "改善"
         },
         {
-          "iconKey": "clover",
           "title": "Ikigai",
           "description": [
             "Where passion, mission, vocation, and profession converge to give life meaning."
@@ -74,7 +53,6 @@
           "footer": "生き甲斐"
         },
         {
-          "iconKey": "handHelping",
           "title": "Omoiyari",
           "description": [
             "Genuine empathy and proactive care for others, foster harmony, respect, and deeper connections."
@@ -82,7 +60,6 @@
           "footer": "思いやり"
         },
         {
-          "iconKey": "clock",
           "title": "Shikata ga nai",
           "description": [
             "Embraces the inevitable flow of time and the acceptance of circumstances that cannot be changed."
@@ -92,68 +69,163 @@
       ]
     },
     "journey": {
-      "sectionTitle": "journey experience",
-      "cards": [
-        {
-          "date": "2024 - 2025",
-          "title": "Front End",
-          "company": "Visit Ai",
-          "href": "https://visiteai.com.br"
+      "sectionTitle": "Professional experience",
+      "present": "present",
+      "detailsLabel": "My contributions",
+      "companyLinkLabel": "Visit website",
+      "experiences": {
+        "wefit": {
+          "title": "Tech Designer | Full Stack Developer",
+          "summary": "At WeFit, I work on React and Next.js applications, Node.js and NestJS services, and reactive Java APIs. On Porto GO, I contributed to the product's evolution alongside engineering, product, and design.",
+          "contributions": [
+            "Delivered features end to end across Porto GO's frontend, BFFs, and APIs with Spring Boot and WebFlux.",
+            "Improved endpoint observability through structured logs, request tracing, consistent error handling, and sensitive data sanitization.",
+            "Standardized shared Redis cache keys and refactored code to reduce technical debt and make maintenance easier."
+          ]
         },
-        {
-          "date": "2024 - 2025",
-          "title": "Full Stack",
-          "company": "StartU",
-          "href": "https://startu.com.br/"
+        "chaozao": {
+          "title": "Full Stack Developer",
+          "summary": "I redesigned and implemented the signup and subscription purchase flows for a rural real estate platform, aiming to simplify the experience and improve conversion.",
+          "contributions": [
+            "Rebuilt the login and signup flow, including Google Login and One Tap, to reduce steps and make account creation easier.",
+            "Reworked the subscription purchase flow from design through implementation, making it easier to choose and subscribe to a plan.",
+            "Built a database-backed plans model so commercial settings could change without rewriting the frontend.",
+            "Refactored large components and addressed slow or unresponsive pages with React, Next.js, Node.js, and NestJS."
+          ]
         },
-        {
-          "date": "2023 - 2024",
-          "title": "Full Stack",
-          "company": "Declink",
-          "href": "https://declink.com.br/"
+        "startu": {
+          "title": "Full Stack Developer",
+          "summary": "I helped improve application performance and code organization by separating responsibilities and building a dedicated NestJS backend to support the product's evolution.",
+          "contributions": [
+            "Planned the architecture and created a NestJS backend repository to separate server logic previously handled within Next.js, with a focus on performance, scalability, and readability.",
+            "Refactored data models and queries with PostgreSQL and Prisma to improve performance and data organization, and used AWS SQS for bulk write processing.",
+            "Automated tests, lint, and deployment with GitHub Actions and implemented JWT and refresh tokens in HttpOnly cookies.",
+            "Coordinated technical activities and organized sprints with Scrum/Kanban and Azure DevOps."
+          ]
         },
-        {
-          "date": "2022 - 2023",
-          "title": "Front End",
-          "company": "Santa Group",
-          "href": "https://www.santagroup.com.br/"
+        "visite-ai": {
+          "title": "Frontend Developer",
+          "summary": "I designed the interfaces and was the sole frontend developer of a B2B SaaS platform connecting clients, agents, and real estate agencies through QR Code experiences.",
+          "contributions": [
+            "Planned and designed interfaces with the people responsible for the product, carrying the work through to frontend implementation.",
+            "Built dashboards and chatbot interfaces with Vue.js and TypeScript.",
+            "Created responsive property forms, image upload flows, and validation with Zod.",
+            "Integrated with AWS EC2 and S3 infrastructure and applied web accessibility and SEO practices."
+          ]
         },
-        {
-          "date": "2019 - 2023",
-          "title": "Web Designer",
-          "company": "Freelancer",
-          "href": "https://www.behance.net/developerlucaslima"
+        "declink": {
+          "title": "Full Stack Java Developer | Android",
+          "summary": "I modernized native Android interfaces and legacy Java code, combining user experience improvements with infrastructure migration.",
+          "contributions": [
+            "Refactored Java code and migrated the environment from JBoss to WildFly.",
+            "Worked with Docker and Nginx for containerization and configuration.",
+            "Used pair programming to resolve critical problems with the team."
+          ]
         },
-        {
-          "date": "2020 - 2022",
-          "title": "Administrative Manager",
-          "company": "Rota Sul Travel Agency",
-          "href": "https://www.rotasul.tur.br/"
+        "santagroup": {
+          "title": "Frontend Developer",
+          "summary": "I turned Figma designs into responsive game interfaces and micro frontends with React and TypeScript, focusing on visual fidelity and usability.",
+          "contributions": [
+            "Built HUDs, avatar customization, and settings menus.",
+            "Worked with CSS-in-JS, Styled Components, and Motion for styling and animation."
+          ]
         },
-        {
-          "date": "2015 - 2020",
-          "title": "Financial Analyst",
-          "company": "Rota Sul Travel Agency",
-          "href": "https://www.rotasul.tur.br/"
+        "freelance-design": {
+          "title": "Freelance Designer | UX/UI & Visual Identity",
+          "summary": "I created digital interfaces, visual identities, illustrations, and communication materials for different brands.",
+          "contributions": [
+            "Worked independently with Figma, Adobe Photoshop, Adobe Illustrator, and CorelDRAW."
+          ]
+        },
+        "rota-sul": {
+          "title": "Administrative and Financial Manager",
+          "summary": "I managed administrative and financial routines, organized operational processes, and supported decision-making. This experience informs my approach to digital products today.",
+          "contributions": []
+        },
+        "rz-arquitetura": {
+          "title": "AutoCAD Designer",
+          "summary": "An earlier step in my professional journey, working as an AutoCAD Designer.",
+          "contributions": []
+        },
+        "sierra-moveis": {
+          "title": "Production Planning Analyst",
+          "summary": "My professional journey began in production planning, before moving into administrative and financial operations.",
+          "contributions": []
         }
-      ]
+      }
     },
-    "hardSkills": [
-      { "id": 2, "iconKey": "typescript", "name": "TYPESCRIPT" },
-      { "id": 12, "iconKey": "javascript", "name": "JAVASCRIPT" },
-      { "id": 0, "iconKey": "react", "name": "REACT" },
-      { "id": 1, "iconKey": "next", "name": "NEXT" },
-      { "id": 3, "iconKey": "node", "name": "NODE" },
-      { "id": 5, "iconKey": "tailwind", "name": "TAILWIND" },
-      { "id": 11, "iconKey": "css", "name": "CSS" },
-      { "id": 6, "iconKey": "graphql", "name": "GRAPHQL" },
-      { "id": 8, "iconKey": "postgresql", "name": "SQL" },
-      { "id": 9, "iconKey": "github", "name": "GIT" }
-    ]
+    "products": {
+      "sectionTitle": "Personal products",
+      "linkLabel": "Explore Sandicts",
+      "statuses": {
+        "in-development": "MVP in development"
+      },
+      "items": {
+        "sandicts": {
+          "role": "Sole Full Stack Developer · Product Engineer",
+          "summary": "A product for the sand sports community. I handle product definition, business rules, design, architecture, implementation, and delivery. The MVP is in active development."
+        }
+      }
+    },
+    "professionalSummary": {
+      "sectionTitle": "Engineering, product, and experience",
+      "groups": {
+        "engineering": {
+          "title": "Software engineering",
+          "description": "Frontend applications, backend services, and reactive APIs with clear responsibilities and maintainable code."
+        },
+        "systems": {
+          "title": "Quality and operations",
+          "description": "Data modeling, caching, automated tests, CI/CD, and observability in the context of real products."
+        },
+        "product": {
+          "title": "Product and design",
+          "description": "MVP definition, business rules, UX/UI, and accessibility. Experience in operations and design informs my product decisions.",
+          "additionalSkills": ["Digital illustration"]
+        }
+      },
+      "education": {
+        "sectionTitle": "Education",
+        "course": "Systems Analysis and Development",
+        "completed": "Completed in",
+        "complementary": {
+          "title": "Additional training",
+          "courses": {
+            "backend-node": "Backend development with Node.js",
+            "frontend-next": "Frontend development with Next.js",
+            "backend-java": "Backend fundamentals with Java",
+            "go-fundamentals": "Go fundamentals",
+            "aws-fundamentals": "AWS fundamentals"
+          }
+        }
+      },
+      "languages": {
+        "title": "Languages",
+        "items": ["Portuguese — native", "English — B1 (self-assessed)"],
+        "certificate": {
+          "scope": "Reading and listening assessment.",
+          "issued": "Issued in",
+          "linkLabel": "View EF SET certificate"
+        }
+      }
+    },
+    "navigation": {
+      "label": "Portfolio sections",
+      "links": {
+        "about": "About",
+        "products": "Products",
+        "journey": "Experience",
+        "skills": "Skills",
+        "contact": "Contact"
+      }
+    }
   },
   "Contact": {
     "title": "Space Communication",
-    "illustration": { "moonTitle": "moon", "rocketTitle": "rocket" },
+    "illustration": {
+      "moonTitle": "moon",
+      "rocketTitle": "rocket"
+    },
     "form": {
       "formTitle": "Launch Your Message",
       "formSubtitle": "Prepare for liftoff!",
@@ -172,7 +244,7 @@
         }
       ],
       "textArea": {
-        "name": "Space Message",
+        "name": "Intergalactic Message",
         "placeholder": "Your message to the cosmos...",
         "register": "message"
       },
@@ -198,6 +270,7 @@
         "title": "Communication Failure",
         "description": "Communication satellites are experiencing interference! Please try again later."
       }
-    }
+    },
+    "introduction": "Let’s talk about products, problems, and opportunities. Use the form to share what you have in mind."
   }
 }
