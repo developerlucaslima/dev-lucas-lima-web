@@ -4,7 +4,7 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: A01 integrada em `main` pela PR histórica #12; A02–A06 integradas em `developer` pelas PRs #13–#15. A07 está em revisão na PR #16 para `developer`. A08–A22 estão em revisão consolidada na PR #17 para `developer`; a branch inclui os commits-base A08–A13 e a implementação A14–A22. A20 permanece parcial porque a indisponibilidade do registry npm impediu instalar `prettier` e `eslint-config-next` como dependências diretas. A proteção WAF/rate limit de A05 continua pendente de evidência. Nenhuma PR foi integrada e nenhum deploy ocorreu.
+- Status: A01 integrada em main pela PR histórica #12; A02–A07 integradas em developer pelas PRs #13–#16. A08–A22 em revisão na PR #17, com A20 concluída após registrar dependências diretas e corrigir o lint/formatter. A proteção WAF/rate limit de A05 continua pendente de evidência. Sem promoção para main ou deploy.
 - Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
@@ -611,3 +611,5 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Lint inclui scripts MJS e configurações; os avisos sobre refs no cleanup de lua/foguete foram corrigidos capturando os nós da instância. As guardas da A07 foram preservadas no hook extraído.
 - Passaram instalação pelo lockfile, formato, lint, tipos, gate de estrutura, nove testes e build no checkout isolado; uma revalidação acompanha a integração de A07.
 - A proteção externa WAF/rate limit de A05 continua pendente de evidência de infraestrutura.
+
+- Integração de A07: os arquivos antigos de stars-background/use-shooting-stars foram removidos ao reconciliar developer, pois suas responsabilidades já estão no novo hook da feature. As guardas de descarte dos callbacks e dos atualizadores de estado foram preservadas.
