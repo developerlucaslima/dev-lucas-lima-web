@@ -3,9 +3,9 @@ import type { HardSkillContent } from './portfolio-content.types'
 export const portfolioProfile = {
   name: 'Dev Lucas Lima',
   image: {
-    src: '/lucas-lima-astronaut-anime.png',
-    width: 1122,
-    height: 1402,
+    src: '/lucas-lima-anime-sunset-hoodie.png',
+    width: 1086,
+    height: 1448,
   },
   socialLinks: [
     {

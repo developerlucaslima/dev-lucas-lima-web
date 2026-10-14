@@ -361,3 +361,11 @@ Formatação, lint, tipos, três testes de conteúdo e `git diff --check` passar
 ## 19. Rótulo da mensagem de contato — 14/10/2026
 
 Rótulo atualizado para “Mensagem intergaláctica” em português e “Intergalactic Message” em inglês, conforme pedido do usuário. Formatação dos dois JSON e `git diff --check` passaram; as duas alterações de texto foram revisadas sem segredos. O servidor respondeu HTTP 200 em EN/PT, com o novo rótulo associado ao campo `message`. Nenhum formulário foi enviado; testes de lógica e build não foram repetidos para esta troca de texto.
+
+## 20. Teste de retrato anime com moletom ao pôr do sol — 14/10/2026
+
+A pedido do usuário, a seção Sobre passou a usar a imagem fornecida Anime Sunset Hoodie Portrait.png, copiada como public/lucas-lima-anime-sunset-hoodie.png. Dimensões intrínsecas: 1086 × 1448. O arquivo foi conferido por SHA-256 com a origem, sem edição da imagem. A referência compartilhada e os textos alternativos EN/PT foram atualizados; o enquadramento circular e o restante do layout permanecem iguais. A imagem anterior foi preservada para facilitar a comparação durante o teste.
+
+Formatação dos arquivos, lint, tipos, três testes de conteúdo e git diff --check passaram. Revisão dos arquivos desta alteração sem segredos. No navegador, a imagem otimizada pelo Next carregou com naturalWidth/naturalHeight corretos; o enquadramento foi inspecionado e os dois textos alternativos foram conferidos após trocar idioma. Captura em docs/worklog/previews/about-sunset-hoodie.png. Prévia isolada em http://localhost:3004/#about, agora em modo de desenvolvimento. Houve a sugestão de LCP do Next ao abrir diretamente a âncora Sobre; sem erro de carregamento da imagem.
+
+Build de produção não repetido para esta troca de recurso estático e metadados; a compilação de desenvolvimento foi verificada. A mudança fica local para revisão, sem commit ou push. A PR #21 do Design System continua pendente de resolver a leitura do pacote privado na CI; novas tentativas de integração ficam para depois da revisão solicitada pelo usuário.
