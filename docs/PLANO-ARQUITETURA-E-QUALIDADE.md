@@ -602,6 +602,17 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - [Segurança de dados](https://nextjs.org/docs/app/guides/data-security): Server Actions são fronteiras públicas e validam input.
 - [Configuração de Server Actions](https://nextjs.org/docs/app/api-reference/config/next-config-js/serverActions): origem/limite do corpo não substituem validação do conteúdo.
 
+### Revisão antes da integração — 13/10/2026
+
+- A20 concluída: Prettier 3.6.2 e eslint-config-next 15.5.27 são dependências diretas registradas pelo npm no lockfile.
+- Editor: o organizador de imports do TypeScript foi desabilitado neste workspace; source.fixAll.eslint passa a aplicar simple-import-sort. Prettier e ESLint usam a mesma configuração.
+- Arquivos de texto e o editor agora padronizam LF; a revisão isolada detectou CRLF em um checkout limpo como causa de falha de formato.
+- Lint inclui scripts MJS e configurações; os avisos sobre refs no cleanup de lua/foguete foram corrigidos capturando os nós da instância. As guardas da A07 foram preservadas no hook extraído.
+- Passaram instalação pelo lockfile, formato, lint, tipos, gate de estrutura, nove testes e build no checkout isolado; uma revalidação acompanha a integração de A07.
+- A proteção externa WAF/rate limit de A05 continua pendente de evidência de infraestrutura.
+
+- Integração de A07: os arquivos antigos de stars-background/use-shooting-stars foram removidos ao reconciliar developer, pois suas responsabilidades já estão no novo hook da feature. As guardas de descarte dos callbacks e dos atualizadores de estado foram preservadas.
+
 ## 18. Internacionalização en-US e pt-BR — validada localmente
 
 - A estrutura de locale, carregamento de mensagens, provider e arquivos JSON por idioma segue a organização usada no Sandicts; o repositório Sandicts foi consultado somente para leitura.
