@@ -52,7 +52,7 @@ Os workflows configuram registry e scope no setup-node e usam `packages: read` n
 - Alternativa prevista: secret `FRADELLI_PACKAGES_TOKEN`, com leitura do pacote, caso o acesso do token automático entre os proprietários não seja permitido.
 - O build da Vercel também recebe a autenticação de instalação, pois pode instalar dependências ao preparar os artefatos. O deploy continua usando artefatos pré-construídos.
 
-O acesso do `GITHUB_TOKEN` deste repositório ao pacote ainda precisa ser comprovado na CI da futura PR. Nenhuma permissão no pacote nem secret do GitHub foi alterado nesta etapa. Se for necessário cadastrar uma credencial nova, esse passo fica com o usuário.
+A CI da PR #21 confirmou HTTP 403 ao usar apenas o `GITHUB_TOKEN` deste repositório para o pacote privado. O usuário cadastrou `FRADELLI_PACKAGES_TOKEN` e a execução 38620874313 passou com instalação limpa, formato, lint, tipos, estrutura, 18 testes e build. Este é o caminho autenticado comprovado para o consumidor atual. O agente não criou nem leu o valor da credencial, e nenhuma permissão no pacote foi alterada.
 
 ## Validação e entrega
 
