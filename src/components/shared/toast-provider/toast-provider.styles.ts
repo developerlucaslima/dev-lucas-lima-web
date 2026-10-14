@@ -3,8 +3,8 @@ import type { CSSProperties } from 'react'
 export const toastProviderStyles = {
   root: 'toaster group',
   themeVariables: {
-    '--normal-bg': 'oklch(0.704 0.14 182.503 / 0.1)',
-    '--normal-text': 'oklch(0.985 0 0)',
-    '--normal-border': 'transparent',
+    '--normal-bg': 'var(--portfolio-glass-elevated)',
+    '--normal-text': 'var(--fd-color-foreground)',
+    '--normal-border': 'var(--fd-color-border)',
   } as CSSProperties,
 } as const

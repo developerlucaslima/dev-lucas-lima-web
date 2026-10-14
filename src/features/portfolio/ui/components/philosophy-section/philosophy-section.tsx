@@ -1,7 +1,6 @@
+import { CardContent, CardFooter } from '@fradelli/ui/card'
+
 import { AnimatedCard } from '@/components/shared/animated-card/animated-card'
-import { CardContent } from '@/components/shared/card-content/card-content'
-import { CardFooter } from '@/components/shared/card-footer/card-footer'
-import { CardIconTitle } from '@/components/shared/card-icon-title/card-icon-title'
 import { ScrollReveal } from '@/components/shared/scroll-reveal/scroll-reveal'
 
 import { philosophyIcons } from './philosophy-section.constants'
@@ -30,16 +29,18 @@ export function PhilosophySection({ content }: PhilosophySectionProps) {
               delay={index * 0.15}
             >
               <AnimatedCard className={philosophySectionStyles.card}>
-                <CardIconTitle>
+                <h3 className={philosophySectionStyles.cardTitle}>
                   <Icon className={philosophySectionStyles.icon} size={20} />
                   <span className={philosophySectionStyles.title}>
                     {card.title}
                   </span>
-                </CardIconTitle>
+                </h3>
                 <CardContent className={philosophySectionStyles.description}>
                   {card.description}
                 </CardContent>
-                <CardFooter>{card.footer}</CardFooter>
+                <CardFooter className={philosophySectionStyles.footer}>
+                  {card.footer}
+                </CardFooter>
               </AnimatedCard>
             </ScrollReveal>
           )

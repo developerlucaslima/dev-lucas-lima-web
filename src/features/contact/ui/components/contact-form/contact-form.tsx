@@ -1,16 +1,17 @@
 'use client'
 
+import { Button } from '@fradelli/ui/button'
+import {
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from '@fradelli/ui/card'
+import { Field, FieldError, FieldLabel } from '@fradelli/ui/field'
+import { Input } from '@fradelli/ui/input'
 import { Send } from 'lucide-react'
 
-import { Button } from '@/components/shared/button/button'
-import { Card } from '@/components/shared/card/card'
-import { CardContent } from '@/components/shared/card-content/card-content'
-import { CardDescription } from '@/components/shared/card-description/card-description'
-import { CardFooter } from '@/components/shared/card-footer/card-footer'
-import { CardHeader } from '@/components/shared/card-header/card-header'
-import { CardTitle } from '@/components/shared/card-title/card-title'
-import { Input } from '@/components/shared/input/input'
-import { Label } from '@/components/shared/label/label'
+import { GlassCard } from '@/components/shared/glass-card/glass-card'
 import { Textarea } from '@/components/shared/textarea/textarea'
 
 import { contactFormStyles } from './contact-form.styles'
@@ -31,11 +32,9 @@ export function ContactForm({
     })
 
   return (
-    <Card className={contactFormStyles.card}>
+    <GlassCard className={contactFormStyles.card}>
       <CardHeader className={contactFormStyles.header}>
-        <CardTitle className={contactFormStyles.title}>
-          {copy.formTitle}
-        </CardTitle>
+        <h3 className={contactFormStyles.title}>{copy.formTitle}</h3>
         <CardDescription className={contactFormStyles.description}>
           {copy.formSubtitle}
         </CardDescription>
@@ -52,9 +51,14 @@ export function ContactForm({
             const errorId = `${fieldName}-error`
 
             return (
-              <div key={item.name} className={contactFormStyles.field}>
-                <Label htmlFor={fieldName}>{item.name}</Label>
+              <Field
+                key={item.name}
+                data-invalid={Boolean(fieldError)}
+                className={contactFormStyles.field}
+              >
+                <FieldLabel htmlFor={fieldName}>{item.name}</FieldLabel>
                 <Input
+                  className={contactFormStyles.input}
                   id={fieldName}
                   type={item.type}
                   placeholder={item.placeholder}
@@ -64,15 +68,18 @@ export function ContactForm({
                   {...register(fieldName)}
                 />
                 {fieldError && (
-                  <p id={errorId} className={contactFormStyles.error}>
+                  <FieldError id={errorId} className={contactFormStyles.error}>
                     {fieldError}
-                  </p>
+                  </FieldError>
                 )}
-              </div>
+              </Field>
             )
           })}
-          <div className={contactFormStyles.field}>
-            <Label htmlFor="message">{copy.textArea.name}</Label>
+          <Field
+            data-invalid={Boolean(errors.message)}
+            className={contactFormStyles.field}
+          >
+            <FieldLabel htmlFor="message">{copy.textArea.name}</FieldLabel>
             <Textarea
               id={copy.textArea.register}
               placeholder={copy.textArea.placeholder}
@@ -82,15 +89,18 @@ export function ContactForm({
               {...register(copy.textArea.register)}
             />
             {errors.message && (
-              <p id="message-error" className={contactFormStyles.error}>
+              <FieldError
+                id="message-error"
+                className={contactFormStyles.error}
+              >
                 {errors.message.message}
-              </p>
+              </FieldError>
             )}
-          </div>
-          <CardFooter>
+          </Field>
+          <CardFooter className={contactFormStyles.footer}>
             <Button
               className={contactFormStyles.submitButton}
-              variant="ghost"
+              variant="default"
               type="submit"
               disabled={isSubmitting}
             >
@@ -102,6 +112,6 @@ export function ContactForm({
           </CardFooter>
         </form>
       </CardContent>
-    </Card>
+    </GlassCard>
   )
 }
