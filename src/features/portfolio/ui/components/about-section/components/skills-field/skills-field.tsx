@@ -15,7 +15,7 @@ import type { SkillsFieldProps } from './skills-field.types'
 export function SkillsField({ children, hardSkills }: SkillsFieldProps) {
   const hardSkillsSectionRef = useRef<HTMLDivElement | null>(null)
   const hardSkillsSectionBottomRef = useRef<HTMLDivElement | null>(null)
-  const [isOrganized, setIsOrganized] = useState(true)
+  const [isOrganized, setIsOrganized] = useState(false)
   const prefersReducedMotion = usePrefersReducedMotion()
 
   const { organizeHardSkills } = useOrganizeHardSkills({
@@ -23,7 +23,7 @@ export function SkillsField({ children, hardSkills }: SkillsFieldProps) {
     hardSkillsSectionRef,
     hardSkillsSectionBottomRef,
   })
-  const { floatHardSkills } = useFloatHardSkills({
+  const { floatHardSkills, stopFloating } = useFloatHardSkills({
     hardSkills,
     hardSkillsSectionRef,
   })
@@ -40,6 +40,7 @@ export function SkillsField({ children, hardSkills }: SkillsFieldProps) {
   useWindowResize({ callback: handleResize })
 
   useEffect(() => {
+    stopFloating()
     if (prefersReducedMotion) {
       organizeHardSkills(0)
       return
@@ -51,7 +52,14 @@ export function SkillsField({ children, hardSkills }: SkillsFieldProps) {
     }
 
     floatHardSkills()
-  }, [floatHardSkills, isOrganized, organizeHardSkills, prefersReducedMotion])
+    return stopFloating
+  }, [
+    floatHardSkills,
+    isOrganized,
+    organizeHardSkills,
+    prefersReducedMotion,
+    stopFloating,
+  ])
 
   const handleSkillBadgeClick = useCallback(() => {
     if (prefersReducedMotion) return
@@ -68,7 +76,7 @@ export function SkillsField({ children, hardSkills }: SkillsFieldProps) {
             name={hardSkill.name}
             iconKey={hardSkill.iconKey}
             onClick={handleSkillBadgeClick}
-            isOrganized={isOrganized}
+            isOrganized={prefersReducedMotion || isOrganized}
             isMotionDisabled={prefersReducedMotion}
           />
         ))}

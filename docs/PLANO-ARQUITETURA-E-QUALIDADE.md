@@ -623,3 +623,71 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Navegador: seleção EN/PT, persistência após recarregar, metadados e lang, erros de formulário localizados e preservação dos valores ao trocar idioma. A visualização com viewport reduzido manteve hero/seletor legíveis e sem overflow horizontal. Nenhum email foi enviado.
 - A atualização editorial da trajetória profissional permanece uma etapa de planejamento; o i18n preserva os fatos anteriores e fornece versões equivalentes.
 - Referência: [configuração App Router do next-intl](https://next-intl.dev/docs/getting-started).
+
+## 19. Conteúdo profissional e dados bilíngues — 13/10/2026
+
+Implementação editorial autorizada após revisão de `docs/PLANO-CONTEUDO-PROFISSIONAL.md`, incluindo resumos visíveis nos cards de empresas e contribuições expansíveis acessíveis. Datas, IDs, URLs e fatos estáveis passam a dados comuns da feature; mensagens EN/PT guardam os textos. `get-portfolio-content.ts` continua server-only e retorna o contrato sem cast duplo. Componentes renderizam, estilos definem o visual e a formatação de períodos é pura. Novas seções: produtos pessoais e síntese de competências/formação, com navegação por âncoras.
+
+`npm run ci` passou: formatação, lint sem erros/avisos, tipos, estrutura (152 módulos), 14 testes e build. A execução do build no Windows precisou da permissão de acesso apropriada para SWC. Verificações de navegador cobriram idiomas, persistência, âncoras, cards em tela estreita/larga, expansão por teclado e validações traduzidas do formulário, sem envio real. `git diff --check` e busca heurística de segredos sem achados. A lógica de apagar e digitar permanece inalterada.
+
+Fontes, decisões editoriais, limitações de verificação de links e confirmações opcionais constam da seção 12 do plano de conteúdo. O link antigo da Rota Sul foi retirado após falha de DNS; LinkedIn bloqueia verificação automatizada. A entrega é local para revisão visual, sem publicação ou promoção a main.
+
+### Runtime do ESLint no editor — 14/10/2026
+
+Após relato de erro persistente de native binding no VS Code, foi confirmada a instalação de `@unrs/resolver-binding-win32-x64-msvc` 1.12.2 e a resolução do import de `ProfessionalSummaryContent` pelo resolver usado pelo Next. O lint completo passou no terminal. A mensagem genérica do loader não comprova ausência da dependência: ele reúne falhas de carregamento e sugere reinstalação para diferentes causas.
+
+Os logs do editor identificaram Node 24.21.0 no Electron; o Node do sistema é 24.20.0. A carga direta também passou no Electron fora do servidor da extensão, portanto a causa interna exata da falha nesse servidor não foi isolada. Como ajuste de consistência, `.vscode/settings.json` define `eslint.runtime: "node"`, opção documentada pela extensão para usar o Node do sistema. O lockfile e as dependências foram preservados.
+
+Validações: resolução direta do alias, `npm run lint`, formatação do settings e `git diff --check` passaram. A ativação e o desaparecimento do diagnóstico no editor precisam ser confirmados após recarregar a janela; a extensão pode solicitar confirmação do runtime definido no workspace. Não foi realizado build ou teste da aplicação nesta correção de configuração do editor.
+
+### Correção do resolver após persistência no editor — 14/10/2026
+
+O usuário confirmou persistência do erro após o ajuste de runtime. Os logs passaram a registrar Node 24.20.0, comprovando que a configuração foi aplicada, mas não resolveu a falha do loader nativo. A causa interna exata desse carregamento no servidor da extensão não foi isolada; a mensagem sobre o bug do npm é genérica e não deve ser tratada como prova de pacote ausente.
+
+Foi aplicado override restrito a `eslint-config-next → eslint-import-resolver-typescript@3.8.0`. Essa versão usa `enhanced-resolve` em JavaScript e mantém suporte a TypeScript, `tsconfig.json` e aliases. O lockfile foi atualizado pelo npm, preservando as demais mudanças. `unrs-resolver` e seus bindings deixam essa árvore; não houve desativação de regras de import nem substituição por resoluções fictícias. A alteração afeta ferramentas de desenvolvimento, não o comportamento público do site.
+
+A primeira alternativa avaliada, 3.7.0, não foi mantida: sua cadeia fast-glob acrescentava um alerta propagado. A versão final 3.8.0 usa tinyglobby e mantém os 19 alertas já presentes no lockfile anterior (18 altos e um moderado), sem acrescentar novos alertas. Eles pertencem à cadeia de ferramentas e permanecem pendentes de tratamento próprio; não foi executado audit fix ou migração de configuração fora deste escopo. Os relatórios completos ficam no diário local ignorado.
+
+Uma tentativa de `npm ci` na raiz encontrou EPERM no arquivo `@parcel/watcher-win32-x64/watcher.node`, em uso no Windows. A instalação da raiz foi restaurada com npm install, e a reprodução limpa foi direcionada para `docs/worklog/eslint-resolver-clean-install/`, sem encerrar o editor do usuário. As evidências finais de diagnóstico, instalação e gates estão registradas no diário da correção. Para carregar a nova dependência em um servidor ESLint que já estava aberto, é necessário reiniciá-lo; o desaparecimento visual do diagnóstico continua dependente dessa recarga no editor.
+
+Validação final: instalação limpa isolada passou e seu lockfile é idêntico ao da raiz. O diagnóstico com 3.8.0 passou em Node 24.20.0 e Electron/Node 24.21.0: alias existente resolvido, alias inexistente rejeitado, lint de import válido aprovado e import inválido identificado por `import/no-unresolved`, sem carregar `unrs-resolver`. `npm run ci` passou integralmente (formatação, lint sem erros/avisos, tipos, estrutura de 152 módulos, 14 testes e build). `git diff --check` e busca heurística de segredos passaram. O npm audit final manteve os mesmos 19 alertas da baseline, sem novos rótulos. Não houve commit, push ou publicação.
+
+### Corrigir dependências nativas e aviso de Prettier no Turbopack — 14/10/2026
+
+Após novo erro de `next dev`, a instalação raiz e a cópia limpa foram inspecionadas. O pacote Lightning CSS estava na versão 1.29.2 em ambas; o binding Windows x64 existia nos dois locais com o mesmo hash SHA-256 e passou por uma transformação CSS direta. O build e uma requisição HTTP de desenvolvimento passaram após restaurar a instalação. A mensagem de falha do SWC durante comandos sem acesso ampliado veio da política do ambiente isolado ao abrir seu cache nativo; com acesso apropriado, `npm run build` passou.
+
+O Turbopack ainda avisava que `@react-email/render` resolvia Prettier 3.4.2 enquanto o projeto usa 3.6.2. Um override restrito ao renderizador alinha essa dependência à versão direta existente. O lockfile deixa de duplicar Prettier; não há mudança no código nem no comportamento de envio de email.
+
+Validações: `npm run ci` passou em todos os passos: formatação, lint sem avisos, tipos, estrutura (152 arquivos), 14 testes e build. `next dev` compilou a página inicial e respondeu HTTP 200 sem avisos do Prettier. O npm reportou os 19 alertas já conhecidos da baseline (18 altos e um moderado); não foi executado `audit fix`. Sem envio real de email, commit ou publicação.
+
+### Causa da recorrência do erro Lightning CSS no Windows — 14/10/2026
+
+O usuário reproduziu a falha mesmo após reiniciar seu servidor. O HTTP 500 foi confirmado no processo real da porta 3000. Uma instrumentação temporária do loader capturou o erro original `ERR_DLOPEN_FAILED` ao abrir o binding instalado; o erro final `Cannot find module '../lightningcss.win32-x64-msvc.node'` vinha apenas do fallback do loader.
+
+O binding importa `VCRUNTIME140.dll`, ausente em `C:\Windows\System32`. As ferramentas do Codex tinham cópias desse runtime em seu PATH, explicando o sucesso anterior dos testes isolados. Ao executar Node com PATH mínimo de Windows e Node, a falha foi reproduzida. A validação anterior não demonstrava que o ambiente do terminal do usuário estava corrigido.
+
+O instalador oficial [Microsoft Visual C++ x64](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170) foi baixado da URL indicada pela Microsoft e sua assinatura digital foi validada como Microsoft Corporation. Após confirmação UAC do usuário, a instalação terminou com código 0, sem reinicialização. `VCRUNTIME140.dll` 14.51.36247.0 passou a existir no System32 e a transformação CSS com PATH mínimo passou.
+
+O servidor real da porta 3000 ainda tinha a avaliação PostCSS com falha em cache. Uma alteração temporária de comentário na configuração invalidou essa avaliação; o arquivo foi restaurado byte a byte. A página respondeu HTTP 200 antes e depois da restauração, no mesmo servidor que havia retornado HTTP 500. O loader instalado também foi restaurado ao original. Não houve alteração final em configuração, estilos ou componentes para corrigir essa dependência do sistema; não foi necessário repetir a suíte de código já validada. `git diff --check` passou. Em novas instalações Windows x64, o runtime Visual C++ é um requisito para esse binding nativo, além dos pacotes npm.
+
+### Ajustes visuais de gravidade e idioma — 14/10/2026
+
+A dica de gravidade dos badges usa peso normal, cor de texto secundário e a capitalização original da tradução, removendo o destaque em caixa alta. O seletor EN/PT recebeu `cursor-pointer`. Alterações restritas aos arquivos de estilos dos respectivos componentes, preservando textos traduzidos, estado e efeitos.
+
+Validações: formatação, lint, tipos e `git diff --check` passaram; revisão das duas linhas de estilos sem segredos. No navegador local, os dois botões de idioma apresentaram cursor computado `pointer`, e a dica visível por foco de teclado apresentou peso 400 e `text-transform: none`. Captura local em `docs/worklog/previews/gravity-tooltip-soft.png`. Testes de lógica e build de produção não foram repetidos para este ajuste visual; CSS compilado e inspecionado na aplicação em desenvolvimento.
+
+### Habilidades iniciam com gravidade desativada — 14/10/2026
+
+O estado inicial do campo de habilidades passou a ser flutuante. O primeiro clique ativa a organização nas posições calculadas; o segundo volta a desativá-la. Os textos existentes acompanham a ação seguinte: “Ativar gravidade” inicialmente e “Desativar gravidade” após organizar. A preferência de movimento reduzido mantém a organização imediata e os controles desabilitados; o estado visual e `aria-pressed` consideram essa preferência, conforme revisão do código. Essa preferência não foi emulada no navegador nesta validação.
+
+Passaram formatação, lint, tipos, 14 testes, build de produção em cópia temporária, `git diff --check` e revisão das duas linhas alteradas sem segredos. No navegador, os dez ícones iniciaram com `aria-pressed=false` e posições flutuantes; o primeiro clique os alinhou na grade e mudou para `true`, o segundo retornou a `false`, e recarregar manteve o estado inicial flutuante. Capturas locais em `docs/worklog/previews/gravity-initial-floating.png` e `gravity-after-first-click.png`. Sem commit ou publicação.
+
+### Flutuação contínua das habilidades — 14/10/2026
+
+A animação com destino fixo e `yoyo` foi substituída por movimento contínuo independente: a distribuição inicial ocupa a área disponível, com espaçamento quando há espaço, e cada ícone recebe velocidade entre 8 e 16 pixels por segundo e mudanças graduais de direção em intervalos de 4 a 8 segundos. O retorno periódico à origem, que concentrava os itens no canto superior esquerdo, foi eliminado. Os limites orientam o movimento para dentro e impedem a saída dos badges; cruzamentos entre itens continuam possíveis, sem introdução de uma simulação de colisões.
+
+O hook controla um único ticker GSAP, setters de posição, pausa por hover ou foco visível de teclado, redimensionamento proporcional, suspensão em aba oculta e limpeza dos recursos. Os cálculos permanecem puros no utilitário, os contratos em arquivo de tipos e os parâmetros nas constantes, sem novas dependências ou atualizações de estado React por quadro. Ao alternar a gravidade, a flutuação recomeça da posição atual e cancela transições anteriores. O cálculo da altura reservada da grade passou a incluir sua margem inferior de 40 pixels, preservando as posições e evitando um salto ao retomar o movimento.
+
+Passaram formatação, lint sem erros ou avisos, tipos, estrutura (153 arquivos), 18 testes, build de produção em cópia temporária e `git diff --check`. Os testes incluem simulação determinística de três minutos, limites, distribuição inicial, diferentes taxas de quadros, viradas suaves e redimensionamento. A revisão heurística dos arquivos desta alteração não encontrou segredos.
+
+No navegador local, observações separadas por 108 segundos mostraram trajetórias independentes sem retorno coletivo à origem; foram conferidas pausa por hover e teclado, retomada, alternância rápida da grade e viewport de 400 pixels sem overflow horizontal. Após o ajuste final de `:focus-visible`, a pausa de teclado e a retomada após clique foram reconferidas. A preferência de movimento reduzido e a aba oculta foram revisadas no código, sem emulação dessas condições no navegador. Não houve erro de console; permanece uma sugestão de LCP do Next para a imagem ao acessar diretamente a âncora Sobre. Captura local: `docs/worklog/previews/skills-continuous-drift.png`. Sem commit ou publicação.

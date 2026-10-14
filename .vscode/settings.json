@@ -12,6 +12,7 @@
     "typescript",
     "typescriptreact"
   ],
+  "eslint.runtime": "node",
   "prettier.requireConfig": true,
   "cSpell.words": ["declink", "linkedin", "shikata"]
 }

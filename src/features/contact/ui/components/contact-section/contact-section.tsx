@@ -11,6 +11,9 @@ export function ContactSection({ copy }: ContactSectionProps) {
         <div className="text-center">
           <h2 className={contactSectionStyles.heading}>{copy.title}</h2>
           <div className={contactSectionStyles.headingRule} />
+          <p className={contactSectionStyles.introduction}>
+            {copy.introduction}
+          </p>
         </div>
       </ScrollReveal>
       <ContactScene copy={copy} />
