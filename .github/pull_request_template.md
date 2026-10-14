@@ -1,7 +1,7 @@
 <!--
 Título: [<ID>] tipo(escopo): resumo curto
 Exemplo: [A01] fix(deps): corrigir vulnerabilidades de Next e React
-Use o ID real da tarefa e português do Brasil. Base atual: main.
+Use o ID real da tarefa quando existente e português do Brasil. Base de tarefa: developer; promoção: developer → main.
 Preserve títulos e ordem das seções; substitua exemplos por fatos do diff.
 Marque somente verificações executadas. Registre não aplicáveis em Observações.
 Os checks são locais; este template não cria nem pressupõe uma esteira de CI.

@@ -1,0 +1,276 @@
+{
+  "Metadata": {
+    "title": "Dev Lucas Lima",
+    "description": "Lucas Lima — Desenvolvedor Full Stack e Product Engineer. Engenharia de software, visão de produto e experiência do usuário."
+  },
+  "LocaleSwitcher": {
+    "label": "Escolher idioma",
+    "english": "Inglês",
+    "portuguese": "Português",
+    "switchFailed": "Não foi possível mudar o idioma. Tente novamente."
+  },
+  "SkillBadge": {
+    "toggleLayout": "Alternar organização das habilidades ({skill})",
+    "motionDisabled": "Animação desativada pela preferência do sistema",
+    "disableGravity": "Desativar gravidade",
+    "enableGravity": "Ativar gravidade"
+  },
+  "Portfolio": {
+    "hero": {
+      "subtitles": ["Desenvolvedor Full Stack", "Product Engineer"],
+      "scrollDown": "role para baixo"
+    },
+    "about": {
+      "sectionTitle": "Sobre",
+      "paragraphs": {
+        "journey": "Minha trajetória começou em operações administrativas e financeiras, passou pelo design e me levou ao desenvolvimento de software. A curiosidade e a vontade de transformar ideias em soluções úteis conectam cada etapa desse caminho.",
+        "currentWork": "Hoje trabalho como Desenvolvedor Full Stack na WeFit, criando aplicações frontend, serviços de backend e APIs reativas. Combino engenharia, visão de produto e experiência do usuário para construir software que funcione para as pessoas, para os negócios e para quem vai manter o sistema.",
+        "ownProducts": "Também desenvolvo meus próprios produtos. Sou o único desenvolvedor do Sandicts, um MVP em desenvolvimento para a comunidade de esportes de areia, e cuido da definição do produto, do design, da implementação e da entrega. Também estou criando o Kaizen para organizar e melhorar meu treino, minha alimentação e minha rotina.",
+        "principles": "Valorizo código claro, sistemas fáceis de manter e decisões que reduzem a complexidade. Quero trabalhar com pessoas que compartilhem a vontade de tornar o mundo melhor.",
+        "outsideWork": "Fora do trabalho, você geralmente vai me encontrar na praia, jogando futevôlei ou aprendendo receitas novas no YouTube."
+      },
+      "imageAlt": "Ilustração de Lucas Lima em estilo anime, com roupa de astronauta à beira-mar",
+      "socialLabels": {
+        "linkedin": "Perfil no LinkedIn",
+        "github": "Perfil no GitHub"
+      }
+    },
+    "philosophy": {
+      "sectionTitle": "Filosofia",
+      "cards": [
+        {
+          "title": "Kaizen",
+          "description": [
+            "Melhoria contínua e gradual em todos os aspectos da vida e do trabalho."
+          ],
+          "footer": "改善"
+        },
+        {
+          "title": "Ikigai",
+          "description": [
+            "O encontro entre paixão, missão, vocação e profissão que dá sentido à vida."
+          ],
+          "footer": "生き甲斐"
+        },
+        {
+          "title": "Omoiyari",
+          "description": [
+            "Empatia genuína e cuidado ativo com as outras pessoas promovem harmonia, respeito e conexões mais profundas."
+          ],
+          "footer": "思いやり"
+        },
+        {
+          "title": "Shikata ga nai",
+          "description": [
+            "Aceitar o fluxo inevitável do tempo e as circunstâncias que não podem ser mudadas."
+          ],
+          "footer": "仕方がない"
+        }
+      ]
+    },
+    "journey": {
+      "sectionTitle": "Experiência profissional",
+      "present": "atual",
+      "detailsLabel": "Minhas contribuições",
+      "companyLinkLabel": "Visitar site",
+      "experiences": {
+        "wefit": {
+          "title": "Tech Designer | Desenvolvedor Full Stack",
+          "summary": "Atuo na WeFit com aplicações React e Next.js, serviços Node.js e NestJS e APIs reativas em Java. No Porto GO, contribuí para a evolução do produto em colaboração com engenharia, produto e design.",
+          "contributions": [
+            "Entreguei funcionalidades de ponta a ponta no frontend, nos BFFs e nas APIs do Porto GO com Spring Boot e WebFlux.",
+            "Evoluí a observabilidade dos endpoints com logs estruturados, rastreabilidade de requisições, tratamento consistente de erros e sanitização de dados sensíveis.",
+            "Padronizei chaves de cache compartilhado no Redis e refatorei código para reduzir dívida técnica e facilitar a manutenção."
+          ]
+        },
+        "chaozao": {
+          "title": "Desenvolvedor Full Stack",
+          "summary": "Redesenhei e implementei os fluxos de cadastro e contratação de planos de uma plataforma de imóveis rurais, com foco em simplificar a experiência e melhorar a conversão.",
+          "contributions": [
+            "Refiz o fluxo de login e cadastro, incluindo Google Login e One Tap, para reduzir etapas e facilitar a criação de contas.",
+            "Reformulei o fluxo de aquisição de planos, do design à implementação, para facilitar a escolha e a contratação de planos.",
+            "Criei um modelo de planos no banco para permitir mudanças comerciais sem reescrever o frontend.",
+            "Refatorei componentes extensos e corrigi páginas lentas ou sem resposta com React, Next.js, Node.js e NestJS."
+          ]
+        },
+        "startu": {
+          "title": "Desenvolvedor Full Stack",
+          "summary": "Contribuí para melhorar o desempenho e a organização da aplicação, separando responsabilidades e criando um backend dedicado em NestJS para apoiar a evolução do produto.",
+          "contributions": [
+            "Planejei a arquitetura e criei um repositório de backend em NestJS para separar a lógica de servidor antes concentrada no Next.js, com foco em performance, escalabilidade e legibilidade.",
+            "Refatorei modelos e consultas com PostgreSQL e Prisma para melhorar o desempenho e a organização dos dados e utilizei AWS SQS no processamento de escritas em massa.",
+            "Automatizei testes, lint e deploy com GitHub Actions e implementei JWT e refresh tokens em cookies HttpOnly.",
+            "Coordenei atividades técnicas e organizei sprints com Scrum/Kanban e Azure DevOps."
+          ]
+        },
+        "visite-ai": {
+          "title": "Desenvolvedor Frontend",
+          "summary": "Desenvolvi o design e fui o único desenvolvedor frontend de uma plataforma SaaS B2B que conectava clientes, corretores e imobiliárias por experiências baseadas em QR Code.",
+          "contributions": [
+            "Planejei e desenhei as interfaces com os responsáveis pelo produto, acompanhando o trabalho do design à implementação frontend.",
+            "Criei dashboards e interfaces de chatbot com Vue.js e TypeScript.",
+            "Desenvolvi formulários responsivos de imóveis, fluxos de upload de imagens e validação com Zod.",
+            "Integrei a aplicação à infraestrutura AWS EC2 e S3 e apliquei práticas de acessibilidade web e SEO."
+          ]
+        },
+        "declink": {
+          "title": "Desenvolvedor Full Stack Java | Android",
+          "summary": "Modernizei interfaces Android nativas e código Java legado, combinando melhorias de experiência do usuário com migração de infraestrutura.",
+          "contributions": [
+            "Refatorei código Java e migrei o ambiente de JBoss para WildFly.",
+            "Trabalhei com Docker e Nginx na containerização e configuração.",
+            "Resolvi problemas críticos com a equipe por meio de pair programming."
+          ]
+        },
+        "santagroup": {
+          "title": "Desenvolvedor Frontend",
+          "summary": "Transformei designs do Figma em interfaces responsivas de jogos e micro frontends com React e TypeScript, com foco em fidelidade visual e usabilidade.",
+          "contributions": [
+            "Desenvolvi HUDs, customização de avatar e menus de configuração.",
+            "Utilizei CSS-in-JS, Styled Components e Motion na estilização e nas animações."
+          ]
+        },
+        "freelance-design": {
+          "title": "Designer freelancer | UX/UI e identidade visual",
+          "summary": "Criei interfaces digitais, identidades visuais, ilustrações e materiais de comunicação para diferentes marcas.",
+          "contributions": [
+            "Atuei de forma independente com Figma, Adobe Photoshop, Adobe Illustrator e CorelDRAW."
+          ]
+        },
+        "rota-sul": {
+          "title": "Gerente Administrativo e Financeiro",
+          "summary": "Atuei na gestão de rotinas administrativas e financeiras, na organização de processos operacionais e no apoio à tomada de decisão. Essa experiência contribui para minha visão de produtos digitais hoje.",
+          "contributions": []
+        },
+        "rz-arquitetura": {
+          "title": "Designer de AutoCAD",
+          "summary": "Uma etapa anterior da minha trajetória profissional, atuando como designer de AutoCAD.",
+          "contributions": []
+        },
+        "sierra-moveis": {
+          "title": "Analista de Planejamento de Produção",
+          "summary": "Minha trajetória profissional começou no planejamento de produção, antes de seguir para operações administrativas e financeiras.",
+          "contributions": []
+        }
+      }
+    },
+    "products": {
+      "sectionTitle": "Produtos pessoais",
+      "linkLabel": "Conhecer o Sandicts",
+      "statuses": {
+        "in-development": "MVP em desenvolvimento"
+      },
+      "items": {
+        "sandicts": {
+          "role": "Único desenvolvedor Full Stack · Product Engineer",
+          "summary": "Um produto para a comunidade de esportes de areia. Cuido da definição do produto, das regras de negócio, do design, da arquitetura, da implementação e da entrega. O MVP está em desenvolvimento ativo."
+        }
+      }
+    },
+    "professionalSummary": {
+      "sectionTitle": "Engenharia, produto e experiência",
+      "groups": {
+        "engineering": {
+          "title": "Engenharia de software",
+          "description": "Aplicações frontend, serviços de backend e APIs reativas, com responsabilidades claras e código fácil de manter."
+        },
+        "systems": {
+          "title": "Qualidade e operação",
+          "description": "Modelagem de dados, cache, testes automatizados, CI/CD e observabilidade no contexto de produtos reais."
+        },
+        "product": {
+          "title": "Produto e design",
+          "description": "Definição de MVP, regras de negócio, UX/UI e acessibilidade. Experiência em operações e design aplicada às decisões de produto.",
+          "additionalSkills": ["Ilustração digital"]
+        }
+      },
+      "education": {
+        "sectionTitle": "Formação",
+        "course": "Análise e Desenvolvimento de Sistemas",
+        "completed": "Concluído em",
+        "complementary": {
+          "title": "Formação complementar",
+          "courses": {
+            "backend-node": "Backend com Node.js",
+            "frontend-next": "Frontend com Next.js",
+            "backend-java": "Fundamentos de backend com Java",
+            "go-fundamentals": "Fundamentos de Go",
+            "aws-fundamentals": "Fundamentos de AWS"
+          }
+        }
+      },
+      "languages": {
+        "title": "Idiomas",
+        "items": ["Português — nativo", "Inglês — B1 (autoavaliação)"],
+        "certificate": {
+          "scope": "Avaliação de leitura e compreensão oral.",
+          "issued": "Emitido em",
+          "linkLabel": "Ver certificado EF SET"
+        }
+      }
+    },
+    "navigation": {
+      "label": "Seções do portfólio",
+      "links": {
+        "about": "Sobre",
+        "products": "Produtos",
+        "journey": "Experiência",
+        "skills": "Competências",
+        "contact": "Contato"
+      }
+    }
+  },
+  "Contact": {
+    "title": "Comunicação espacial",
+    "illustration": {
+      "moonTitle": "lua",
+      "rocketTitle": "foguete"
+    },
+    "form": {
+      "formTitle": "Envie sua mensagem",
+      "formSubtitle": "Prepare-se para decolar!",
+      "inputs": [
+        {
+          "name": "Nome do astronauta",
+          "placeholder": "Seu nome de astronauta",
+          "type": "text",
+          "register": "name"
+        },
+        {
+          "name": "E-mail espacial",
+          "placeholder": "astronauta@exemplo.space",
+          "type": "email",
+          "register": "email"
+        }
+      ],
+      "textArea": {
+        "name": "Mensagem intergaláctica",
+        "placeholder": "Sua mensagem para o cosmos...",
+        "register": "message"
+      },
+      "buttonTexts": {
+        "isSubmitting": "Decolando...",
+        "isNotSubmitting": "Lançar mensagem"
+      }
+    },
+    "formErrorMessages": {
+      "nameMin": "O nome deve ter pelo menos 2 caracteres",
+      "nameMax": "O nome deve ter no máximo 100 caracteres",
+      "nameControlCharacters": "O nome não pode conter caracteres de controle",
+      "emailInvalid": "Informe um e-mail espacial válido",
+      "messageMin": "A mensagem deve ter pelo menos 20 caracteres",
+      "messageMax": "A mensagem deve ter no máximo 5000 caracteres"
+    },
+    "submitToastMessages": {
+      "success": {
+        "title": "Mensagem enviada!",
+        "description": "Sua mensagem entrou em órbita e está a caminho do cosmos!"
+      },
+      "error": {
+        "title": "Falha de comunicação",
+        "description": "Os satélites de comunicação estão com interferência. Tente novamente mais tarde."
+      }
+    },
+    "introduction": "Vamos conversar sobre produtos, problemas e oportunidades. Use o formulário para me contar o que você tem em mente."
+  }
+}

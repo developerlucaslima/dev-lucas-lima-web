@@ -4,8 +4,8 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: planejamento geral com implementação incremental autorizada. A01 concluída localmente; demais itens permanecem planejados.
-- Entrega inicial: este documento de planejamento. Implementação de A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md.
+- Status: A01 integrada em main pela PR histórica #12; A02–A22 integradas em developer pelas PRs #13–#17. A20 concluída na revisão de ferramentas da PR #17. Internacionalização en-US/pt-BR validada localmente para entrega em PR própria. A proteção WAF/rate limit de A05 continua pendente de evidência. Sem promoção para main ou deploy.
+- Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
 - Textos, experiências, fotos, idioma inglês e identidade visual permanecem como base de regressão. Atualização editorial será outra etapa.
@@ -29,30 +29,30 @@ Priorizar atualização técnica, validação server do contato, falhas previsí
 
 Os caminhos abaixo são os atuais. As linhas correspondem à base inspecionada. Prioridade indica impacto e ordem; problemas de runtime inferidos por leitura exigem reprodução.
 
-| ID  | Prioridade | Evidência                                                               | Problema/consequência                                                                                     | Plano                                                                    |
-| --- | ---------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| A01 | Crítica    | package.json/lock: Next 15.2.3, React 19.0.0                            | Next na faixa afetada pelo advisory oficial de execução remota em RSC; exposição em produção desconhecida | Atualizar versões corrigidas e compatíveis antes de publicar refatoração |
-| A02 | Alta       | src/app/actions/contact-me.ts:7                                         | Tipo TypeScript substitui validação runtime; schema só no cliente                                         | Entrada unknown e parse server                                           |
-| A03 | Alta       | src/app/actions/contact-me.ts:20                                        | Interpolação de conteúdo recebido diretamente em HTML                                                     | Texto simples; HTML só com escape contextual e testes                    |
-| A04 | Alta       | action:39 e use-contact-me-submit                                       | SDK retorna à UI e hook não captura exceções                                                              | Resultado próprio serializável, falhas tipadas e fallback seguro         |
-| A05 | Alta       | action de contato                                                       | Sem controle de abuso local                                                                               | Limites e proteção real na infraestrutura ou solução mínima confirmada   |
-| A06 | Alta       | contact-me-form.tsx:52                                                  | Erro de email depende de errors.name                                                                      | Condição do próprio campo, aria-invalid/describedby                      |
-| A07 | Alta       | stars-background.tsx:161,169,173                                        | Cleanup só cancela primeiro timer; cadeia e remoções sem rastreamento                                     | Cancelar todos e impedir reagendamento após unmount                      |
-| A08 | Alta       | use-typewriter, fade-in, fade-slide-y, scroll-\* e stagger-fade-slide-x | Recursos criados sem cleanup correspondente                                                               | Encerrar recursos por instância; remount/Strict Mode                     |
-| A09 | Média      | components/sections e about-content                                     | Todas as seções client importam grande objeto english                                                     | Conteúdo server e ilhas client menores                                   |
-| A10 | Média      | config/english-config.ts                                                | Textos, ícones React, campos e datas na importação misturados                                             | Conteúdo serializável, apresentação e contratos separados                |
-| A11 | Média      | contact-me-section.tsx:23                                               | ID about duplicado                                                                                        | ID contact e âncoras únicas                                              |
-| A12 | Média      | ui/hard-skills.tsx                                                      | Div clicável, classe W-[120px] e nome dependente de hover                                                 | Botão com teclado, aria-pressed/nome e largura válida                    |
-| A13 | Média      | about-content links sociais                                             | Ícones sem nome acessível explícito                                                                       | aria-label ou texto acessível                                            |
-| A14 | Média      | stars-background.tsx:87                                                 | Tween por estrela/frame e partículas proporcionais à área sem teto                                        | Reutilizar setters/tweens, limite medido e pausa adequada                |
-| A15 | Média      | fade-slide-y e stagger-fade-slide-x                                     | Delay/triggerOffset ausentes das dependências dos efeitos                                                 | Dependências completas, callbacks estáveis                               |
-| A16 | Média      | use-typewriter.tsx                                                      | Ref de div usada em span; timeline infinita sem cleanup                                                   | Ref correta e encerramento                                               |
-| A17 | Média      | utils/calculate-duration.ts                                             | Dia do mês ignorado; anos.meses não é duração decimal                                                     | Cálculo determinístico e apresentação textual separada                   |
-| A18 | Média      | globals.css:9 e layout                                                  | Tokens Geist, fonte carregada Inter                                                                       | Variável Inter integrada; mono apenas com consumidor                     |
-| A19 | Média      | package.json e deployment.yml                                           | Sem gates explícitos de tipos/testes/formato; CI só push main; npm install e Vercel latest                | CI em PR, install frozen e ferramentas pinadas                           |
-| A20 | Média      | button.tsx, package.json e lock                                         | Slot importado sem dependência direta; Prettier indireto; eslint-config-next ausente do lock              | Dependências diretas e lint autossuficiente                              |
-| A21 | Baixa      | alien e hooks alien/rotate-slide-x/stagger-slide-y                      | Consumidores não encontrados em src                                                                       | Remover somente após busca final em todo o código/configuração           |
-| A22 | Média      | animações/estilos                                                       | Política reduced-motion não encontrada                                                                    | Conteúdo estático legível e efeitos contínuos suspensos                  |
+| ID  | Prioridade | Evidência                                                               | Problema/consequência                                                                                     | Plano                                                                                     |
+| --- | ---------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| A01 | Crítica    | package.json/lock: Next 15.2.3, React 19.0.0                            | Next na faixa afetada pelo advisory oficial de execução remota em RSC; exposição em produção desconhecida | Atualizar versões corrigidas e compatíveis antes de publicar refatoração                  |
+| A02 | Alta       | src/app/actions/contact-me.ts:7                                         | Tipo TypeScript substitui validação runtime; schema só no cliente                                         | Concluída localmente: schema compartilhado e parse server de entrada unknown              |
+| A03 | Alta       | src/app/actions/contact-me.ts:20                                        | Interpolação de conteúdo recebido diretamente em HTML                                                     | Concluída localmente: conteúdo enviado como texto simples                                 |
+| A04 | Alta       | action:39 e use-contact-me-submit                                       | SDK retorna à UI e hook não captura exceções                                                              | Concluída localmente: resultado próprio serializável, falhas tipadas e fallback seguro    |
+| A05 | Alta       | action de contato                                                       | Sem controle de abuso local                                                                               | Limite local de payload aplicado; rate limit/WAF depende de confirmação da infraestrutura |
+| A06 | Alta       | contact-me-form.tsx:52                                                  | Erro de email depende de errors.name                                                                      | Concluída localmente: erro por campo associado com aria-invalid/describedby               |
+| A07 | Alta       | stars-background.tsx:161,169,173                                        | Cleanup só cancela primeiro timer; cadeia e remoções sem rastreamento                                     | Cancelar todos e impedir reagendamento após unmount                                       |
+| A08 | Alta       | use-typewriter, fade-in, fade-slide-y, scroll-\* e stagger-fade-slide-x | Recursos criados sem cleanup correspondente                                                               | Encerrar recursos por instância; remount/Strict Mode                                      |
+| A09 | Média      | components/sections e about-content                                     | Todas as seções client importam grande objeto english                                                     | Conteúdo server e ilhas client menores                                                    |
+| A10 | Média      | config/english-config.ts                                                | Textos, ícones React, campos e datas na importação misturados                                             | Conteúdo serializável, apresentação e contratos separados                                 |
+| A11 | Média      | contact-me-section.tsx:23                                               | ID about duplicado                                                                                        | ID contact e âncoras únicas                                                               |
+| A12 | Média      | ui/hard-skills.tsx                                                      | Div clicável, classe W-[120px] e nome dependente de hover                                                 | Botão com teclado, aria-pressed/nome e largura válida                                     |
+| A13 | Média      | about-content links sociais                                             | Ícones sem nome acessível explícito                                                                       | aria-label ou texto acessível                                                             |
+| A14 | Média      | stars-background.tsx:87                                                 | Tween por estrela/frame e partículas proporcionais à área sem teto                                        | Reutilizar setters/tweens, limite medido e pausa adequada                                 |
+| A15 | Média      | fade-slide-y e stagger-fade-slide-x                                     | Delay/triggerOffset ausentes das dependências dos efeitos                                                 | Dependências completas, callbacks estáveis                                                |
+| A16 | Média      | use-typewriter.tsx                                                      | Ref de div usada em span; timeline infinita sem cleanup                                                   | Ref correta e encerramento                                                                |
+| A17 | Média      | utils/calculate-duration.ts                                             | Dia do mês ignorado; anos.meses não é duração decimal                                                     | Cálculo determinístico e apresentação textual separada                                    |
+| A18 | Média      | globals.css:9 e layout                                                  | Tokens Geist, fonte carregada Inter                                                                       | Variável Inter integrada; mono apenas com consumidor                                      |
+| A19 | Média      | package.json e deployment.yml                                           | Sem gates explícitos de tipos/testes/formato; CI só push main; npm install e Vercel latest                | CI em PR, install frozen e ferramentas pinadas                                            |
+| A20 | Média      | button.tsx, package.json e lock                                         | Slot importado sem dependência direta; Prettier indireto; eslint-config-next ausente do lock              | Dependências diretas e lint autossuficiente                                               |
+| A21 | Baixa      | alien e hooks alien/rotate-slide-x/stagger-slide-y                      | Consumidores não encontrados em src                                                                       | Remover somente após busca final em todo o código/configuração                            |
+| A22 | Média      | animações/estilos                                                       | Política reduced-motion não encontrada                                                                    | Conteúdo estático legível e efeitos contínuos suspensos                                   |
 
 ### Versões observadas no lockfile
 
@@ -90,7 +90,7 @@ Client pode importar referência a módulo use server pelo mecanismo próprio do
 
 ### Separação explícita de responsabilidades
 
-Diretriz confirmada pelo usuário: separar componente, estilo, hook, utilitário, tipos e constantes, com nomes semânticos e propriedade local clara. Esta diretriz complementa o inventário do plano; continua sem autorização para implementar.
+Diretriz confirmada pelo usuário e autorizada para implementação em 13/10/2026: separar componente, estilo, hook, utilitário, tipos e constantes, com nomes semânticos e propriedade local clara. A aplicação e suas evidências estão registradas na seção 16.
 
 | Arquivo                     | Responsabilidade                                                            | Não deve conter                                                                                               |
 | --------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -282,7 +282,7 @@ Limites e variáveis novas são propostas, não configurações existentes/aprov
 
 ### Pendência operacional: abuso
 
-WAF/rate limit da Vercel não foi inspecionado. Propor limite efetivo na infraestrutura e tamanho de payload/action; comprovar em preview antes de liberar envio. Se insuficiente, escolher CAPTCHA verificado server ou limitador distribuído compatível com serverless antes desse item. Não adotar contador em memória como garantia; não criar Redis/serviço sem necessidade confirmada. Honeypot é complemento. Pendência não bloqueia organização/testes fake, mas não declarar contato protegido sem evidência.
+O tamanho máximo do corpo de Server Actions foi reduzido para `32kb`, cobrindo o máximo permitido pelo schema da mensagem (5.000 caracteres Unicode) mais o envelope da action. Isso limita cada requisição, mas não impõe frequência por origem e não é rate limit. WAF/rate limit da Vercel continua não inspecionado; confirmar a configuração do projeto e comprovar em preview antes de declarar proteção contra abuso. Se a infraestrutura não oferecer limite efetivo, escolher CAPTCHA verificado no servidor ou limitador distribuído compatível com serverless. Não adotar contador em memória como garantia; não criar Redis/serviço sem necessidade confirmada. Honeypot é complemento. Até obter essa evidência, não declarar o contato protegido contra abuso.
 
 ## 8. Conteúdo e seções
 
@@ -515,6 +515,85 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Consulta oficial de segurança e migração Next.
 - Não executados: instalação, lint, tipos, build, testes, browser/site, email, audit completo e deploy.
 
+### Implementação A02/A03 — 12/10/2026
+
+- Schema em `src/features/contact/contracts/contact-message.schema.ts`: trim, objeto estrito, nome de 2–100 caracteres sem controles de cabeçalho, email válido até 254 caracteres e mensagem de 20–5.000 caracteres.
+- Server Action agora recebe `unknown` e executa `parse` antes de conferir configuração ou instanciar o Resend; o cliente usa o mesmo schema para validação imediata.
+- Corpo enviado ao Resend passou de HTML interpolado para texto simples, preservando assunto, destinatário, remetente e informações exibidas.
+- Branch: `codex/A02-A03-contact-validation`, baseada em `developer` alinhada a `origin/developer` no início; PR #13 aberta em 13/10/2026 para `developer`. Sem merge, email real ou deploy.
+- Passaram: `npm run lint`, `npx tsc --noEmit`, `npm run build` e `git diff --check`; busca heurística de padrões de credenciais nos arquivos alterados sem ocorrências. Lint/build emitiram o aviso preexistente de ausência do plugin Next na configuração ESLint.
+- Testes automatizados e verificação visual não foram executados neste incremento.
+- A04 e os demais itens do fluxo de contato permanecem pendentes; esta mudança não adiciona origem, rate limit, proteção de abuso ou resultado público sanitizado.
+
+### Implementação A04 — 13/10/2026
+
+- Criado `src/features/contact/contracts/contact-result.types.ts` com união discriminada e serializável para sucesso, erro de validação com erros por campo, indisponibilidade e falha inesperada.
+- Server Action valida com `safeParse`, converte erros Zod para campos conhecidos e traduz configuração ausente, falha retornada pelo Resend e exceção em estados próprios; nenhum objeto ou mensagem do SDK é enviado ao cliente.
+- Hook captura rejeição da chamada como fallback seguro. Falhas mantêm o rascunho e não acionam a animação; o formulário só é limpo e a animação de confirmação só começa após resposta de sucesso com ID do provedor.
+- Passaram: `npm run lint`, `npx tsc --noEmit`, `npm run build`, `git diff --check` e busca heurística de padrões de credenciais nos arquivos alterados sem ocorrências. Lint/build emitiram o aviso de ausência do plugin Next na configuração ESLint.
+- Testes automatizados não foram executados porque o projeto ainda não tem runner configurado; não houve envio real de email nem validação manual no navegador.
+- Branch `codex/A04-contact-result`; commit `eec36c9`; PR #14 aberta para `developer`. A comparação remota contém apenas o commit A04 sobre a base e está pronta para revisão. Sem merge ou deploy.
+- A05 (proteção de abuso na infraestrutura) e A06 (associação acessível dos erros de campo) foram autorizadas na sequência; evidências na seção abaixo.
+
+### Implementação A05/A06 — 13/10/2026
+
+- A05: configurado `experimental.serverActions.bodySizeLimit: '32kb'` em `next.config.ts`, um limite de tamanho por requisição compatível com o máximo do schema. A política padrão same-origin das Server Actions foi preservada; não foram adicionados domínios permitidos. A documentação oficial do Next.js 15 confirma limite ajustável para o corpo de Server Actions; esse limite não substitui rate limit.
+- A06: corrigida a associação do erro de email (antes condicionada a `errors.name`) e adicionados `aria-invalid` e `aria-describedby` vinculados às mensagens de erro de nome, email e mensagem.
+- Pendente real de A05: não há acesso/evidência da configuração WAF/rate limit da Vercel nem validação em preview nesta etapa. A infraestrutura ainda precisa ser confirmada antes de afirmar proteção efetiva contra abuso; nenhuma dependência nova, serviço externo ou contador em memória foi introduzido.
+- Passaram localmente: `npx prettier --check --single-quote --no-semi` nos arquivos alterados, `npx tsc --noEmit`, `npm run lint`, `npm run build` e `git diff --check`; a busca heurística por credenciais não encontrou correspondências. Lint/build mantêm o aviso existente de plugin Next ausente na configuração ESLint.
+- Testes automatizados não foram executados: o projeto não configura runner de testes. Não houve validação em preview, envio real de email, merge ou deploy.
+- Fonte: [Configuração serverActions do Next.js 15](https://nextjs.org/docs/15/app/api-reference/config/next-config-js/serverActions).
+
+### Implementação A07 — 13/10/2026
+
+- Timers de criação, repetição e remoção das estrelas cadentes são rastreados por instância; o cleanup marca a instância como encerrada, cancela todos os timers e impede que callbacks atrasados atualizem estado ou agendem trabalho novamente.
+- Branch `codex/A07-stars-timeout-cleanup`, commit `9a5bc70`, enviada ao remoto. PR #16 aberta para `developer` em 13/10/2026. Nenhum merge ou deploy foi feito.
+- Validações registradas na implementação: Prettier, `npx tsc --noEmit`, `npm run lint`, `npm run build`, `git diff --check` e busca heurística de segredos. Sem runner de testes ou validação manual no navegador.
+
+### Implementação A08–A12 — 13/10/2026
+
+- A08: hooks de animação GSAP previstos no item e a ilha `ScrollReveal` criam contexto por instância e executam `context.revert()` no cleanup. As animações das habilidades mantêm o cleanup de seus tweens no unmount.
+- A09: conteúdo do portfólio saiu do grande objeto importado por seções client para um módulo serializável de conteúdo server-side. Seções de apresentação passaram a ser Server Components; estado interativo e animações ficam nas ilhas cliente necessárias.
+- A10: contratos de conteúdo e cópias foram separados por feature; ícones são identificadores serializáveis resolvidos pela apresentação. O cálculo puro de duração concluída ficou isolado e os valores de idade/experiência são montados no servidor a partir da data civil de São Paulo, com revalidação diária.
+- A11: a seção de contato agora usa o ID `contact`, distinto de `about`.
+- A12: cada habilidade usa botão nativo com teclado, nome acessível, `aria-pressed`, foco visível e largura válida de 120 px.
+- Passaram: Prettier nos arquivos alterados; `npx tsc --noEmit`; `npx eslint src`; `npm run build`; `git diff --check`; busca heurística por padrões de segredos sem correspondências; seis casos de fronteira de data e rejeição de data inicial futura no cálculo de duração.
+- `npm run lint` não concluiu nesta execução porque o SWC não conseguiu canonicalizar o caminho do projeto (acesso negado); a verificação direta `npx eslint src` passou. O build concluiu; Next exibiu os avisos já existentes sobre o plugin ESLint e `next lint` deprecated.
+- O projeto ainda não tinha runner de testes nesta tarefa; não houve validação manual em navegador, instalação de dependências, auditoria completa, email, merge ou deploy. O commit `b62b78d` em `codex/A08-A12-animation-content-accessibility` integra a branch consolidada `codex/A08-A22-architecture-quality`; PR #17 cobre A08–A22 para `developer`.
+
+### Implementação A13 — 13/10/2026
+
+- Links sociais de GitHub e LinkedIn agora recebem nome acessível pelo atributo `aria-label`; os nomes ficam no conteúdo tipado (`accessibleName`) junto aos dados de cada link. Texto visível, ícones e destinos não foram alterados.
+- Passaram: Prettier nos três arquivos alterados, `npx eslint src`, `npx tsc --noEmit`, `npm run build` (após repetir com acesso ao diretório, pois a primeira tentativa no sandbox foi bloqueada pelo SWC), `git diff --check` e busca heurística de segredos sem correspondências. `npm run lint` continuou sem executar por erro de acesso do SWC ao canonicalizar a pasta; o ESLint direto passou.
+- Não havia runner de testes nem validação manual no navegador. O commit `db10573` está incluído como dependência na branch `codex/A08-A22-architecture-quality`; a PR #17 cobre A08–A22 para `developer`, conforme o fluxo de dependências de `AGENTS.md`. Não houve merge ou deploy.
+
+### Implementação A14–A22 — 13/10/2026
+
+- A14: fundo espacial extraído para componentes e hooks privados da feature; geração inicial após mount, contagem limitada a 260 estrelas (mantém a densidade anterior em viewport 1920×1080), `gsap.quickTo` reutilizado por estrela, pausa/remoção de listeners e tweens quando a aba fica oculta. Não foi feito benchmark visual ou de consumo; o teto é um limite operacional, não um ganho medido.
+- A15: `delay` entrou nas dependências do fade/slide vertical; stagger-X não tinha consumidor e foi removido em A21. Callbacks de organização/float das habilidades agora são estáveis e o listener de resize acompanha a função estável.
+- A16: hook de digitação mantido tipado para `HTMLSpanElement`, com timeline isolada por contexto e cleanup `revert`; hooks exclusivos do hero ficaram junto da feature. Em movimento reduzido, o subtítulo mostra o primeiro texto sem timeline.
+- A17: cálculo de duração civil e apresentação textual já haviam sido implementados e verificados em A10; sem duplicação nesta etapa.
+- A18: Inter aplicada por classe e variável do Next Font, token `--font-sans` ligado à variável; token mono removido após busca sem consumidor.
+- A19: `.node-version` fixa Node 24.20.0, `packageManager` fixa npm 11.19.0, scripts explícitos de formato/lint/tipos/estrutura/testes/build e workflow de CI em PR/push para `developer` e `main`. Deploy permanece apenas em push de `main`, depende dos gates e fixa Vercel CLI em 59.16.0. O lockfile continua sendo `package-lock.json` e passou na conferência local `npm install --package-lock-only --offline --ignore-scripts`; `npm ci` não foi executado.
+- A20: `lint` foi trocado de `next lint` pelo ESLint direto; `@radix-ui/react-slot@1.1.2` agora é dependência direta registrada pelo npm no manifest/lock. Prettier foi configurado com os estilos existentes, mas ainda não consta como dependência direta; `eslint-config-next` também não pôde ser instalado. As tentativas de instalação ficaram sem resposta do registry e o modo offline confirmou que os metadados não estão no cache. O lock não foi editado manualmente; concluir as duas dependências diretas e remover o aviso do plugin Next exige novo acesso ao registry.
+- A21: removidos apenas Alien/useAlien, hooks de rotate/stagger sem consumidores e hooks antigos de reveal substituídos por `ScrollReveal`; busca final não encontrou referências restantes. `public/me.png` foi preservado.
+- A22: hook compartilhado observa `prefers-reduced-motion`; hero, reveal, habilidades, cena da lua/foguete e fundo suspendem movimento contínuo ou apresentam estado estático. CSS desativa animações/transições e o campo de estrelas suspende pulso quando a aba está oculta.
+- Passaram: `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm test` (3 casos do gate de estrutura), `npm run structure:check`, `npm install --package-lock-only --offline --ignore-scripts`, `npm run build` e `git diff --check`. Build precisou ser repetido fora do sandbox por bloqueio de canonicalização do caminho pelo SWC; passou e manteve o aviso preexistente do plugin ESLint Next ausente.
+- Não executados: `npm ci`, browser/mobile, benchmark de animação, Vercel/infra, envio real de email, merge, deploy e auditoria de dependências completa. A validação de formato exclui arquivos legados previamente fora do padrão, listados em `.prettierignore`, sem reformatar esses arquivos nesta tarefa.
+- A14–A22 estão no commit `9ac41d9`, enviado em `codex/A08-A22-architecture-quality` e incluído na PR #17 para `developer`. A correção posterior do typewriter explicita a escrita e a remoção do fim para o início, aguardando a revisão da PR. A20 continua parcialmente pendente até o registry npm permitir instalar as dependências faltantes; nenhuma integração ou deploy ocorreu.
+
+### Aplicação da diretriz de organização — 13/10/2026
+
+- Seções de portfólio foram movidas para pastas próprias em `features/portfolio/ui/components`; contato e formulário passaram para `features/contact/ui/components`. Primitivas de UI e `ScrollReveal` ficam em pastas nomeadas sob `components/`; não restam componentes React soltos nesses diretórios.
+- Primitivas compartilhadas foram movidas de `components/ui` para `components/shared`; as partes Card e Tooltip passaram a ter uma pasta/componente cada, com imports explícitos. O `CardAction` sem consumidor foi removido; TooltipProvider agora é único na `SkillsField`. ToastProvider e ThemeProvider também têm componentes próprios. O cálculo `cn` foi movido para `lib/styles/cn.ts`, e `components.json` foi atualizado.
+- Componentes com contratos próprios agora têm tipos junto da implementação. Classes densas e variantes foram extraídas para arquivos `*.styles.ts`; ícones fixos, configuração e constantes ficaram próximos de seus consumidores. Componentes sem props próprias ou sem estilo próprio não ganharam arquivos vazios.
+- A seção de apresentação Server Component compõe a ilha cliente `SkillsField`; `SkillBadge` e hooks de animação ficam privados da feature. Cálculo da grade e geração de posições flutuantes foram extraídos para funções puras, com fonte aleatória injetada e testes determinísticos.
+- O gate `structure:check` passou a exigir que cada arquivo React `.tsx` fora das entradas especiais do App Router fique em uma pasta de componente com o mesmo nome.
+- Comparação estrutural feita por leitura do `kaizen-app/AGENTS.md` e da seção “Organização dos componentes React” em `docs/architecture/TARGET-ARCHITECTURE.md`. Nenhum arquivo, diário ou configuração do Kaizen foi alterado.
+- O gerador Shadcn pode criar arquivos diretamente na pasta indicada por `components.json`; após geração, cada componente precisa ser movido para sua pasta, conforme a convenção e o gate de estrutura.
+- Passaram: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run structure:check`, `npm test` (9 testes) e `npm run build`. A primeira tentativa de build parou antes da compilação por acesso negado do SWC ao caminho local; a repetição com acesso ao diretório passou. O build ainda informa o aviso existente de plugin ESLint Next ausente. O teste Node que importa o utilitário TypeScript informa `MODULE_TYPELESS_PACKAGE_JSON`, sem falhas.
+- A rota inicial respondeu HTTP 200 em `localhost:3002` depois de reiniciar o servidor; a execução simultânea anterior de `next dev` e `next build` causou conflito temporário na pasta `.next`, resolvido ao parar o servidor antigo e iniciá-lo após o build. Sem revisão visual manual, benchmark, envio de email, merge ou deploy. A reorganização e A14–A22 estão na branch `codex/A08-A22-architecture-quality`, commit `9ac41d9`, em revisão na PR #17; A20 segue parcialmente pendente conforme acima.
+
 ## 17. Fontes oficiais
 
 - [Advisory RCE em React Server Components](https://github.com/vercel/next.js/security/advisories/GHSA-9qr9-h5gf-34mp): prioridade da atualização de 15.2.3; patches históricos não substituem nova consulta.
@@ -522,3 +601,93 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - [Migração para Next.js 16](https://nextjs.org/docs/app/guides/upgrading/version-16): remoção de next lint e lint explícito.
 - [Segurança de dados](https://nextjs.org/docs/app/guides/data-security): Server Actions são fronteiras públicas e validam input.
 - [Configuração de Server Actions](https://nextjs.org/docs/app/api-reference/config/next-config-js/serverActions): origem/limite do corpo não substituem validação do conteúdo.
+
+### Revisão antes da integração — 13/10/2026
+
+- A20 concluída: Prettier 3.6.2 e eslint-config-next 15.5.27 são dependências diretas registradas pelo npm no lockfile.
+- Editor: o organizador de imports do TypeScript foi desabilitado neste workspace; source.fixAll.eslint passa a aplicar simple-import-sort. Prettier e ESLint usam a mesma configuração.
+- Arquivos de texto e o editor agora padronizam LF; a revisão isolada detectou CRLF em um checkout limpo como causa de falha de formato.
+- Lint inclui scripts MJS e configurações; os avisos sobre refs no cleanup de lua/foguete foram corrigidos capturando os nós da instância. As guardas da A07 foram preservadas no hook extraído.
+- Passaram instalação pelo lockfile, formato, lint, tipos, gate de estrutura, nove testes e build no checkout isolado; uma revalidação acompanha a integração de A07.
+- A proteção externa WAF/rate limit de A05 continua pendente de evidência de infraestrutura.
+
+- Integração de A07: os arquivos antigos de stars-background/use-shooting-stars foram removidos ao reconciliar developer, pois suas responsabilidades já estão no novo hook da feature. As guardas de descarte dos callbacks e dos atualizadores de estado foram preservadas.
+
+## 18. Internacionalização en-US e pt-BR — validada localmente
+
+- A estrutura de locale, carregamento de mensagens, provider e arquivos JSON por idioma segue a organização usada no Sandicts; o repositório Sandicts foi consultado somente para leitura.
+- O idioma padrão continua em inglês para preservar a experiência pública atual. A seleção entre inglês e português brasileiro é persistida por cookie sem alterar a URL `/`; conteúdo do portfólio, metadados, acessibilidade, formulário, validações e mensagens de envio possuem traduções.
+- O cálculo de duração continua puro e recebe o locale para formatar anos e meses. As mensagens ficam em `src/i18n/messages/` e os componentes recebem dados tipados.
+- Bloqueio anterior resolvido: next-intl 4.13.1 consta no manifest e no lockfile; `npm ci` concluiu com uma instalação limpa. O build compilou com os binários completos e o plugin Next do lint, sem os erros anteriores do SWC.
+- Validações: formato, lint com zero erros e avisos, tipos, estrutura, 11 testes, build, `git diff --check` e busca heurística de segredos. A auditoria das dependências de produção retornou zero vulnerabilidades.
+- Navegador: seleção EN/PT, persistência após recarregar, metadados e lang, erros de formulário localizados e preservação dos valores ao trocar idioma. A visualização com viewport reduzido manteve hero/seletor legíveis e sem overflow horizontal. Nenhum email foi enviado.
+- A atualização editorial da trajetória profissional permanece uma etapa de planejamento; o i18n preserva os fatos anteriores e fornece versões equivalentes.
+- Referência: [configuração App Router do next-intl](https://next-intl.dev/docs/getting-started).
+
+## 19. Conteúdo profissional e dados bilíngues — 13/10/2026
+
+Implementação editorial autorizada após revisão de `docs/PLANO-CONTEUDO-PROFISSIONAL.md`, incluindo resumos visíveis nos cards de empresas e contribuições expansíveis acessíveis. Datas, IDs, URLs e fatos estáveis passam a dados comuns da feature; mensagens EN/PT guardam os textos. `get-portfolio-content.ts` continua server-only e retorna o contrato sem cast duplo. Componentes renderizam, estilos definem o visual e a formatação de períodos é pura. Novas seções: produtos pessoais e síntese de competências/formação, com navegação por âncoras.
+
+`npm run ci` passou: formatação, lint sem erros/avisos, tipos, estrutura (152 módulos), 14 testes e build. A execução do build no Windows precisou da permissão de acesso apropriada para SWC. Verificações de navegador cobriram idiomas, persistência, âncoras, cards em tela estreita/larga, expansão por teclado e validações traduzidas do formulário, sem envio real. `git diff --check` e busca heurística de segredos sem achados. A lógica de apagar e digitar permanece inalterada.
+
+Fontes, decisões editoriais, limitações de verificação de links e confirmações opcionais constam da seção 12 do plano de conteúdo. O link antigo da Rota Sul foi retirado após falha de DNS; LinkedIn bloqueia verificação automatizada. A entrega é local para revisão visual, sem publicação ou promoção a main.
+
+### Runtime do ESLint no editor — 14/10/2026
+
+Após relato de erro persistente de native binding no VS Code, foi confirmada a instalação de `@unrs/resolver-binding-win32-x64-msvc` 1.12.2 e a resolução do import de `ProfessionalSummaryContent` pelo resolver usado pelo Next. O lint completo passou no terminal. A mensagem genérica do loader não comprova ausência da dependência: ele reúne falhas de carregamento e sugere reinstalação para diferentes causas.
+
+Os logs do editor identificaram Node 24.21.0 no Electron; o Node do sistema é 24.20.0. A carga direta também passou no Electron fora do servidor da extensão, portanto a causa interna exata da falha nesse servidor não foi isolada. Como ajuste de consistência, `.vscode/settings.json` define `eslint.runtime: "node"`, opção documentada pela extensão para usar o Node do sistema. O lockfile e as dependências foram preservados.
+
+Validações: resolução direta do alias, `npm run lint`, formatação do settings e `git diff --check` passaram. A ativação e o desaparecimento do diagnóstico no editor precisam ser confirmados após recarregar a janela; a extensão pode solicitar confirmação do runtime definido no workspace. Não foi realizado build ou teste da aplicação nesta correção de configuração do editor.
+
+### Correção do resolver após persistência no editor — 14/10/2026
+
+O usuário confirmou persistência do erro após o ajuste de runtime. Os logs passaram a registrar Node 24.20.0, comprovando que a configuração foi aplicada, mas não resolveu a falha do loader nativo. A causa interna exata desse carregamento no servidor da extensão não foi isolada; a mensagem sobre o bug do npm é genérica e não deve ser tratada como prova de pacote ausente.
+
+Foi aplicado override restrito a `eslint-config-next → eslint-import-resolver-typescript@3.8.0`. Essa versão usa `enhanced-resolve` em JavaScript e mantém suporte a TypeScript, `tsconfig.json` e aliases. O lockfile foi atualizado pelo npm, preservando as demais mudanças. `unrs-resolver` e seus bindings deixam essa árvore; não houve desativação de regras de import nem substituição por resoluções fictícias. A alteração afeta ferramentas de desenvolvimento, não o comportamento público do site.
+
+A primeira alternativa avaliada, 3.7.0, não foi mantida: sua cadeia fast-glob acrescentava um alerta propagado. A versão final 3.8.0 usa tinyglobby e mantém os 19 alertas já presentes no lockfile anterior (18 altos e um moderado), sem acrescentar novos alertas. Eles pertencem à cadeia de ferramentas e permanecem pendentes de tratamento próprio; não foi executado audit fix ou migração de configuração fora deste escopo. Os relatórios completos ficam no diário local ignorado.
+
+Uma tentativa de `npm ci` na raiz encontrou EPERM no arquivo `@parcel/watcher-win32-x64/watcher.node`, em uso no Windows. A instalação da raiz foi restaurada com npm install, e a reprodução limpa foi direcionada para `docs/worklog/eslint-resolver-clean-install/`, sem encerrar o editor do usuário. As evidências finais de diagnóstico, instalação e gates estão registradas no diário da correção. Para carregar a nova dependência em um servidor ESLint que já estava aberto, é necessário reiniciá-lo; o desaparecimento visual do diagnóstico continua dependente dessa recarga no editor.
+
+Validação final: instalação limpa isolada passou e seu lockfile é idêntico ao da raiz. O diagnóstico com 3.8.0 passou em Node 24.20.0 e Electron/Node 24.21.0: alias existente resolvido, alias inexistente rejeitado, lint de import válido aprovado e import inválido identificado por `import/no-unresolved`, sem carregar `unrs-resolver`. `npm run ci` passou integralmente (formatação, lint sem erros/avisos, tipos, estrutura de 152 módulos, 14 testes e build). `git diff --check` e busca heurística de segredos passaram. O npm audit final manteve os mesmos 19 alertas da baseline, sem novos rótulos. Não houve commit, push ou publicação.
+
+### Corrigir dependências nativas e aviso de Prettier no Turbopack — 14/10/2026
+
+Após novo erro de `next dev`, a instalação raiz e a cópia limpa foram inspecionadas. O pacote Lightning CSS estava na versão 1.29.2 em ambas; o binding Windows x64 existia nos dois locais com o mesmo hash SHA-256 e passou por uma transformação CSS direta. O build e uma requisição HTTP de desenvolvimento passaram após restaurar a instalação. A mensagem de falha do SWC durante comandos sem acesso ampliado veio da política do ambiente isolado ao abrir seu cache nativo; com acesso apropriado, `npm run build` passou.
+
+O Turbopack ainda avisava que `@react-email/render` resolvia Prettier 3.4.2 enquanto o projeto usa 3.6.2. Um override restrito ao renderizador alinha essa dependência à versão direta existente. O lockfile deixa de duplicar Prettier; não há mudança no código nem no comportamento de envio de email.
+
+Validações: `npm run ci` passou em todos os passos: formatação, lint sem avisos, tipos, estrutura (152 arquivos), 14 testes e build. `next dev` compilou a página inicial e respondeu HTTP 200 sem avisos do Prettier. O npm reportou os 19 alertas já conhecidos da baseline (18 altos e um moderado); não foi executado `audit fix`. Sem envio real de email, commit ou publicação.
+
+### Causa da recorrência do erro Lightning CSS no Windows — 14/10/2026
+
+O usuário reproduziu a falha mesmo após reiniciar seu servidor. O HTTP 500 foi confirmado no processo real da porta 3000. Uma instrumentação temporária do loader capturou o erro original `ERR_DLOPEN_FAILED` ao abrir o binding instalado; o erro final `Cannot find module '../lightningcss.win32-x64-msvc.node'` vinha apenas do fallback do loader.
+
+O binding importa `VCRUNTIME140.dll`, ausente em `C:\Windows\System32`. As ferramentas do Codex tinham cópias desse runtime em seu PATH, explicando o sucesso anterior dos testes isolados. Ao executar Node com PATH mínimo de Windows e Node, a falha foi reproduzida. A validação anterior não demonstrava que o ambiente do terminal do usuário estava corrigido.
+
+O instalador oficial [Microsoft Visual C++ x64](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170) foi baixado da URL indicada pela Microsoft e sua assinatura digital foi validada como Microsoft Corporation. Após confirmação UAC do usuário, a instalação terminou com código 0, sem reinicialização. `VCRUNTIME140.dll` 14.51.36247.0 passou a existir no System32 e a transformação CSS com PATH mínimo passou.
+
+O servidor real da porta 3000 ainda tinha a avaliação PostCSS com falha em cache. Uma alteração temporária de comentário na configuração invalidou essa avaliação; o arquivo foi restaurado byte a byte. A página respondeu HTTP 200 antes e depois da restauração, no mesmo servidor que havia retornado HTTP 500. O loader instalado também foi restaurado ao original. Não houve alteração final em configuração, estilos ou componentes para corrigir essa dependência do sistema; não foi necessário repetir a suíte de código já validada. `git diff --check` passou. Em novas instalações Windows x64, o runtime Visual C++ é um requisito para esse binding nativo, além dos pacotes npm.
+
+### Ajustes visuais de gravidade e idioma — 14/10/2026
+
+A dica de gravidade dos badges usa peso normal, cor de texto secundário e a capitalização original da tradução, removendo o destaque em caixa alta. O seletor EN/PT recebeu `cursor-pointer`. Alterações restritas aos arquivos de estilos dos respectivos componentes, preservando textos traduzidos, estado e efeitos.
+
+Validações: formatação, lint, tipos e `git diff --check` passaram; revisão das duas linhas de estilos sem segredos. No navegador local, os dois botões de idioma apresentaram cursor computado `pointer`, e a dica visível por foco de teclado apresentou peso 400 e `text-transform: none`. Captura local em `docs/worklog/previews/gravity-tooltip-soft.png`. Testes de lógica e build de produção não foram repetidos para este ajuste visual; CSS compilado e inspecionado na aplicação em desenvolvimento.
+
+### Habilidades iniciam com gravidade desativada — 14/10/2026
+
+O estado inicial do campo de habilidades passou a ser flutuante. O primeiro clique ativa a organização nas posições calculadas; o segundo volta a desativá-la. Os textos existentes acompanham a ação seguinte: “Ativar gravidade” inicialmente e “Desativar gravidade” após organizar. A preferência de movimento reduzido mantém a organização imediata e os controles desabilitados; o estado visual e `aria-pressed` consideram essa preferência, conforme revisão do código. Essa preferência não foi emulada no navegador nesta validação.
+
+Passaram formatação, lint, tipos, 14 testes, build de produção em cópia temporária, `git diff --check` e revisão das duas linhas alteradas sem segredos. No navegador, os dez ícones iniciaram com `aria-pressed=false` e posições flutuantes; o primeiro clique os alinhou na grade e mudou para `true`, o segundo retornou a `false`, e recarregar manteve o estado inicial flutuante. Capturas locais em `docs/worklog/previews/gravity-initial-floating.png` e `gravity-after-first-click.png`. Sem commit ou publicação.
+
+### Flutuação contínua das habilidades — 14/10/2026
+
+A animação com destino fixo e `yoyo` foi substituída por movimento contínuo independente: a distribuição inicial ocupa a área disponível, com espaçamento quando há espaço, e cada ícone recebe velocidade entre 8 e 16 pixels por segundo e mudanças graduais de direção em intervalos de 4 a 8 segundos. O retorno periódico à origem, que concentrava os itens no canto superior esquerdo, foi eliminado. Os limites orientam o movimento para dentro e impedem a saída dos badges; cruzamentos entre itens continuam possíveis, sem introdução de uma simulação de colisões.
+
+O hook controla um único ticker GSAP, setters de posição, pausa por hover ou foco visível de teclado, redimensionamento proporcional, suspensão em aba oculta e limpeza dos recursos. Os cálculos permanecem puros no utilitário, os contratos em arquivo de tipos e os parâmetros nas constantes, sem novas dependências ou atualizações de estado React por quadro. Ao alternar a gravidade, a flutuação recomeça da posição atual e cancela transições anteriores. O cálculo da altura reservada da grade passou a incluir sua margem inferior de 40 pixels, preservando as posições e evitando um salto ao retomar o movimento.
+
+Passaram formatação, lint sem erros ou avisos, tipos, estrutura (153 arquivos), 18 testes, build de produção em cópia temporária e `git diff --check`. Os testes incluem simulação determinística de três minutos, limites, distribuição inicial, diferentes taxas de quadros, viradas suaves e redimensionamento. A revisão heurística dos arquivos desta alteração não encontrou segredos.
+
+No navegador local, observações separadas por 108 segundos mostraram trajetórias independentes sem retorno coletivo à origem; foram conferidas pausa por hover e teclado, retomada, alternância rápida da grade e viewport de 400 pixels sem overflow horizontal. Após o ajuste final de `:focus-visible`, a pausa de teclado e a retomada após clique foram reconferidas. A preferência de movimento reduzido e a aba oculta foram revisadas no código, sem emulação dessas condições no navegador. Não houve erro de console; permanece uma sugestão de LCP do Next para a imagem ao acessar diretamente a âncora Sobre. Captura local: `docs/worklog/previews/skills-continuous-drift.png`. Sem commit ou publicação.

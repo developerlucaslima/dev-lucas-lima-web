@@ -1,0 +1,20 @@
+export const professionalSummarySectionStyles = {
+  section: 'container mx-auto max-w-5xl scroll-mt-8 px-6 py-16',
+  headingReveal: 'mb-12 text-center',
+  heading: 'mb-4 text-2xl font-light uppercase sm:text-3xl md:text-4xl',
+  rule: 'mx-auto h-0.5 w-20 bg-foreground',
+  groups: 'grid gap-6 md:grid-cols-3',
+  card: 'h-full max-w-none border border-teal-500/20',
+  title: 'text-lg font-medium',
+  description: 'text-sm leading-relaxed text-foreground/80',
+  technologies: 'flex list-none flex-wrap gap-2',
+  technology:
+    'rounded-full border border-teal-500/20 bg-teal-500/10 px-2.5 py-1 text-xs text-foreground/80',
+  educationRow: 'mt-8 grid gap-6 sm:grid-cols-2',
+  completion: 'text-sm text-teal-700 dark:text-teal-300',
+  details: 'space-y-3 border-t border-teal-500/20 pt-4',
+  subtitle: 'text-sm font-medium',
+  courseCompletion: 'text-xs text-foreground/60',
+  list: 'flex list-none flex-col gap-2 text-sm text-foreground/80',
+  link: 'inline-block rounded-sm text-sm underline underline-offset-4 hover:text-teal-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-500 dark:hover:text-teal-300',
+} as const
