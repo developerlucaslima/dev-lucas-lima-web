@@ -3,6 +3,8 @@
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
 
+import { useShootingStars } from './use-shooting-stars'
+
 // TODO: improve clean code and performance
 
 // --- StarBackground Component (Background Stars) ---
@@ -125,53 +127,8 @@ export function StarBackground() {
 }
 
 // --- ShootingStars Component (Shooting Stars) ---
-interface ShootingStar {
-  id: number
-  startX: number
-  startY: number
-  endX: number
-  endY: number
-  duration: number
-  size: number
-  angle: number
-  distance: number
-}
-
 export function ShootingStars() {
-  const [shootingStars, setShootingStars] = useState<ShootingStar[]>([])
-  const shootingStarIdRef = useRef(0)
-
-  useEffect(() => {
-    const createShootingStar = () => {
-      if (Math.random() > 0.8) {
-        // 20% chance
-        const id = shootingStarIdRef.current++
-        const startX = Math.random() * 100
-        const startY = Math.random() * 40
-        const distance = 30 + Math.random() * 40
-        const angle = Math.PI / 4 + (Math.random() * Math.PI) / 2
-        const endX = startX + Math.cos(angle) * distance
-        const endY = startY + Math.sin(angle) * distance
-        const duration = 0.6 + Math.random() * 2
-        const size = 1.5 + Math.random() * 1.5
-        setShootingStars((prev) => [
-          ...prev,
-          { id, startX, startY, endX, endY, duration, size, angle, distance },
-        ])
-        setTimeout(
-          () => {
-            setShootingStars((prev) => prev.filter((star) => star.id !== id))
-          },
-          duration * 1000 + 100,
-        )
-      }
-      const nextDelay = 200 + Math.random() * 1000
-      setTimeout(createShootingStar, nextDelay)
-    }
-    const initialDelay = 1000 + Math.random() * 2000
-    const timerId = setTimeout(createShootingStar, initialDelay)
-    return () => clearTimeout(timerId)
-  }, [])
+  const shootingStars = useShootingStars()
 
   return (
     <div className="pointer-events-none fixed inset-0 z-10">

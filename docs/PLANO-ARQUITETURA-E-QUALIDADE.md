@@ -4,7 +4,7 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: planejamento geral com implementação incremental autorizada. A01–A04 concluídas localmente em branches próprias; PR #13 (A02/A03) integrada em `developer`; PR #14 (A04) aberta para `developer`. A05 tem limite local de payload; proteção de abuso na infraestrutura continua pendente de evidência. A06 concluída localmente na branch A05/A06. Os demais itens permanecem planejados.
+- Status: planejamento geral com implementação incremental autorizada. A01–A04 concluídas; PR #13 (A02/A03) e PR #14 (A04) integradas em `developer`. A05 tem limite local de payload; proteção de abuso na infraestrutura continua pendente de evidência. A06 concluída na branch A05/A06, com PR #15 aberta para `developer`. A07 implementada localmente na branch própria; validações registradas abaixo. Os demais itens permanecem planejados.
 - Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
@@ -532,7 +532,7 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Hook captura rejeição da chamada como fallback seguro. Falhas mantêm o rascunho e não acionam a animação; o formulário só é limpo e a animação de confirmação só começa após resposta de sucesso com ID do provedor.
 - Passaram: `npm run lint`, `npx tsc --noEmit`, `npm run build`, `git diff --check` e busca heurística de padrões de credenciais nos arquivos alterados sem ocorrências. Lint/build emitiram o aviso de ausência do plugin Next na configuração ESLint.
 - Testes automatizados não foram executados porque o projeto ainda não tem runner configurado; não houve envio real de email nem validação manual no navegador.
-- Branch `codex/A04-contact-result`; commit `eec36c9`; PR #14 aberta para `developer`. A comparação remota contém apenas o commit A04 sobre a base e está pronta para revisão. Sem merge ou deploy.
+- Branch `codex/A04-contact-result`; commit `eec36c9`; PR #14 integrada em `developer` em 13/10/2026. Sem deploy.
 - A05 (proteção de abuso na infraestrutura) e A06 (associação acessível dos erros de campo) foram autorizadas na sequência; evidências na seção abaixo.
 
 ### Implementação A05/A06 — 13/10/2026
@@ -542,7 +542,16 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - Pendente real de A05: não há acesso/evidência da configuração WAF/rate limit da Vercel nem validação em preview nesta etapa. A infraestrutura ainda precisa ser confirmada antes de afirmar proteção efetiva contra abuso; nenhuma dependência nova, serviço externo ou contador em memória foi introduzido.
 - Passaram localmente: `npx prettier --check --single-quote --no-semi` nos arquivos alterados, `npx tsc --noEmit`, `npm run lint`, `npm run build` e `git diff --check`; a busca heurística por credenciais não encontrou correspondências. Lint/build mantêm o aviso existente de plugin Next ausente na configuração ESLint.
 - Testes automatizados não foram executados: o projeto não configura runner de testes. Não houve validação em preview, envio real de email, merge ou deploy.
+- Branch `codex/A05-A06-contact-protection-accessibility`; commit `c6734c9`; PR #15 aberta para `developer`. A05 permanece parcial até confirmar rate limit/WAF na infraestrutura e validar em preview; sem merge ou deploy.
 - Fonte: [Configuração serverActions do Next.js 15](https://nextjs.org/docs/15/app/api-reference/config/next-config-js/serverActions).
+
+### Implementação A07 — 13/10/2026
+
+- Extraído o estado e o ciclo de vida das estrelas cadentes para `src/components/ui/use-shooting-stars.ts`; `ShootingStars` ficou responsável pela renderização.
+- O hook rastreia o timer inicial, cada remoção e o próximo timer recursivo. No cleanup, marca a instância como descartada, cancela todos os timeouts pendentes e limpa o rastreamento; callbacks e atualizações de estado verificam esse sinal antes de agir.
+- Branch `codex/A07-stars-timeout-cleanup`, baseada no estado local após A05/A06. A implementação ainda não foi publicada; sem merge ou deploy.
+- Passaram: Prettier nos arquivos TypeScript alterados, `npx tsc --noEmit`, `npm run lint`, `npm run build`, `git diff --check`, checagem de espaços finais nos arquivos revisados e busca heurística por credenciais sem correspondências. Lint/build mantêm o aviso existente de plugin Next ausente na configuração ESLint; `next lint` também informa que será removido no Next.js 16.
+- Testes automatizados não foram executados porque o projeto não configura runner; não houve validação visual em navegador nem deploy.
 
 ## 17. Fontes oficiais
 
