@@ -20,6 +20,7 @@ export function ContactScene({ copy }: ContactSceneProps) {
       >
         <ContactForm
           copy={copy.form}
+          formErrorMessages={copy.formErrorMessages}
           submitToastMessages={copy.submitToastMessages}
           shouldAnimate={triggerAnimation}
         />
@@ -30,7 +31,12 @@ export function ContactScene({ copy }: ContactSceneProps) {
         fromX={100}
         duration={1.5}
       >
-        <MoonAndRocket moonRef={moonRef} rocketRef={rocketRef} />
+        <MoonAndRocket
+          moonRef={moonRef}
+          moonTitle={copy.illustration.moonTitle}
+          rocketTitle={copy.illustration.rocketTitle}
+          rocketRef={rocketRef}
+        />
       </ScrollReveal>
     </div>
   )

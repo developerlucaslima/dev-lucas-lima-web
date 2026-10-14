@@ -19,11 +19,16 @@ import { useContactMeSubmit } from './hooks/use-contact-me-submit'
 
 export function ContactForm({
   copy,
+  formErrorMessages,
   submitToastMessages,
   shouldAnimate,
 }: ContactFormProps) {
   const { errors, handleSubmit, isSubmitting, onSubmit, register } =
-    useContactMeSubmit({ shouldAnimate, submitToastMessages })
+    useContactMeSubmit({
+      formErrorMessages,
+      shouldAnimate,
+      submitToastMessages,
+    })
 
   return (
     <Card className={contactFormStyles.card}>
@@ -37,6 +42,7 @@ export function ContactForm({
       </CardHeader>
       <CardContent>
         <form
+          noValidate
           onSubmit={handleSubmit(onSubmit)}
           className={contactFormStyles.form}
         >

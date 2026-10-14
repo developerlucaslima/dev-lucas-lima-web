@@ -19,6 +19,8 @@ export function useMoonRocketAnimation() {
 
   useEffect(() => {
     if (prefersReducedMotion) return
+    const moon = moonRef.current
+    const rocket = rocketRef.current
     if (moonRef.current) {
       gsap.to(moonRef.current, {
         y: 15, // Move the moon 15 pixels vertically
@@ -81,12 +83,12 @@ export function useMoonRocketAnimation() {
 
     // Cleanup function to kill all GSAP animations when the component unmounts
     return () => {
-      if (moonRef.current) gsap.killTweensOf(moonRef.current)
-      if (rocketRef.current) gsap.killTweensOf(rocketRef.current)
+      if (moon) gsap.killTweensOf(moon)
+      if (rocket) gsap.killTweensOf(rocket)
       if (timelineRef.current) timelineRef.current.kill()
-      if (moonRef.current) gsap.set(moonRef.current, { y: 0 })
-      if (rocketRef.current) {
-        gsap.set(rocketRef.current, {
+      if (moon) gsap.set(moon, { y: 0 })
+      if (rocket) {
+        gsap.set(rocket, {
           x: 0,
           y: 0,
           rotation: 0,

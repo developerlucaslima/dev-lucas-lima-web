@@ -1,7 +1,12 @@
 import { moonAndRocketStyles } from './moon-and-rocket.styles'
 import type { MoonAndRocketProps } from './moon-and-rocket.types'
 
-export function MoonAndRocket({ moonRef, rocketRef }: MoonAndRocketProps) {
+export function MoonAndRocket({
+  moonRef,
+  moonTitle,
+  rocketTitle,
+  rocketRef,
+}: MoonAndRocketProps) {
   return (
     <div className={moonAndRocketStyles.root}>
       {/* First SVG: the Moon */}
@@ -19,7 +24,7 @@ export function MoonAndRocket({ moonRef, rocketRef }: MoonAndRocketProps) {
                 .cls-3{fill:#909cc2;}`}
           </style>
         </defs>
-        <title>moon</title>
+        <title>{moonTitle}</title>
         <path
           className="cls-1"
           d="M35.77,549c-84.71,354.68,134.16,710.9,488.83,795.62a657.64,657.64,0,0,0,443.74-49.19q15.18-7.41,29.92-15.62,21.27-11.77,41.63-25.16a649.75,649.75,0,0,0,53.87-39.25q22.41-18.11,43.25-38.25,2.67-2.55,5.26-5.11A657.43,657.43,0,0,0,1320.2,855.83c84.72-354.71-134.12-710.89-488.82-795.61C632.77,12.78,433.73,60.51,282.11,174A657.55,657.55,0,0,0,35.77,549Z"
@@ -183,6 +188,8 @@ export function MoonAndRocket({ moonRef, rocketRef }: MoonAndRocketProps) {
         className={moonAndRocketStyles.rocket}
         version="1.1"
         id="space_cadet"
+        aria-label={rocketTitle}
+        role="img"
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         x="0px"

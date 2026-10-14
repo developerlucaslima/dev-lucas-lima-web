@@ -1,32 +1,49 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { contactMe } from '@/app/actions/contact-me'
 import {
   type ContactMessageInput,
-  contactMessageSchema,
+  createContactMessageSchema,
 } from '@/features/contact/contracts/contact-message.schema'
 import type { ContactMessageResult } from '@/features/contact/contracts/contact-result.types'
 import type { ContactUiCopy } from '@/features/contact/ui/contact-ui-copy.types'
 
-interface ContactMeSubmiTProps {
+interface ContactMeSubmitProps {
+  formErrorMessages: ContactUiCopy['formErrorMessages']
   shouldAnimate: () => void
   submitToastMessages: ContactUiCopy['submitToastMessages']
 }
 
 export function useContactMeSubmit({
+  formErrorMessages,
   shouldAnimate,
   submitToastMessages,
-}: ContactMeSubmiTProps) {
+}: ContactMeSubmitProps) {
+  const schema = useMemo(
+    () => createContactMessageSchema(formErrorMessages),
+    [formErrorMessages],
+  )
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    getFieldState,
+    trigger,
   } = useForm<ContactMessageInput>({
-    resolver: zodResolver(contactMessageSchema),
+    resolver: zodResolver(schema),
   })
+
+  useEffect(() => {
+    const invalidFields = schema
+      .keyof()
+      .options.filter((field) => getFieldState(field).invalid)
+
+    if (invalidFields.length > 0) trigger(invalidFields)
+  }, [getFieldState, schema, trigger])
 
   const onSubmit = async (data: ContactMessageInput) => {
     let result: ContactMessageResult
