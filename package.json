@@ -11,12 +11,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --max-warnings=0",
+    "lint": "eslint src scripts next.config.ts prettier.config.js postcss.config.mjs --ext .js,.mjs,.ts,.tsx --max-warnings=0",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.mjs\" \"*.{json,mjs,js,ts}\" \".*.{json,mjs,js}\" \".github/workflows/*.yml\"",
     "typecheck": "tsc --noEmit",
     "structure:check": "node scripts/check-structure.mjs",
     "test": "node --test scripts/*.test.mjs",
-    "ci": "npm run format:check && npm run lint && npm run typecheck && npm run structure:check && npm test && npm run build"
+    "ci": "npm run format:check && npm run lint && npm run typecheck && npm run structure:check && npm test && npm run build",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.3",
@@ -47,7 +48,9 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^8.57.1",
+    "eslint-config-next": "15.5.27",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4",
     "typescript": "^5"

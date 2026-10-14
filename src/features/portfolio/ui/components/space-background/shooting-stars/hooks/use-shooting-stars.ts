@@ -50,7 +50,9 @@ export function useShootingStars() {
           distance: 30 + Math.random() * 40,
         }
 
-        setShootingStars((currentStars) => [...currentStars, shootingStar])
+        setShootingStars((currentStars) =>
+          disposed ? currentStars : [...currentStars, shootingStar],
+        )
 
         const removalTimer = setTimeout(
           () => {
@@ -58,7 +60,9 @@ export function useShootingStars() {
             if (disposed) return
 
             setShootingStars((currentStars) =>
-              currentStars.filter((star) => star.id !== id),
+              disposed
+                ? currentStars
+                : currentStars.filter((star) => star.id !== id),
             )
           },
           duration * 1000 + 100,

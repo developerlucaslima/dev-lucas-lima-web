@@ -1,13 +1,1 @@
-# Legacy files already outside the current format baseline; reformat with their owning tasks.
 package-lock.json
-src/app/actions/contact-me.ts
-src/components/ui/button.tsx
-src/components/ui/card.tsx
-src/components/ui/input.tsx
-src/components/ui/label.tsx
-src/components/ui/moon.tsx
-src/components/ui/sonner.tsx
-src/components/ui/textarea.tsx
-src/components/ui/tooltip.tsx
-src/hooks/use-window-resize.tsx
-src/lib/utils.ts
