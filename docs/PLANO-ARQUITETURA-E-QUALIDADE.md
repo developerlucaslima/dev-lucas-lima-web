@@ -4,7 +4,7 @@
 
 - Avaliação: 12/10/2026. Projeto: `dev-lucas-lima-web`.
 - Base: branch `main`, commit `95569f7`; checkout inicialmente limpo.
-- Status: A01 integrada em main pela PR histórica #12; A02–A07 integradas em developer pelas PRs #13–#16. A08–A22 em revisão na PR #17, com A20 concluída após registrar dependências diretas e corrigir o lint/formatter. A proteção WAF/rate limit de A05 continua pendente de evidência. Sem promoção para main ou deploy.
+- Status: A01 integrada em main pela PR histórica #12; A02–A22 integradas em developer pelas PRs #13–#17. A20 concluída na revisão de ferramentas da PR #17. Internacionalização en-US/pt-BR validada localmente para entrega em PR própria. A proteção WAF/rate limit de A05 continua pendente de evidência. Sem promoção para main ou deploy.
 - Entrega inicial: este documento de planejamento. A01 autorizada em 12/10/2026; evidências registradas em docs/tasks/A01-security-update.md. A02 e A03 autorizadas em 12/10/2026; evidências desta implementação registradas na seção 16.
 - Referência: arquitetura do Kaizen, especialmente semântica, organização de componentes, App Router fino, Server/Client e validação proporcional.
 - Kaizen utilizado somente para leitura, sem arquivos, registros de trabalho ou dependências adicionados nele.
@@ -602,7 +602,6 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - [Segurança de dados](https://nextjs.org/docs/app/guides/data-security): Server Actions são fronteiras públicas e validam input.
 - [Configuração de Server Actions](https://nextjs.org/docs/app/api-reference/config/next-config-js/serverActions): origem/limite do corpo não substituem validação do conteúdo.
 
-
 ### Revisão antes da integração — 13/10/2026
 
 - A20 concluída: Prettier 3.6.2 e eslint-config-next 15.5.27 são dependências diretas registradas pelo npm no lockfile.
@@ -613,3 +612,14 @@ Ausências não bloqueiam o planejamento. Não chamar proposta de configuração
 - A proteção externa WAF/rate limit de A05 continua pendente de evidência de infraestrutura.
 
 - Integração de A07: os arquivos antigos de stars-background/use-shooting-stars foram removidos ao reconciliar developer, pois suas responsabilidades já estão no novo hook da feature. As guardas de descarte dos callbacks e dos atualizadores de estado foram preservadas.
+
+## 18. Internacionalização en-US e pt-BR — validada localmente
+
+- A estrutura de locale, carregamento de mensagens, provider e arquivos JSON por idioma segue a organização usada no Sandicts; o repositório Sandicts foi consultado somente para leitura.
+- O idioma padrão continua em inglês para preservar a experiência pública atual. A seleção entre inglês e português brasileiro é persistida por cookie sem alterar a URL `/`; conteúdo do portfólio, metadados, acessibilidade, formulário, validações e mensagens de envio possuem traduções.
+- O cálculo de duração continua puro e recebe o locale para formatar anos e meses. As mensagens ficam em `src/i18n/messages/` e os componentes recebem dados tipados.
+- Bloqueio anterior resolvido: next-intl 4.13.1 consta no manifest e no lockfile; `npm ci` concluiu com uma instalação limpa. O build compilou com os binários completos e o plugin Next do lint, sem os erros anteriores do SWC.
+- Validações: formato, lint com zero erros e avisos, tipos, estrutura, 11 testes, build, `git diff --check` e busca heurística de segredos. A auditoria das dependências de produção retornou zero vulnerabilidades.
+- Navegador: seleção EN/PT, persistência após recarregar, metadados e lang, erros de formulário localizados e preservação dos valores ao trocar idioma. A visualização com viewport reduzido manteve hero/seletor legíveis e sem overflow horizontal. Nenhum email foi enviado.
+- A atualização editorial da trajetória profissional permanece uma etapa de planejamento; o i18n preserva os fatos anteriores e fornece versões equivalentes.
+- Referência: [configuração App Router do next-intl](https://next-intl.dev/docs/getting-started).

@@ -1,9 +1,14 @@
 import 'server-only'
 
+import type { AppLocale } from '@/i18n/config'
+import { appMessages } from '@/i18n/messages'
+
 import { calculateCompletedDuration } from './calculate-completed-duration'
-import { formatCompletedDurationEn } from './format-completed-duration.en'
-import { portfolioContentEn } from './portfolio-content.en'
-import type { PortfolioContent } from './portfolio-content.types'
+import { formatCompletedDuration } from './format-completed-duration'
+import type {
+  PortfolioContent,
+  StaticPortfolioContent,
+} from './portfolio-content.types'
 
 function getSaoPauloCalendarDate(now: Date) {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -20,29 +25,37 @@ function getSaoPauloCalendarDate(now: Date) {
   )
 }
 
-export function getPortfolioContent(now: Date = new Date()): PortfolioContent {
+export function getPortfolioContent(
+  locale: AppLocale,
+  now: Date = new Date(),
+): PortfolioContent {
   const asOfDate = getSaoPauloCalendarDate(now)
+  const staticContent = appMessages[locale]
+    .Portfolio as unknown as StaticPortfolioContent
   const age = calculateCompletedDuration(
     new Date(Date.UTC(1995, 10, 10)),
     asOfDate,
   ).years
-  const developerExperience = formatCompletedDurationEn(
+  const developerExperience = formatCompletedDuration(
     calculateCompletedDuration(new Date(Date.UTC(2022, 6, 1)), asOfDate),
+    locale,
   )
-  const paragraphs = portfolioContentEn.about.paragraphs
+  const paragraphs = staticContent.about.paragraphs
 
   return {
-    hero: portfolioContentEn.hero,
+    hero: staticContent.hero,
     about: {
-      ...portfolioContentEn.about,
+      sectionTitle: staticContent.about.sectionTitle,
+      aboutCard: staticContent.about.aboutCard,
+      image: staticContent.about.image,
       paragraphs: [
         paragraphs.introduction.replace('{age}', String(age)),
         paragraphs.developerJourney.replace('{duration}', developerExperience),
         paragraphs.professionalExperience,
       ],
     },
-    philosophy: portfolioContentEn.philosophy,
-    journey: portfolioContentEn.journey,
-    hardSkills: portfolioContentEn.hardSkills,
+    philosophy: staticContent.philosophy,
+    journey: staticContent.journey,
+    hardSkills: staticContent.hardSkills,
   }
 }

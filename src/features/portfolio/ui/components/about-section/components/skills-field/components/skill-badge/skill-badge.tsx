@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import { Tooltip } from '@/components/shared/tooltip/tooltip'
 import { TooltipContent } from '@/components/shared/tooltip-content/tooltip-content'
 import { TooltipTrigger } from '@/components/shared/tooltip-trigger/tooltip-trigger'
@@ -14,6 +16,7 @@ export function SkillBadge({
   isOrganized,
   isMotionDisabled = false,
 }: SkillBadgeProps) {
+  const translate = useTranslations('SkillBadge')
   const Icon = hardSkillIcons[iconKey]
 
   return (
@@ -23,7 +26,7 @@ export function SkillBadge({
           type="button"
           disabled={isMotionDisabled}
           id={`hard-skill-${id}`}
-          aria-label={`Toggle skills layout (${name})`}
+          aria-label={translate('toggleLayout', { skill: name })}
           aria-pressed={isOrganized}
           className={skillBadgeStyles.trigger}
           onClick={onClick}
@@ -46,10 +49,10 @@ export function SkillBadge({
       <TooltipContent>
         <p className={skillBadgeStyles.tooltip}>
           {isMotionDisabled
-            ? 'Motion disabled by preference'
+            ? translate('motionDisabled')
             : isOrganized
-              ? 'Disable Gravity'
-              : 'Enable Gravity'}
+              ? translate('disableGravity')
+              : translate('enableGravity')}
         </p>
       </TooltipContent>
     </Tooltip>

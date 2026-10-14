@@ -1,0 +1,203 @@
+{
+  "Metadata": {
+    "title": "Dev Lucas Lima",
+    "description": "Portfólio de Dev Lucas Lima"
+  },
+  "LocaleSwitcher": {
+    "label": "Escolher idioma",
+    "english": "Inglês",
+    "portuguese": "Português",
+    "switchFailed": "Não foi possível mudar o idioma. Tente novamente."
+  },
+  "SkillBadge": {
+    "toggleLayout": "Alternar organização das habilidades ({skill})",
+    "motionDisabled": "Animação desativada pela preferência do sistema",
+    "disableGravity": "Desativar gravidade",
+    "enableGravity": "Ativar gravidade"
+  },
+  "Portfolio": {
+    "hero": {
+      "sectionTitle": "Dev Lucas Lima",
+      "subtitles": [
+        "Desenvolvedor Full Stack",
+        "Mais forte em Front End",
+        "Entusiasta de UI/UX"
+      ],
+      "scrollDown": "role para baixo"
+    },
+    "about": {
+      "sectionTitle": "Sobre mim",
+      "paragraphs": {
+        "introduction": "Olá, meu nome é Lucas Fraga de Lima. Sou brasileiro, de Gramado - RS, tenho {age} anos e atualmente moro em Florianópolis - SC.",
+        "developerJourney": "Minha jornada como desenvolvedor começou há cerca de {duration}. Desde então, trabalhei com diversas tecnologias e frameworks, com foco em front-end usando JavaScript, TypeScript, React, Next e Vue. Também aplico meus conhecimentos de design para criar interfaces intuitivas, funcionais e visualmente atraentes.",
+        "professionalExperience": "Também atuo com frequência como desenvolvedor back-end e full stack, entregando soluções de qualidade principalmente com Node e também com Java, incluindo o desenvolvimento e o consumo de APIs REST e GraphQL. Mantenho-me atualizado sobre boas práticas e aplico padrões modernos para garantir desempenho, escalabilidade e facilidade de manutenção."
+      },
+      "aboutCard": {
+        "title": "Dev Lucas Lima",
+        "links": [
+          {
+            "href": "https://www.linkedin.com/in/developerlucaslima",
+            "iconKey": "linkedin",
+            "accessibleName": "Perfil no LinkedIn"
+          },
+          {
+            "href": "https://github.com/developerlucaslima",
+            "iconKey": "github",
+            "accessibleName": "Perfil no GitHub"
+          }
+        ]
+      },
+      "image": {
+        "src": "/me.jpg",
+        "alt": "Dev Lucas Lima",
+        "width": 400,
+        "height": 400
+      }
+    },
+    "philosophy": {
+      "sectionTitle": "Filosofia",
+      "cards": [
+        {
+          "iconKey": "smilePlus",
+          "title": "Kaizen",
+          "description": [
+            "Melhoria contínua e gradual em todos os aspectos da vida e do trabalho."
+          ],
+          "footer": "改善"
+        },
+        {
+          "iconKey": "clover",
+          "title": "Ikigai",
+          "description": [
+            "O encontro entre paixão, missão, vocação e profissão que dá sentido à vida."
+          ],
+          "footer": "生き甲斐"
+        },
+        {
+          "iconKey": "handHelping",
+          "title": "Omoiyari",
+          "description": [
+            "Empatia genuína e cuidado ativo com as outras pessoas promovem harmonia, respeito e conexões mais profundas."
+          ],
+          "footer": "思いやり"
+        },
+        {
+          "iconKey": "clock",
+          "title": "Shikata ga nai",
+          "description": [
+            "Aceitar o fluxo inevitável do tempo e as circunstâncias que não podem ser mudadas."
+          ],
+          "footer": "仕方がない"
+        }
+      ]
+    },
+    "journey": {
+      "sectionTitle": "Experiência profissional",
+      "cards": [
+        {
+          "date": "2024 - 2025",
+          "title": "Front End",
+          "company": "Visit Ai",
+          "href": "https://visiteai.com.br"
+        },
+        {
+          "date": "2024 - 2025",
+          "title": "Full Stack",
+          "company": "StartU",
+          "href": "https://startu.com.br/"
+        },
+        {
+          "date": "2023 - 2024",
+          "title": "Full Stack",
+          "company": "Declink",
+          "href": "https://declink.com.br/"
+        },
+        {
+          "date": "2022 - 2023",
+          "title": "Front End",
+          "company": "Santa Group",
+          "href": "https://www.santagroup.com.br/"
+        },
+        {
+          "date": "2019 - 2023",
+          "title": "Web Designer",
+          "company": "Freelancer",
+          "href": "https://www.behance.net/developerlucaslima"
+        },
+        {
+          "date": "2020 - 2022",
+          "title": "Gerente Administrativo",
+          "company": "Agência de Viagens Rota Sul",
+          "href": "https://www.rotasul.tur.br/"
+        },
+        {
+          "date": "2015 - 2020",
+          "title": "Analista Financeiro",
+          "company": "Agência de Viagens Rota Sul",
+          "href": "https://www.rotasul.tur.br/"
+        }
+      ]
+    },
+    "hardSkills": [
+      { "id": 2, "iconKey": "typescript", "name": "TYPESCRIPT" },
+      { "id": 12, "iconKey": "javascript", "name": "JAVASCRIPT" },
+      { "id": 0, "iconKey": "react", "name": "REACT" },
+      { "id": 1, "iconKey": "next", "name": "NEXT" },
+      { "id": 3, "iconKey": "node", "name": "NODE" },
+      { "id": 5, "iconKey": "tailwind", "name": "TAILWIND" },
+      { "id": 11, "iconKey": "css", "name": "CSS" },
+      { "id": 6, "iconKey": "graphql", "name": "GRAPHQL" },
+      { "id": 8, "iconKey": "postgresql", "name": "SQL" },
+      { "id": 9, "iconKey": "github", "name": "GIT" }
+    ]
+  },
+  "Contact": {
+    "title": "Comunicação espacial",
+    "illustration": { "moonTitle": "lua", "rocketTitle": "foguete" },
+    "form": {
+      "formTitle": "Envie sua mensagem",
+      "formSubtitle": "Prepare-se para decolar!",
+      "inputs": [
+        {
+          "name": "Nome do astronauta",
+          "placeholder": "Seu nome de astronauta",
+          "type": "text",
+          "register": "name"
+        },
+        {
+          "name": "E-mail espacial",
+          "placeholder": "astronauta@exemplo.space",
+          "type": "email",
+          "register": "email"
+        }
+      ],
+      "textArea": {
+        "name": "Mensagem espacial",
+        "placeholder": "Sua mensagem para o cosmos...",
+        "register": "message"
+      },
+      "buttonTexts": {
+        "isSubmitting": "Decolando...",
+        "isNotSubmitting": "Lançar mensagem"
+      }
+    },
+    "formErrorMessages": {
+      "nameMin": "O nome deve ter pelo menos 2 caracteres",
+      "nameMax": "O nome deve ter no máximo 100 caracteres",
+      "nameControlCharacters": "O nome não pode conter caracteres de controle",
+      "emailInvalid": "Informe um e-mail espacial válido",
+      "messageMin": "A mensagem deve ter pelo menos 20 caracteres",
+      "messageMax": "A mensagem deve ter no máximo 5000 caracteres"
+    },
+    "submitToastMessages": {
+      "success": {
+        "title": "Mensagem enviada!",
+        "description": "Sua mensagem entrou em órbita e está a caminho do cosmos!"
+      },
+      "error": {
+        "title": "Falha de comunicação",
+        "description": "Os satélites de comunicação estão com interferência. Tente novamente mais tarde."
+      }
+    }
+  }
+}
