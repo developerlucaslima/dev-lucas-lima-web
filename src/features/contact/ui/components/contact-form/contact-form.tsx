@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@fradelli/ui/button'
 import {
+  Card,
   CardContent,
   CardDescription,
   CardFooter,
@@ -9,9 +9,9 @@ import {
 } from '@fradelli/ui/card'
 import { Field, FieldError, FieldLabel } from '@fradelli/ui/field'
 import { Input } from '@fradelli/ui/input'
+import { PendingButton } from '@fradelli/ui/pending-button'
 import { Send } from 'lucide-react'
 
-import { GlassCard } from '@/components/shared/glass-card/glass-card'
 import { Textarea } from '@/components/shared/textarea/textarea'
 
 import { contactFormStyles } from './contact-form.styles'
@@ -32,7 +32,7 @@ export function ContactForm({
     })
 
   return (
-    <GlassCard className={contactFormStyles.card}>
+    <Card className={contactFormStyles.card}>
       <CardHeader className={contactFormStyles.header}>
         <h3 className={contactFormStyles.title}>{copy.formTitle}</h3>
         <CardDescription className={contactFormStyles.description}>
@@ -58,7 +58,6 @@ export function ContactForm({
               >
                 <FieldLabel htmlFor={fieldName}>{item.name}</FieldLabel>
                 <Input
-                  className={contactFormStyles.input}
                   id={fieldName}
                   type={item.type}
                   placeholder={item.placeholder}
@@ -97,21 +96,20 @@ export function ContactForm({
               </FieldError>
             )}
           </Field>
-          <CardFooter className={contactFormStyles.footer}>
-            <Button
+          <CardFooter>
+            <PendingButton
               className={contactFormStyles.submitButton}
               variant="default"
               type="submit"
-              disabled={isSubmitting}
+              pending={isSubmitting}
+              pendingLabel={copy.buttonTexts.isSubmitting}
             >
-              <Send className="mr-2 h-4 w-4" />
-              {isSubmitting
-                ? copy.buttonTexts.isSubmitting
-                : copy.buttonTexts.isNotSubmitting}
-            </Button>
+              <Send aria-hidden="true" className="h-4 w-4" />
+              {copy.buttonTexts.isNotSubmitting}
+            </PendingButton>
           </CardFooter>
         </form>
       </CardContent>
-    </GlassCard>
+    </Card>
   )
 }

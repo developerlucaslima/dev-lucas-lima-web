@@ -57,6 +57,15 @@ test('both languages cover every experience and project without duplicating stab
     }
     for (const project of personalProjects) {
       assert.ok(Portfolio.products.statuses[project.status])
+      const labels = Portfolio.products.items[project.id].links
+      assert.deepEqual(
+        Object.keys(labels).sort(),
+        project.links.map(({ id }) => id).sort(),
+      )
+      for (const link of project.links) {
+        assert.ok(labels[link.id]?.trim())
+        assert.equal(new URL(link.href).protocol, 'https:')
+      }
     }
     const { education: educationCopy, languages } =
       Portfolio.professionalSummary
@@ -94,4 +103,16 @@ test('shared records have unique IDs, valid periods, and no invented completion 
   }
   assert.equal(education.status, 'completed')
   assert.equal(personalProjects[0].status, 'in-development')
+})
+
+test('published catalog does not invent a project start or an available diploma', () => {
+  const designSystem = personalProjects.find(({ id }) => id === 'design-system')
+  assert.equal(designSystem.status, 'catalog-published')
+  assert.equal('start' in designSystem, false)
+  assert.equal(education.diplomaHref, undefined)
+  assert.equal(new URL(education.href).hostname, 'descomplica.com.br')
+  assert.equal(
+    new URL(education.complementary.href).hostname,
+    'www.rocketseat.com.br',
+  )
 })

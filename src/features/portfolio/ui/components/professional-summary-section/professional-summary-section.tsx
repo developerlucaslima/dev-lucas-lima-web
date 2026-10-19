@@ -1,6 +1,6 @@
 import { Badge } from '@fradelli/ui/badge'
+import { Card } from '@fradelli/ui/card'
 
-import { GlassCard } from '@/components/shared/glass-card/glass-card'
 import { ScrollReveal } from '@/components/shared/scroll-reveal/scroll-reveal'
 
 import { professionalSummarySectionStyles as styles } from './professional-summary-section.styles'
@@ -23,7 +23,7 @@ export function ProfessionalSummarySection({
       <div className={styles.groups}>
         {content.groups.map((group) => (
           <ScrollReveal key={group.id}>
-            <GlassCard className={styles.card}>
+            <Card className={styles.card}>
               <h3 className={styles.title}>{group.title}</h3>
               <p className={styles.description}>{group.description}</p>
               <ul className={styles.technologies}>
@@ -35,23 +35,49 @@ export function ProfessionalSummarySection({
                   </li>
                 ))}
               </ul>
-            </GlassCard>
+            </Card>
           </ScrollReveal>
         ))}
       </div>
       <div className={styles.educationRow}>
         <ScrollReveal>
-          <GlassCard className={styles.card}>
+          <Card className={styles.card}>
             <h3 className={styles.title}>{content.education.sectionTitle}</h3>
             <p>{content.education.course}</p>
             <p className={styles.description}>
               {content.education.institution}
             </p>
             <p className={styles.completion}>{content.education.completion}</p>
+            <a
+              href={content.education.institutionLink.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              {content.education.institutionLink.label}
+            </a>
+            {content.education.diploma && (
+              <a
+                href={content.education.diploma.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                {content.education.diploma.label}
+              </a>
+            )}
             <div className={styles.details}>
               <h4 className={styles.subtitle}>
                 {content.education.complementary.title}
               </h4>
+              <a
+                href={content.education.complementary.link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                {content.education.complementary.link.label}
+              </a>
               <ul className={styles.list}>
                 {content.education.complementary.courses.map((course) => (
                   <li key={course.id}>
@@ -64,10 +90,10 @@ export function ProfessionalSummarySection({
                 ))}
               </ul>
             </div>
-          </GlassCard>
+          </Card>
         </ScrollReveal>
         <ScrollReveal>
-          <GlassCard className={styles.card}>
+          <Card className={styles.card}>
             <h3 className={styles.title}>{content.languages.title}</h3>
             <ul className={styles.list}>
               {content.languages.items.map((language) => (
@@ -93,7 +119,7 @@ export function ProfessionalSummarySection({
                 {content.languages.certificate.linkLabel}
               </a>
             </div>
-          </GlassCard>
+          </Card>
         </ScrollReveal>
       </div>
     </section>

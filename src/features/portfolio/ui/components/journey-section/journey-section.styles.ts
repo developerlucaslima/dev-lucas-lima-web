@@ -1,7 +1,7 @@
 export const journeySectionStyles = {
   section: 'container mx-auto flex max-w-5xl scroll-mt-8 flex-col px-6 py-16',
   headingReveal: 'mb-12 text-center',
-  heading: 'portfolio-section-title mb-4',
+  heading: 'fd-text-section mb-4',
   headingRule: 'bg-primary mx-auto h-0.5 w-12 rounded-full',
   timeline:
     'relative flex list-none flex-col gap-6 md:before:absolute md:before:inset-y-0 md:before:left-1/2 md:before:w-px md:before:bg-border',

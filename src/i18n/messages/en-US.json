@@ -36,7 +36,7 @@
       }
     },
     "philosophy": {
-      "sectionTitle": "philosophy",
+      "sectionTitle": "Philosophy",
       "cards": [
         {
           "title": "Kaizen",
@@ -155,15 +155,26 @@
       }
     },
     "products": {
-      "sectionTitle": "Personal products",
-      "linkLabel": "Explore Sandicts",
+      "sectionTitle": "Projects",
       "statuses": {
-        "in-development": "MVP in development"
+        "in-development": "MVP in development",
+        "catalog-published": "Catalog published"
       },
       "items": {
         "sandicts": {
           "role": "Sole Full Stack Developer · Product Engineer",
-          "summary": "A product for the sand sports community. I handle product definition, business rules, design, architecture, implementation, and delivery. The MVP is in active development."
+          "summary": "A product for the sand sports community. I handle product definition, business rules, design, architecture, implementation, and delivery. The MVP is in active development.",
+          "links": {
+            "website": "Explore Sandicts"
+          }
+        },
+        "design-system": {
+          "role": "Creator and developer",
+          "summary": "I built Fradelli Design System, a React component library and visual tokens to bring consistency to my projects, with glass and solid surfaces, typography, spacing, and accessible states. The public Storybook catalog lets you explore the components and their variations.",
+          "links": {
+            "website": "Explore components",
+            "repository": "View repository"
+          }
         }
       }
     },
@@ -196,8 +207,11 @@
             "backend-java": "Backend fundamentals with Java",
             "go-fundamentals": "Go fundamentals",
             "aws-fundamentals": "AWS fundamentals"
-          }
-        }
+          },
+          "linkLabel": "Visit Rocketseat"
+        },
+        "institutionLinkLabel": "Explore the degree program",
+        "diplomaLinkLabel": "View diploma"
       },
       "languages": {
         "title": "Languages",
@@ -213,7 +227,7 @@
       "label": "Portfolio sections",
       "links": {
         "about": "About",
-        "products": "Products",
+        "products": "Projects",
         "journey": "Experience",
         "skills": "Skills",
         "contact": "Contact"
