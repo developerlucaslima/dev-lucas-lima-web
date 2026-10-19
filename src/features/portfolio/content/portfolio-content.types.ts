@@ -86,18 +86,23 @@ export interface ProfessionalExperience {
   readonly end?: string
   readonly href?: string
 }
+export interface ContentLink {
+  readonly href: string
+  readonly label: string
+}
+
 export interface ProductSectionContent {
   readonly sectionTitle: string
-  readonly linkLabel: string
   readonly cards: readonly {
     readonly id: string
     readonly name: string
-    readonly date: string
+    readonly date?: string
     readonly status: string
+    readonly statusTone: 'warning' | 'success'
     readonly role: string
     readonly summary: string
     readonly technologies: readonly string[]
-    readonly href?: string
+    readonly links: readonly ContentLink[]
   }[]
 }
 export interface ProfessionalSummaryContent {
@@ -113,8 +118,11 @@ export interface ProfessionalSummaryContent {
     readonly institution: string
     readonly course: string
     readonly completion: string
+    readonly institutionLink: ContentLink
+    readonly diploma?: ContentLink
     readonly complementary: {
       readonly title: string
+      readonly link: ContentLink
       readonly courses: readonly {
         readonly id: string
         readonly label: string

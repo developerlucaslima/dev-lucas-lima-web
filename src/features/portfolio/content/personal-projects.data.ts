@@ -4,7 +4,7 @@ export const personalProjects = [
     name: 'Sandicts',
     status: 'in-development',
     start: '2026-01',
-    href: 'https://sandicts.com.br/',
+    links: [{ id: 'website', href: 'https://sandicts.com.br/' }],
     technologies: [
       'TypeScript',
       'React',
@@ -14,6 +14,23 @@ export const personalProjects = [
       'Prisma',
       'Docker',
       'Vercel',
+    ],
+  },
+  {
+    id: 'design-system',
+    name: 'Design System',
+    status: 'catalog-published',
+    links: [
+      { id: 'website', href: 'https://fradelli.github.io/design-system/' },
+      { id: 'repository', href: 'https://github.com/fradelli/design-system' },
+    ],
+    technologies: [
+      'React',
+      'TypeScript',
+      'CSS',
+      'Tailwind CSS',
+      'Storybook',
+      'Vitest',
     ],
   },
 ] as const

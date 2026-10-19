@@ -155,15 +155,26 @@
       }
     },
     "products": {
-      "sectionTitle": "Produtos pessoais",
-      "linkLabel": "Conhecer o Sandicts",
+      "sectionTitle": "Projetos",
       "statuses": {
-        "in-development": "MVP em desenvolvimento"
+        "in-development": "MVP em desenvolvimento",
+        "catalog-published": "Catálogo publicado"
       },
       "items": {
         "sandicts": {
           "role": "Único desenvolvedor Full Stack · Product Engineer",
-          "summary": "Um produto para a comunidade de esportes de areia. Cuido da definição do produto, das regras de negócio, do design, da arquitetura, da implementação e da entrega. O MVP está em desenvolvimento ativo."
+          "summary": "Um produto para a comunidade de esportes de areia. Cuido da definição do produto, das regras de negócio, do design, da arquitetura, da implementação e da entrega. O MVP está em desenvolvimento ativo.",
+          "links": {
+            "website": "Conhecer o Sandicts"
+          }
+        },
+        "design-system": {
+          "role": "Criador e desenvolvedor",
+          "summary": "Criei o Fradelli Design System, uma biblioteca de componentes React e tokens visuais para padronizar meus projetos, com superfícies de vidro e sólidas, tipografia, espaçamento e estados acessíveis. O catálogo público no Storybook permite explorar os componentes e suas variações.",
+          "links": {
+            "website": "Explorar componentes",
+            "repository": "Ver repositório"
+          }
         }
       }
     },
@@ -196,8 +207,11 @@
             "backend-java": "Fundamentos de backend com Java",
             "go-fundamentals": "Fundamentos de Go",
             "aws-fundamentals": "Fundamentos de AWS"
-          }
-        }
+          },
+          "linkLabel": "Visitar a Rocketseat"
+        },
+        "institutionLinkLabel": "Conhecer o curso",
+        "diplomaLinkLabel": "Ver diploma"
       },
       "languages": {
         "title": "Idiomas",
@@ -213,7 +227,7 @@
       "label": "Seções do portfólio",
       "links": {
         "about": "Sobre",
-        "products": "Produtos",
+        "products": "Projetos",
         "journey": "Experiência",
         "skills": "Competências",
         "contact": "Contato"

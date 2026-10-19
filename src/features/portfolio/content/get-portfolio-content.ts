@@ -74,18 +74,34 @@ export function getPortfolioContent(locale: AppLocale): PortfolioContent {
     hardSkills,
     products: {
       sectionTitle: copy.products.sectionTitle,
-      linkLabel: copy.products.linkLabel,
-      cards: personalProjects.map((project) => ({
-        ...project,
-        ...copy.products.items[project.id],
-        date: formatProfessionalPeriod(
-          project.start,
-          undefined,
-          locale,
-          copy.journey.present,
-        ),
-        status: copy.products.statuses[project.status],
-      })),
+      cards: personalProjects.map((project) => {
+        const projectCopy = copy.products.items[project.id]
+        return {
+          id: project.id,
+          name: project.name,
+          technologies: project.technologies,
+          role: projectCopy.role,
+          summary: projectCopy.summary,
+          date:
+            'start' in project
+              ? formatProfessionalPeriod(
+                  project.start,
+                  undefined,
+                  locale,
+                  copy.journey.present,
+                )
+              : undefined,
+          status: copy.products.statuses[project.status],
+          statusTone:
+            project.status === 'catalog-published' ? 'success' : 'warning',
+          links: project.links.map((link) => ({
+            href: link.href,
+            label: (
+              projectCopy.links as Partial<Record<typeof link.id, string>>
+            )[link.id]!,
+          })),
+        }
+      }),
     },
     professionalSummary: {
       sectionTitle: copy.professionalSummary.sectionTitle,
@@ -107,8 +123,22 @@ export function getPortfolioContent(locale: AppLocale): PortfolioContent {
         sectionTitle: copy.professionalSummary.education.sectionTitle,
         course: copy.professionalSummary.education.course,
         institution: education.institution,
+        institutionLink: {
+          href: education.href,
+          label: copy.professionalSummary.education.institutionLinkLabel,
+        },
+        diploma: education.diplomaHref
+          ? {
+              href: education.diplomaHref,
+              label: copy.professionalSummary.education.diplomaLinkLabel,
+            }
+          : undefined,
         completion: `${copy.professionalSummary.education.completed} ${formatProfessionalDate(education.completedIn, locale)}`,
         complementary: {
+          link: {
+            href: education.complementary.href,
+            label: copy.professionalSummary.education.complementary.linkLabel,
+          },
           title: `${copy.professionalSummary.education.complementary.title} — ${education.complementary.institution}`,
           courses: education.complementary.courses.map(
             ({ id, completedIn }) => ({

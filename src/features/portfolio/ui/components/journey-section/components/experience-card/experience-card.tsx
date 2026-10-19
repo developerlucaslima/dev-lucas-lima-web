@@ -1,4 +1,4 @@
-import { GlassCard } from '@/components/shared/glass-card/glass-card'
+import { Card } from '@fradelli/ui/card'
 
 import { experienceCardStyles } from './experience-card.styles'
 import type { ExperienceCardProps } from './experience-card.types'
@@ -9,7 +9,7 @@ export function ExperienceCard({
 }: ExperienceCardProps) {
   return (
     <article aria-labelledby={`experience-${content.id}`}>
-      <GlassCard className={experienceCardStyles.card}>
+      <Card className={experienceCardStyles.card}>
         <p className={experienceCardStyles.date}>{content.date}</p>
         <h3
           id={`experience-${content.id}`}
@@ -41,7 +41,7 @@ export function ExperienceCard({
             {companyLinkLabel} · {content.company}
           </a>
         )}
-      </GlassCard>
+      </Card>
     </article>
   )
 }

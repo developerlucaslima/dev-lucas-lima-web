@@ -1,9 +1,9 @@
 export const experienceCardStyles = {
-  card: 'max-w-none border border-border p-6 transition-colors hover:border-primary/50',
+  card: 'max-w-none',
   date: 'text-sm text-foreground/70',
-  company: 'portfolio-card-title',
+  company: 'fd-text-card',
   role: 'text-sm font-medium text-primary',
-  summary: 'text-foreground/85 text-base leading-relaxed',
+  summary: 'fd-text-body text-foreground/85',
   details: 'border-t border-border pt-4',
   trigger:
     'cursor-pointer rounded-sm text-sm font-medium text-foreground/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring',

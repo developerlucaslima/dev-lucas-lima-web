@@ -1,9 +1,12 @@
 export const education = {
   institution: 'Descomplica Faculdade Digital',
+  href: 'https://descomplica.com.br/faculdade/tecnologia/analise-e-desenvolvimento-de-sistemas/',
+  diplomaHref: undefined as string | undefined,
   completedIn: '2025',
   status: 'completed',
   complementary: {
     institution: 'Rocketseat',
+    href: 'https://www.rocketseat.com.br/',
     courses: [
       { id: 'backend-node', completedIn: '2024' },
       { id: 'frontend-next', completedIn: '2024' },

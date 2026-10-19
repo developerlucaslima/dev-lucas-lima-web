@@ -1,13 +1,11 @@
 export const contactFormStyles = {
-  card: 'w-full gap-6 px-0',
+  card: 'w-full',
   header: 'text-center',
-  title: 'form-element portfolio-card-title',
+  title: 'form-element fd-text-card',
   description: 'form-element text-muted-foreground',
   form: 'space-y-6',
   field: 'form-element gap-2',
-  input: 'bg-surface-elevated/60',
   message: 'min-h-[120px]',
   error: 'text-sm text-status-destructive',
-  footer: 'px-0',
   submitButton: 'form-element w-full cursor-pointer',
 } as const
