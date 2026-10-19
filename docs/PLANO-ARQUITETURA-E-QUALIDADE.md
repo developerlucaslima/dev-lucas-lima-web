@@ -711,3 +711,15 @@ Captura: `docs/worklog/previews/design-system-products.png`. O servidor isolado 
 ### Validação remota e autorização de publicação do Design System
 
 Após aprovação visual do Design System e do novo retrato do About, o usuário autorizou a integração pela PR #21 em developer e a promoção separada para main, com deploy. Os commits 7e6726c e 85e2ffe incluem a migração e a foto aprovada. O token automático do repositório recebeu HTTP 403 ao instalar @fradelli/ui; o usuário cadastrou FRADELLI_PACKAGES_TOKEN e a reexecução 38620874313 passou em 2m28s, incluindo instalação limpa, formato, lint, tipos, estrutura, 18 testes e build. O bloqueio de leitura do pacote foi resolvido sem expor credenciais. A integração e o resultado final da promoção são acompanhados nas PRs e no diário local. A proposta de compartilhar o vidro no pacote permanece documentada como evolução futura, sem alteração do Design System nesta entrega.
+
+
+## Adoção compartilhada e divulgação — 19/10/2026
+
+O mantenedor autorizou publicar a evolução do Design System e promover o portfólio por developer e main. A versão 0.5.0 foi publicada no produtor pela PR #14, com exceção de liberação por etapas registrada na ADR 0005: pacote e portfólio validados, Kaizen/Sandicts reservados a entregas futuras.
+
+O portfólio instala a versão exata do registry, remove GlassCard e as definições locais duplicadas de material/tipografia e mantém layout, hero e animações próprios. Projetos inclui o Design System com catálogo e repositório; ações/status são específicos de cada projeto. Philosophy e links educacionais foram atualizados em PT/EN; diploma continua opcional, aguardando destino público.
+
+O plano detalhado e as evidências ficam em PLANO-ADOCAO-DESIGN-SYSTEM-E-PORTFOLIO.md e DESIGN-SYSTEM-PORTFOLIO.md. A instalação limpa e os checks da versão publicada precedem as PRs e a promoção autorizada. Nenhum email foi enviado.
+
+
+Validação definitiva de 0.5.0: instalação limpa por npm ci e gate npm run ci passaram, com 19 testes e build de produção. O lockfile usa o registry e a integridade conferida. Auditoria manteve os 18 achados anteriores de ferramentas, sem críticos; essa migração não declara resolver esse passivo.

@@ -1,71 +1,56 @@
 # Design System no portfólio
 
-## Decisão
+## Integração atual
 
-Consumir `@fradelli/ui@0.3.0` pelo GitHub Packages, como na versão do Kaizen consultada em 14/10/2026. O Kaizen foi usado somente como referência de leitura. O pacote é a fonte dos tokens e componentes básicos; seu código não é copiado para o portfólio.
+O portfólio consome `@fradelli/ui@0.5.0`, com versão exata no manifesto e no lockfile, pelo GitHub Packages. A versão foi publicada pelo workflow Release após a integração da [PR #14](https://github.com/fradelli/design-system/pull/14), commit `13e69b2db98a81f600ca049c26b53e111a500a98`, com tag [v0.5.0](https://github.com/fradelli/design-system/releases/tag/v0.5.0).
 
-A migração mantém conteúdo EN/PT, foto, links e lógica das animações. A identidade espacial permanece no fundo, nas ilustrações e no movimento. Superfícies de vidro são uma adaptação visual do portfólio sobre o sistema compartilhado.
+A revisão local começou com um candidato de desenvolvimento. A integração final usa o pacote do registry; não há referência a tarball, pasta local ou versão flutuante no manifesto/lockfile.
 
-## Integração
-
-- React e React DOM: `19.3.0`, compatíveis com o peer `>=19.2.7 <20` do pacote.
-- Tailwind e seu plugin PostCSS: `4.3.3`, compatíveis com o peer `>=4.3.0 <5`.
-- Next permanece em `15.5.27`; instalação, tipos e build verificam a compatibilidade desta composição.
-- `src/app/globals.css` importa uma vez o CSS público do pacote, registra seu `dist` com `@source` e preserva os keyframes das estrelas e o comportamento de movimento reduzido.
-- Inter variável fica exposta em `--font-inter` no elemento raiz. O tema escuro é explícito, como na referência; o provider força esse tema para evitar divergências por preferência antiga do navegador.
-- `.npmrc` direciona apenas o scope `@fradelli` ao GitHub Packages, sem credenciais. Os demais pacotes continuam no registry padrão.
+A liberação por etapas foi autorizada explicitamente pelo mantenedor e registrada na ADR 0005 do Design System. Kaizen e Sandicts não foram migrados nem declarados validados nesta entrega; cada um exige sua própria adoção e revisão antes do upgrade.
 
 ## Responsabilidades
 
-| Camada                                 | Responsabilidade                                                                                                      |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `@fradelli/ui`                         | Tokens, Card, Button, Badge, Input, Field e demais primitivas consumidas pelos caminhos públicos                      |
-| `src/app/portfolio-theme.css`          | Superfícies de vidro, hierarquia tipográfica editorial e margem de âncoras abaixo do seletor fixo                     |
-| `src/components/shared/glass-card/`    | Compor Card do pacote com a superfície compartilhada do portfólio                                                     |
-| `src/components/shared/animated-card/` | Acrescentar o comportamento visual de hover ao card de vidro                                                          |
-| Estilos de cada seção                  | Layout, espaçamento e composição próprios                                                                             |
-| Textarea, tooltip e toast locais       | Elementos mantidos com os tokens do sistema; não há substituição equivalente para todos eles no contrato inspecionado |
-| Hooks e utilitários existentes         | Estado, efeitos e cálculos das animações, sem mudança de lógica nesta migração                                        |
+| Área                                   | Responsabilidade                                                                              |
+| -------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `@fradelli/ui`                         | Tokens, material, sombras, bordas, hover de borda, tipografia por papel e primitivas públicas |
+| Card e seus slots                      | Padding de 24 px e gap padrão na raiz; conteúdo sem recuo lateral duplicado                   |
+| `src/components/shared/animated-card/` | Movimento de hover específico do portfólio sobre Card; sem material paralelo                  |
+| `src/app/portfolio-theme.css`          | Escala responsiva do hero e margem das âncoras abaixo do seletor fixo                         |
+| Estilos de cada seção                  | Larguras, grids, posicionamento e composição do conteúdo                                      |
+| Hooks e utilitários de animação        | Estrelas, gravidade, lettering, entradas e lua/foguete                                        |
+| Textarea, tooltip e toast              | Integrações locais sem equivalente público no pacote, usando tokens compartilhados            |
 
-As antigas implementações locais de Button, Input, Label e família Card foram removidas após migrar os consumidores. As dependências diretas de Radix Label/Slot e class-variance-authority saíram do manifesto; o pacote mantém suas próprias dependências. Ícones de tecnologias continuam especializados no campo de habilidades.
+A pasta GlassCard e as fórmulas locais de vidro foram removidas. Títulos de seção/card e textos editoriais usam os papéis públicos. Navegação usa NavigationItem, contato usa PendingButton e o helper de classes delega a `@fradelli/ui/cn`.
 
-## Tratamento visual
+Tooltip e seletor de idioma usam a superfície elevada pública. Toast usa a superfície opaca do pacote para preservar legibilidade sem fórmula própria de transparência. O seletor não acrescenta uma segunda sombra local.
 
-- Fundo e superfícies vêm dos tokens `--fd-color-*`, sem paleta paralela no projeto.
-- Amarelo primário para ações, foco e destaques; texto principal e secundário usam os neutros do sistema.
-- Cards usam a cor de superfície com 80% de opacidade, borda sutil e desfoque de 12px. Tooltips e seletor usam superfície elevada a 94%.
-- Há fallback opaco quando o navegador não suporta desfoque. A declaração sem prefixo vem após a declaração WebKit para que a otimização de CSS preserve a propriedade padrão.
-- Blur permanece restrito às superfícies. Não foi aplicada uma camada de desfoque de tela inteira.
-- A hierarquia usa Inter e tokens tipográficos do sistema. O hero possui escala responsiva local porque a escala publicada termina em 32px.
-- Badges mantêm listas semânticas; contribuições usam details/summary; erros continuam associados aos campos. O formulário não foi enviado nas verificações.
-- Hover dos cards e controles usa os estados do sistema. Lettering, flutuação, organização, estrelas, entradas e lua/foguete mantêm seus hooks.
+## Ambiente e CSS
 
-## Acesso ao pacote privado
+- React/React DOM 19.3.0, Tailwind/PostCSS 4.3.3 e Next 15.5.27 foram preservados.
+- `globals.css` importa uma única vez `@fradelli/ui/styles.css`, registra o dist em `@source` e mantém keyframes e política de redução de movimento do aplicativo.
+- Inter é carregada pelo aplicativo e exposta em `--font-inter`. O tema escuro permanece explícito.
+- Fallback opaco e redução de transparência pertencem ao pacote. Evitar blur aninhado e usar superfície sólida quando a composição exigir.
 
-Uma instalação limpa exige uma credencial com leitura de `@fradelli/ui`, configurada fora dos arquivos versionados. Não inserir um token literal no `.npmrc` deste repositório nem em comandos registrados na documentação.
+## Conteúdo e semântica
 
-Nesta máquina, a leitura e o `npm ci` foram verificados usando a autenticação existente do GitHub, disponibilizada apenas ao processo de instalação. Não foi criada ou ampliada uma credencial.
+O novo projeto Design System tem links próprios para o catálogo público e o repositório, status de catálogo publicado e descrição equivalente em PT/EN. Sandicts mantém suas informações e destino. A seção passa a chamar Projetos/Projects, preservando a âncora products.
 
-Os workflows configuram registry e scope no setup-node e usam `packages: read` nos jobs consumidores. O token de instalação fica no passo necessário, via `NODE_AUTH_TOKEN`:
+Philosophy foi corrigido na tradução inglesa. Formação inclui links para Rocketseat e para a página pública oficial de ADS da Descomplica; o link de aulas fornecido redirecionava para autenticação. Diploma é opcional e permanece ausente até receber um endereço público. ADS continua concluído em 2025; certificado EF SET e autoavaliação B1 permanecem distintos.
 
-- Preferência: `GITHUB_TOKEN`, desde que o pacote permita leitura pelo repositório consumidor.
-- Alternativa prevista: secret `FRADELLI_PACKAGES_TOKEN`, com leitura do pacote, caso o acesso do token automático entre os proprietários não seja permitido.
-- O build da Vercel também recebe a autenticação de instalação, pois pode instalar dependências ao preparar os artefatos. O deploy continua usando artefatos pré-construídos.
+## Instalação e acesso
 
-A CI da PR #21 confirmou HTTP 403 ao usar apenas o `GITHUB_TOKEN` deste repositório para o pacote privado. O usuário cadastrou `FRADELLI_PACKAGES_TOKEN` e a execução 38620874313 passou com instalação limpa, formato, lint, tipos, estrutura, 18 testes e build. Este é o caminho autenticado comprovado para o consumidor atual. O agente não criou nem leu o valor da credencial, e nenhuma permissão no pacote foi alterada.
+Usar `npm ci` com a autenticação de leitura já configurada fora do repositório. `.npmrc` versionado contém somente o mapeamento de scope. Nunca incluir credenciais, comandos com tokens literais ou arquivos autenticados no Git.
 
-## Validação e entrega
+Os workflows consumidores usam `NODE_AUTH_TOKEN` com o secret existente `FRADELLI_PACKAGES_TOKEN` ou token automático com acesso comprovado. Nenhum segredo ou permissão foi criado nesta entrega. O produtor publica exclusivamente pelo workflow Release; hospedar Storybook não substitui publicar o pacote.
 
-Evidências detalhadas desta implementação ficam no plano arquitetural e no diário local ignorado. A entrega é local, na branch `codex/design-system-portfolio`, para revisão visual do usuário antes de PR para developer e promoção separada para main.
+## Validação
 
-Não declarar a CI ou o deploy desta migração aprovados antes de executá-los. A auditoria atual registra 18 alertas (17 altos e um moderado); esta migração não executa audit fix nem declara resolução desse passivo.
+O gate local do candidato passou com formato, lint, tipos, estrutura, 19 testes e build. No navegador, foram conferidos PT/EN, links e validação de formulário vazio sem envio de email. Viewports de 320 px (PT/EN), 375, 640 e 768 px (EN) não apresentaram overflow interno nos cards; foco de links e organização das habilidades por Enter foram verificados.
 
-## Reutilização futura das superfícies de vidro
+`npm ci` e `npm run ci` passaram novamente com 0.5.0 publicada, incluindo 19 testes e build de produção. Zoom real de 200%, matriz de preferências de transparência e envio válido simulado permanecem limitações declaradas. A auditoria da versão final manteve 18 achados na árvore de tooling (17 altos e um moderado), sem correção automática nesta migração.
 
-O usuário confirmou interesse em usar o mesmo tratamento em outro projeto. A evolução recomendada é oferecer uma superfície de vidro no pacote compartilhado, com contrato público para cor derivada dos tokens, opacidade, desfoque, borda, fallback e estados de interação. A API final deve ser definida no repositório do Design System, com exemplos e validação sobre fundos claros, escuros e animados; pode ser uma variante de Card ou uma superfície componível, conforme os consumidores reais.
+## Entrega e reversão
 
-Tipografia editorial do hero, margem das âncoras, estrelas e animações de habilidades continuam responsabilidades do portfólio. Quando houver uma versão publicada com a superfície compartilhada, atualizar os consumidores e remover a implementação local equivalente, preservando a aparência aprovada. Esta entrega apenas registra a direção; não altera nem publica o Design System e não modifica outro produto.
+A entrega usa PR da branch de tarefa para developer e promoção separada de developer para main, ambas autorizadas pelo mantenedor. O deploy de produção depende dos checks do workflow existente.
 
-## Reversão
-
-Se a migração não for aprovada, restaurar o conjunto anterior de código, manifesto e lockfile como uma unidade, preservando o trabalho do usuário. A base de developer usada nesta etapa é `418dea1`. Após uma futura integração, a reversão deve passar por PR, sem reescrever histórico compartilhado. Não basta voltar somente o CSS, pois os consumidores passam a depender do pacote.
+Reverter código, CSS, manifesto e lockfile como unidade por uma nova PR, sem reescrever histórico. A referência anterior do consumidor era 0.3.0; apenas retornar a versão sem reverter a composição nova não é suficiente. Versões publicadas do pacote são imutáveis.
