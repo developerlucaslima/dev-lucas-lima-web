@@ -7,6 +7,8 @@ export const productsSectionStyles = {
   card: 'relative max-w-none',
   actions: 'flex flex-wrap gap-4',
   header: 'flex flex-wrap items-center justify-between gap-4',
+  identity: 'flex min-w-0 items-center gap-4',
+  logo: 'h-24 w-24 shrink-0 rounded-xl object-contain',
   name: 'fd-text-card',
   status: 'whitespace-normal text-center',
   role: 'text-sm font-medium text-muted-foreground',
