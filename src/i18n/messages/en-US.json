@@ -25,7 +25,7 @@
       "paragraphs": {
         "journey": "My journey began in administrative and financial operations, moved through design, and led me to software development. Curiosity and the desire to turn ideas into useful solutions connect every step.",
         "currentWork": "Today, I work as a Full Stack Developer at WeFit, building frontend applications, backend services, and reactive APIs. I combine engineering, product thinking, and user experience to build software for users, businesses, and the people maintaining it.",
-        "ownProducts": "I also build my own products. I am the sole developer of Sandicts, an MVP in development for the sand sports community, and handle product definition, design, implementation, and delivery. I am also creating Kaizen to organize and improve my training, nutrition, and routine.",
+        "ownProducts": "I also build my own products. I am the sole developer of Suna, an MVP in development for the sand sports community, and handle product definition, design, implementation, and delivery. I am also creating Kaizen to organize and improve my training, nutrition, and routine.",
         "principles": "I value clear code, maintainable systems, and decisions that reduce complexity. I want to work with people who share the desire to make the world a better place.",
         "outsideWork": "Outside work, you will usually find me at the beach, playing footvolley, or learning new recipes on YouTube."
       },
@@ -161,11 +161,11 @@
         "catalog-published": "Catalog published"
       },
       "items": {
-        "sandicts": {
+        "suna": {
           "role": "Sole Full Stack Developer · Product Engineer",
-          "summary": "A product for the sand sports community. I handle product definition, business rules, design, architecture, implementation, and delivery. The MVP is in active development.",
+          "summary": "A product for the sand sports community. I handle product definition, business rules, design, architecture, implementation, and delivery. The MVP is in active development and uses Fradelli Design System. Suna means sand in Japanese and also evokes the English word sun. Its visual identity represents colorful sand grains seen at a microscopic scale.",
           "links": {
-            "website": "Explore Sandicts"
+            "website": "Explore Suna"
           }
         },
         "design-system": {
