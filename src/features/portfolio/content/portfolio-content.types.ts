@@ -96,6 +96,11 @@ export interface ProductSectionContent {
   readonly cards: readonly {
     readonly id: string
     readonly name: string
+    readonly logo?: {
+      readonly src: string
+      readonly width: number
+      readonly height: number
+    }
     readonly date?: string
     readonly status: string
     readonly statusTone: 'warning' | 'success'

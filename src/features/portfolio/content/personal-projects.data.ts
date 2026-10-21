@@ -1,7 +1,8 @@
 export const personalProjects = [
   {
-    id: 'sandicts',
-    name: 'Sandicts',
+    id: 'suna',
+    name: 'Suna',
+    logo: { src: '/suna-logo.png', width: 1254, height: 1254 },
     status: 'in-development',
     start: '2026-01',
     links: [{ id: 'website', href: 'https://sandicts.com.br/' }],

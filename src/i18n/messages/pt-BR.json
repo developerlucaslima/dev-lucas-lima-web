@@ -25,7 +25,7 @@
       "paragraphs": {
         "journey": "Minha trajetória começou em operações administrativas e financeiras, passou pelo design e me levou ao desenvolvimento de software. A curiosidade e a vontade de transformar ideias em soluções úteis conectam cada etapa desse caminho.",
         "currentWork": "Hoje trabalho como Desenvolvedor Full Stack na WeFit, criando aplicações frontend, serviços de backend e APIs reativas. Combino engenharia, visão de produto e experiência do usuário para construir software que funcione para as pessoas, para os negócios e para quem vai manter o sistema.",
-        "ownProducts": "Também desenvolvo meus próprios produtos. Sou o único desenvolvedor do Sandicts, um MVP em desenvolvimento para a comunidade de esportes de areia, e cuido da definição do produto, do design, da implementação e da entrega. Também estou criando o Kaizen para organizar e melhorar meu treino, minha alimentação e minha rotina.",
+        "ownProducts": "Também desenvolvo meus próprios produtos. Sou o único desenvolvedor do Suna, um MVP em desenvolvimento para a comunidade de esportes de areia, e cuido da definição do produto, do design, da implementação e da entrega. Também estou criando o Kaizen para organizar e melhorar meu treino, minha alimentação e minha rotina.",
         "principles": "Valorizo código claro, sistemas fáceis de manter e decisões que reduzem a complexidade. Quero trabalhar com pessoas que compartilhem a vontade de tornar o mundo melhor.",
         "outsideWork": "Fora do trabalho, você geralmente vai me encontrar na praia, jogando futevôlei ou aprendendo receitas novas no YouTube."
       },
@@ -161,11 +161,11 @@
         "catalog-published": "Catálogo publicado"
       },
       "items": {
-        "sandicts": {
+        "suna": {
           "role": "Único desenvolvedor Full Stack · Product Engineer",
-          "summary": "Um produto para a comunidade de esportes de areia. Cuido da definição do produto, das regras de negócio, do design, da arquitetura, da implementação e da entrega. O MVP está em desenvolvimento ativo.",
+          "summary": "Um produto para a comunidade de esportes de areia. Cuido da definição do produto, das regras de negócio, do design, da arquitetura, da implementação e da entrega. O MVP está em desenvolvimento ativo e utiliza o Fradelli Design System. Suna significa areia em japonês e também remete a sun, sol em inglês. A identidade visual representa grãos de areia coloridos vistos em escala microscópica.",
           "links": {
-            "website": "Conhecer o Sandicts"
+            "website": "Conhecer o Suna"
           }
         },
         "design-system": {

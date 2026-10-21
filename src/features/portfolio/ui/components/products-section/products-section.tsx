@@ -1,5 +1,6 @@
 import { Badge } from '@fradelli/ui/badge'
 import { Card } from '@fradelli/ui/card'
+import Image from 'next/image'
 
 import { ScrollReveal } from '@/components/shared/scroll-reveal/scroll-reveal'
 
@@ -24,9 +25,21 @@ export function ProductsSection({ content }: ProductsSectionProps) {
             <article aria-labelledby={`product-${product.id}`}>
               <Card className={styles.card}>
                 <div className={styles.header}>
-                  <h3 id={`product-${product.id}`} className={styles.name}>
-                    {product.name}
-                  </h3>
+                  <div className={styles.identity}>
+                    {product.logo && (
+                      <Image
+                        src={product.logo.src}
+                        width={product.logo.width}
+                        height={product.logo.height}
+                        alt=""
+                        sizes="96px"
+                        className={styles.logo}
+                      />
+                    )}
+                    <h3 id={`product-${product.id}`} className={styles.name}>
+                      {product.name}
+                    </h3>
+                  </div>
                   <Badge variant={product.statusTone} className={styles.status}>
                     {product.status}
                   </Badge>

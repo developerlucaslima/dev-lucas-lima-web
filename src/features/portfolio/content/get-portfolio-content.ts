@@ -79,6 +79,7 @@ export function getPortfolioContent(locale: AppLocale): PortfolioContent {
         return {
           id: project.id,
           name: project.name,
+          logo: 'logo' in project ? project.logo : undefined,
           technologies: project.technologies,
           role: projectCopy.role,
           summary: projectCopy.summary,

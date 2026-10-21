@@ -723,3 +723,14 @@ O plano detalhado e as evidências ficam em PLANO-ADOCAO-DESIGN-SYSTEM-E-PORTFOL
 
 
 Validação definitiva de 0.5.0: instalação limpa por npm ci e gate npm run ci passaram, com 19 testes e build de produção. O lockfile usa o registry e a integridade conferida. Auditoria manteve os 18 achados anteriores de ferramentas, sem críticos; essa migração não declara resolver esse passivo.
+
+## Identidade Suna — 21/10/2026
+
+A pedido do mantenedor, o produto antes apresentado como Sandicts passa a Suna no About, nos dados de projetos e nas mensagens PT/EN. O card usa o logo fornecido, preservado em public/suna-logo.png, com dimensões intrínsecas e imagem decorativa ao lado do título acessível. O contrato permite logo opcional sem exigir imagem para outros projetos. Os textos registram a origem do nome e a adoção do Fradelli Design System informadas pelo mantenedor; o status permanece MVP em desenvolvimento.
+
+O mantenedor confirmou que o Suna continua usando https://sandicts.com.br/; a mudança de identidade ocorreu no código, sem troca de domínio. Registros históricos da documentação não foram renomeados. Não houve alteração no Suna, no Kaizen ou no Design System.
+
+Formatação, lint sem avisos, tipos, estrutura de 130 arquivos e os 19 testes passaram. A primeira tentativa de build encontrou falha de carregamento nativo no sandbox; a repetição com permissão ampliada compilou e gerou as páginas. A revisão visual no navegador permanece pendente. Sem commit, push, PR ou deploy nesta etapa.
+Build de produção finalizado com sucesso na repetição autorizada. git diff --check e busca heurística de segredos nos arquivos alterados passaram.
+
+Na preparação da PR, o mantenedor forneceu o emblema sem texto, que substituiu a imagem anterior no mesmo caminho. A prévia de produção na porta 3005 foi revisada visualmente: símbolo ao lado de Suna, card em português e link preservado. O gate npm run ci completo passou novamente (incluindo os 19 testes e build). A alteração segue para PR de tarefa com destino a developer; promoção e merge não fazem parte desta etapa.
